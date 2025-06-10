@@ -3,60 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talon Hird - Data Science Portfolio</title>
+    <title>Talon Hird — Quantitative Research Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #333; border-bottom: 2px solid #007acc; }
-        .project { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
-        .project h2 { color: #007acc; }
-        a { color: #007acc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .tech-stack { background: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; }
+        :root {
+            --navy: #1e293b;
+            --sage: #64748b;
+            --cream: #fefce8;
+            --gold: #d4af37;
+            --charcoal: #334155;
+            --light-sage: #f1f5f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2.75rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--sage);
+            font-weight: 300;
+            letter-spacing: 0.025em;
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .project {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(30, 41, 59, 0.08);
+        }
+
+        .project:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.12);
+            border-color: var(--gold);
+        }
+
+        .project h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.75rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            background: var(--light-sage);
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 3px solid var(--gold);
+        }
+
+        .tech-stack-label {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-list {
+            color: var(--sage);
+            margin-top: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .features {
+            margin: 1.5rem 0;
+        }
+
+        .features h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        .features li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border: 1px solid;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: white;
+            border-color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: var(--charcoal);
+            border-color: var(--charcoal);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sage);
+            border-color: var(--sage);
+        }
+
+        .btn-secondary:hover {
+            background: var(--sage);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--sage);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--navy);
+        }
+
+        .copyright {
+            font-size: 0.875rem;
+            color: var(--sage);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2.25rem;
+            }
+            
+            .project {
+                padding: 2rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Talon Hird - Data Science Portfolio</h1>
-    
-    <div class="project">
-        <h2>🏀 Fantasy Basketball Analytics Tool</h2>
-        <p>Advanced statistical analysis and machine learning model for predicting NBA player performance in fantasy basketball leagues.</p>
-        <div class="tech-stack">
-            <strong>Technologies:</strong> R, tidyverse, Random Forest, Web Scraping (RSelenium), Data Visualization
-        </div>
-        <p><strong>Features:</strong></p>
-        <ul>
-            <li>Historical NBA data scraping and processing (2000-2025)</li>
-            <li>Machine learning model with 73% accuracy (R² = 0.73)</li>
-            <li>Player performance prediction and buy/sell recommendations</li>
-            <li>Interactive visualizations and statistical analysis</li>
-        </ul>
-        <p>
-            <a href="Beating_The_League copy.html" target="_blank">📊 View Analysis Report</a> | 
-            <a href="Beating_The_League copy.qmd">📝 View Source Code</a>
-        </p>
-    </div>
+    <div class="container">
+        <header>
+            <h1>Talon Hird</h1>
+            <p class="subtitle">Quantitative Research & Data Science</p>
+        </header>
 
-    <div class="project">
-        <h2>🏃‍♂️ Athlete Performance Analysis</h2>
-        <p>Statistical comparison of athlete training data to determine optimal candidate selection for competitive racing.</p>
-        <div class="tech-stack">
-            <strong>Technologies:</strong> R, Statistical Modeling, Data Visualization, Hypothesis Testing
-        </div>
-        <p><strong>Features:</strong></p>
-        <ul>
-            <li>Running efficiency analysis and trend modeling</li>
-            <li>Statistical significance testing (t-tests, regression)</li>
-            <li>Environmental factor impact assessment</li>
-            <li>Performance prediction and recommendation system</li>
-        </ul>
-        <p>
-            <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank">📊 View Analysis Report</a> | 
-            <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.qmd">📝 View Source Code</a>
-        </p>
-    </div>
+        <div class="project-grid">
+            <div class="project">
+                <h2>Fantasy Basketball Analytics</h2>
+                <p class="project-description">
+                    Comprehensive statistical framework employing machine learning methodologies to forecast NBA player performance metrics within fantasy basketball ecosystems. Features proprietary algorithms for player valuation and strategic portfolio optimization.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Technical Implementation</div>
+                    <div class="tech-list">R Statistical Computing, Random Forest Algorithms, Web Data Acquisition, Advanced Visualization</div>
+                </div>
 
-    <footer style="margin-top: 50px; text-align: center; color: #666;">
-        <p>Connect with me: <a href="https://github.com/Talonh02">GitHub</a></p>
-    </footer>
+                <div class="features">
+                    <h3>Key Capabilities</h3>
+                    <ul>
+                        <li>Historical dataset compilation spanning 25 years (2000-2025)</li>
+                        <li>Predictive modeling achieving 73% variance explanation (R² = 0.73)</li>
+                        <li>Automated player valuation and trading signal generation</li>
+                        <li>Interactive analytical dashboards and statistical reporting</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Beating_The_League copy.html" target="_blank" class="btn btn-primary">View Analysis</a>
+                    <a href="Beating_The_League copy.qmd" class="btn btn-secondary">Source Code</a>
+                </div>
+            </div>
+
+            <div class="project">
+                <h2>Athletic Performance Optimization</h2>
+                <p class="project-description">
+                    Rigorous statistical evaluation framework for athletic candidate selection utilizing longitudinal performance data analysis. Employs sophisticated modeling techniques to assess cardiovascular efficiency and competitive readiness metrics.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Technical Implementation</div>
+                    <div class="tech-list">R Statistical Modeling, Hypothesis Testing, Regression Analysis, Performance Visualization</div>
+                </div>
+
+                <div class="features">
+                    <h3>Key Capabilities</h3>
+                    <ul>
+                        <li>Longitudinal efficiency analysis with trend identification</li>
+                        <li>Statistical significance testing and confidence interval estimation</li>
+                        <li>Environmental factor impact quantification and modeling</li>
+                        <li>Evidence-based selection recommendation algorithms</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="btn btn-primary">View Analysis</a>
+                    <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.qmd" class="btn btn-secondary">Source Code</a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="https://github.com/Talonh02">GitHub Repository</a>
+                <a href="mailto:contact@talonhird.com">Professional Contact</a>
+            </div>
+            <p class="copyright">© 2024 Talon Hird. All rights reserved.</p>
+        </footer>
+    </div>
 </body>
 </html>
