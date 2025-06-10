@@ -61,4 +61,4 @@ This repository contains data science projects developed for Finance 450, demons
 
 ---
 
-*Developed as part of the Finance 450 curriculum under the supervision of the University of Alberta School of Business.*
+
