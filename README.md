@@ -92,7 +92,7 @@ The interactive portfolio website features comprehensive project showcases, acad
 **Email:** hird@ualberta.ca  
 **Location:** Duncan, BC, Canada  
 **GitHub:** [github.com/Talonh02](https://github.com/Talonh02)  
-**Athletic Profile:** [University of Alberta Golden Bears Wrestling](https://bearsandpandas.ca/sports/wrestling/roster/talon-hird/139)
+**Athletic Profile:** [University of Alberta Golden Bears Wrestling](https://bearsandpandas.ca/roster.aspx?rp_id=13013)
 
 ---
 
