@@ -1,0 +1,612 @@
+---
+title: Beating The League
+author: Talon & Ethan
+format: html
+editor: visual
+self-contained: true
+embed-resources: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  root.dir = getwd(),  # This sets the root directory for all chunks
+  echo = FALSE,        # Don't show code by default
+  message = FALSE,     # Don't show messages
+  warning = FALSE      # Don't show warnings
+)
+
+```
+
+### A Fantasy Basketball Tool
+
+#### Preface:
+
+###### To whom it may concern...
+
+Dear reader, this document is designed to take you from a place of total ignorance in the realm of basketball, to stepping forward on the long and perilous journey of joining (and winning) your friends' fantasy basketball league. Firstly, before one can explore the world of prediction via statistical analytics, you must understand the fundamentals of the sport.
+
+Basketball, at its core, is wonderfully simple - put the ball through the hoop. The team that does this more times wins. However, like most things worth studying, the devil is in the details. A regulation NBA game consists of four 12-minute quarters, with five players per team on the court. Points are scored in three ways:
+
+Three points for shots beyond the three-point line (about 23 feet from the basket) Two points for shots inside the three-point line One point for free throws (undefended shots awarded after certain fouls)
+
+What makes basketball particularly interesting for data analysis is the wealth of statistics tracked beyond just points. Every game generates dozens of measurable events:
+
+Rebounds: Collecting missed shots (both offensive and defensive). Assists: Passes that directly lead to a teammate scoring. Steals: Taking the ball from the opposing team. Blocks: Preventing an opponent's shot from reaching the basket. Turnovers: Losing possession of the ball to the opposing team.
+
+For instance, the stat line of a player's averages over the course of a season may look something like this:
+
+```{r echo=FALSE, message=FALSE}
+library(tidyverse)
+library(knitr)
+
+player_stats <- tibble(Player = "Player X", Games_Played = 82,Points = 24.5, Rebounds = 8.3, Assists = 5.7, Steals = 1.4, Blocks = 0.8, Turnovers = 2.9,`3PM` = 2.1,`2PM` = 7.2,`FTM` = 5.9         
+)
+
+knitr::kable(player_stats, 
+             caption = "Example NBA Player Season Averages",
+             digits = 1)
+
+
+```
+
+```{r include=FALSE}
+
+library(rvest)    
+library(janitor)  
+
+# scraping
+scrape.sleep <- function(call.period = c(0.5, 1)) {
+    delay <- runif(1, call.period[1], call.period[2])
+    cat(paste0("Implementing delay of ", round(delay, 2), " seconds\n"))
+    Sys.sleep(delay)
+}
+# years2scrape
+years <- 2000:2025
+
+# list for resuts
+all_stats <- list()
+
+#Loop 
+for(year in years) {
+   #prgress
+    cat(paste("\nScraping year:", year, "\n"))
+    
+    # url
+    url <- paste0("https://www.basketball-reference.com/leagues/NBA_", year, "_per_game.html")
+    
+    # delay
+    scrape.sleep(c(1, 2))
+    
+  #
+    try({
+        page <- read_html(url)
+        
+        year_stats <- page %>%
+            html_element("#per_game_stats") %>%
+            html_table() %>%
+            as_tibble() %>%
+            clean_names() %>%
+            mutate(
+                ScorePerGame = pts + (1.2 * trb) + (1.5 * ast) + (3 * stl) + (3 * blk) - tov,
+                season = year  # Add year column
+                )
+        # Store 
+        all_stats[[as.character(year)]] <- year_stats
+        cat("Success!\n")
+    })
+}
+# Combine all years into one datafram
+historical_stats <- bind_rows(all_stats)
+
+
+```
+
+```{r echo=FALSE}
+
+
+Scores <- historical_stats %>% transmute(Year = season, Player = player, minutes = mp, ScorePerGame = ScorePerGame, Score = ScorePerGame * g, Games_Played = g, Age = age, PPG = pts, Rebounds = trb, Assists = ast, Turnovers = tov)
+
+```
+
+In order to aggregate all of those different figures into one, standardized, comparable metric, we use a simple equation to calculate a player's Fantasy Points.
+
+Fantasy Points = Points Scores + (1.2 × Rebounds) + (1.5 × Assists) + (3 × Steals) + (3 × Blocks) − Turnovers
+
+This equation makes sure to reward all types of players and not only the ones who shoot the ball the most.
+
+Below you can see the 4 most impressive seasons of the last 20 years in regard to total fantasy points accumulated.
+
+```{r echo=FALSE}
+
+top_4_seasons <- Scores %>%
+  arrange(desc(Score)) %>% 
+  slice_head(n = 4)
+
+knitr::kable(top_4_seasons)
+
+```
+
+So what is fantasy basketball? Fantasy basketball is a game where you act as a manager of your own virtual roster. You draft a team of real-life NBA players and their actual on-court performance dictates how well your team does. The goal is to score more points than your competitors by strategically managing your team. First, you must draft your players. This takes place at the beginning of every season, and each player can only be drafted once. A better performance on the court will earn your team more fantasy points. You compete against another manager's team for a week, and whoever has to highest score wins that week. There are some basic strategies involved when picking and managing your players. You’ll want to select players that you feel have the highest potential in the upcoming season. This prediction can be based on many different factors, which we will dive into more later. Some more complex strategies would be trading players with other managers, tracking players on hot streaks/easy schedules, and finding favorable player match-ups.
+
+It Follows from this, that if one were determined to pick a winning roster, they would want to have any advantage they could in somehow knowing who is going to perform well and who will not during an upcoming season. This is where the realm of statistical analysis comes in. It takes years to build up heuristics and intuition about how players will perform under different conditions. We don't have that much time. Through the use of historical data, one can build a model of the basketball world described purely by numbers. This model, if built well, can provide great insight into events that are more or less likely to occur in the future. Let's elaborate on this.
+
+One of the most intuitive ways to understand athletic performance is through the lens of age. When examining NBA players across their careers, a clear pattern emerges in the relationship between age and production. Players typically demonstrate increasing performance levels through their early twenties, reaching peak productivity in their late twenties. This peak period represents an optimal convergence of physical capability and professional experience. As players progress into their thirties, a gradual decline in performance becomes evident, primarily attributed to the cumulative physical demands of professional basketball.This age-performance relationship provides a crucial baseline for predictive analysis, offering a systematic way to understand where a player might be in their career trajectory. The statistical significance of this pattern makes age an essential component in any comprehensive model for predicting future player performance.
+
+```{r echo=FALSE, message=FALSE}
+points_age <- historical_stats %>% 
+  select(age, ScorePerGame) %>% 
+  group_by(age) %>%
+  summarize(avg_score = mean(ScorePerGame, na.rm = TRUE))
+
+ggplot(points_age, aes(x = age, y = avg_score)) +
+  geom_point() +
+  geom_smooth(method = "loess", color = "red", se = TRUE) +
+  labs(
+    title = "Average Points Per Game by Age",
+    x = "Age",
+    y = "Average Points Per Game"
+  ) +
+  theme_minimal()
+
+```
+
+While he eventually stops everyone, Father Time does not treat every player equally. Some players, through extraordinary dedication, and a good roll in the genetic lottery manage to retain peak performance deep into their 30's. The quintessential example of this is of course Lebron James. If one were trying to predict Lebron's performance for an upcoming season, they would not be prudent to use data from players without the same gift of longevity as him. In the following visuals, we can compare both the fantasy points per game and total fantasy points trajectories of the average player vs Lebron.
+
+```{r echo = FALSE}
+
+BronPlot <- Scores %>% filter(Player == "LeBron James") %>% ggplot(mapping = aes(x = Age, y = ScorePerGame)) +
+  geom_point() +
+  geom_smooth()
+
+
+BronPlot
+
+```
+
+Here we can see that Lebron has multiple peaks in his career, if someone had predicted that he would be a shell of his former self by 37 they would have been sorely mistaken.
+
+This illustrates something important about indirect factors affecting player performance. It seem strange that Lebron's performance takes a dip in the midst of his athletic peak, but deeper analysis provides an insightful explanation. This dip is right around teh time Lebron went from a team with no other star players (Cleaveland) to a team with other stars in Dwayne Wade and Chris Bosh. This would mean that Lebron spends less time with the ball in his hands, takes less shots etc. This is a common factor among all players. The better teammates one has the less they will have the ball. This visual shows the relationship between production and the average production of teammates.
+
+```{r}
+
+GoodStats <- historical_stats %>%
+  group_by(season, team) %>%
+  mutate(
+    teammate_avg_score = (sum(ScorePerGame) - ScorePerGame) / (n() - 1)  # subtract player's own score and divide by number of teammates
+  ) %>%
+  ungroup()
+
+TMplot1 <- ggplot(GoodStats, aes(x = teammate_avg_score, y = ScorePerGame)) +
+  geom_point(alpha = 0.08) +
+  geom_smooth(method = "lm", color = "red") +
+  theme_minimal() +
+  coord_cartesian(xlim = c(10, max(GoodStats$teammate_avg_score))) +
+  labs(
+    title = "Player Performance vs Average Teammate Performance",
+    x = "Average Teammate Fantasy Score",
+    y = "Player Fantasy Score"
+  )
+
+TMplot1
+
+```
+
+
+Another metric that would make intuitive sense for predicitong a player's fantasy points is their shooting accuracy. More accurate = more shots go in = more points right? While partially true, this is only the case for part of the efficiency curve. You can see from the visualization below that once a player reaches a certain level of efficiency, the benefit of improved accuracy seems to diminish. Why is that?
+
+```{r}
+library(patchwork)
+
+# Three-point percent vs 3-point attempts
+three_point_plot <- ggplot(historical_stats, aes(x = x3p_percent, y = pts)) +
+  geom_point(alpha = 0.5, color = "steelblue") +
+  geom_smooth(method = "loess", color = "red", se = TRUE) +
+  labs(
+    title = "3P% vs PPG",
+    x = "3-Point %",
+    y = "Points Per Game"
+  ) +
+  theme_minimal()
+
+# Two-point percent vs 2-point attempts
+two_point_plot <- ggplot(historical_stats, aes(x = x2p_percent, y = pts)) +
+  geom_point(alpha = 0.5, color = "darkgreen") +
+  geom_smooth(method = "loess", color = "red", se = TRUE) +
+  labs(
+    title = "2P% vs PPG",
+    x = "2-Point %",
+    y = "Points Per Game"
+  ) +
+  theme_minimal()
+
+# Field goal percent vs field goal attempts
+field_goal_plot <- ggplot(historical_stats, aes(x = fg_percent, y = pts)) +
+  geom_point(alpha = 0.5, color = "purple") +
+  geom_smooth(method = "loess", color = "red", se = TRUE) +
+  labs(
+    title = "FG% vs PPG",
+    x = "Field Goal %",
+    y = "Points Per Game"
+  ) +
+  theme_minimal()
+
+# Combine plots using patchwork
+three_point_plot | two_point_plot | field_goal_plot
+
+
+```
+
+The relationship between shooting efficiency and fantasy scoring isn't as straightforward as "better shooter equals more points." Looking at the visualization above, we see that players with the highest shooting percentages often aren't the top fantasy producers. This reflects how playing time and shot attempts are allocated in the NBA. Players with very high percentages are often specialists who only shoot in ideal situations, limiting their overall fantasy impact. The most valuable fantasy players typically fall in the middle of the efficiency range - they're good enough shooters to earn their coach's trust for high shot volumes, but their percentages are lowered by taking more difficult attempts. Players with very low percentages get few opportunities, resulting in very little fantasy value. For a fantasy draft strategy, this means prioritizing players who can maintain solid (though not necessarily elite) shooting efficiency while commanding high shot volumes.
+
+The two above examples are both exhibits of why much careful consideration must go into the methods used to predict future performance based on statistics. It's not as simple as more of stat x results in more of stat y. Many basketball relationships are non linear such as those between age and performance and shooting efficiency and performance. This means we cannot use linear regression models to make predictions24 for the fantasy team. Instead, we turn to more sophisticated machine learning approaches like random forests, which can capture these complex relationships by examining thousands of different combinations of player statistics at once. Below here is a list showing the predicted 2024 outcomes for some top players based on their careers pre 2024. We can compare these prediction numbers to the real outcomes to gauge the quality of our model.
+
+```{r}
+# First, let's organize our data to predict fantasy points for the next season
+# We'll create "previous season" stats for each player
+library(ranger)
+library(tidyverse)
+library(tidymodels) # For our machine learning workflow
+
+# Step 1: Create next season's fantasy points
+# For each player, we want their stats in year T to predict year T+1
+FtsyPred24 <- GoodStats %>%
+  # First sort by player name and season to line things up properly
+  arrange(player, season) %>%
+  # Group by player to look at their stats across seasons
+  group_by(player) %>%
+  # Create next season's fantasy points
+  mutate(
+    # This is what we want to predict - next year's fantasy points per game
+    NxtSznScr = lead(ScorePerGame),
+    # We'll also note their age next season
+    NxtSznAge = lead(age)
+  ) %>%
+  # Remove rows where we don't have next season's data
+  filter(!is.na(NxtSznScr)) %>%
+  # Remove players with very little playing time (less than 20 minutes per game)
+  filter(mp >= 20)
+
+train_data <- FtsyPred24 %>% filter(season < 2024)
+test_data <- FtsyPred24 %>% filter(season == 2024)
+
+# Step 3: Create our model recipe
+# This is where we tell the model what features to use
+fantasy_recipe <- recipe(NxtSznScr ~ ., data = train_data) %>% 
+  # Remove columns we don't want to use for prediction
+  step_rm(player, season, NxtSznAge, team, awards, ScorePerGame, rk) %>%  # removed team and awards
+  # Convert position to dummy variables (like is_center, is_guard, etc)
+  step_dummy(pos) %>%
+  # Handle any missing values for numeric columns
+  step_impute_mean(all_numeric_predictors()) %>%
+  # Put everything on a similar scale
+  step_normalize(all_numeric_predictors())
+
+# Step 4: Create our model
+# We'll start with a simple model that can capture non-linear relationships
+fantasy_model24 <- rand_forest(trees = 100) %>% 
+  set_engine("ranger",importance = "impurity" ) %>%
+  set_mode("regression")
+
+# Step 5: Combine recipe and model into a workflow
+fantasy_workflow <- workflow() %>%
+  add_recipe(fantasy_recipe) %>%
+  add_model(fantasy_model24)
+
+# Step 6: Train the model
+fitted_model <- fantasy_workflow %>%
+  fit(data = train_data)
+
+# Step 7: Make predictions24 on our test set
+predictions24 <- fitted_model %>%
+  predict(test_data) %>%
+  bind_cols(
+    test_data %>% select(player, ScorePerGame, NxtSznScr)
+  )
+
+# Let's look at how well we did
+# For the top 8 players by actual fantasy points
+top_predictions24 <- predictions24 %>%
+  arrange(desc(NxtSznScr)) %>%
+  select(player, 
+         predicted = .pred, 
+         actual = NxtSznScr) %>%
+  mutate(
+    predicted = round(predicted, 2),
+    difference = actual - predicted,
+    percent_error = round(abs(difference / actual) * 100, 2)
+  )
+
+# Print out our results
+Predtable <- top_predictions24 %>% head(8) %>% kable()
+
+Predtable
+
+```
+
+
+
+We can also visualize our model's performance via a scatter plot. The scatter plot below visualizes our model's predictions24 against actual fantasy points scored. Points near the dashed line indicate accurate predictions24, while distance from the line shows prediction error. The color scale from blue to red indicates the magnitude of error, with darker red showing larger discrepancies between predicted and actual performance.
+
+```{r}
+# First we'll create our ggplot visualization
+library(plotly)
+
+# Create the base ggplot
+p <- ggplot(top_predictions24, aes(x = predicted, y = actual, 
+                                text = paste("Player:", player,
+                                           "\nPredicted:", round(predicted, 2),
+                                           "\nActual:", round(actual, 2),
+                                           "\nError:", round(percent_error, 1), "%"))) +
+  # Add reference line for perfect predictions24
+  geom_abline(linetype = "dashed", color = "gray50") +
+  # Add points, colored by percent error
+  geom_point(aes(color = percent_error), size = 3, alpha = 0.7) +
+  # Customize colors
+  scale_color_gradient(low = "blue", high = "red") +
+  # Set equal axis ranges
+  coord_equal(xlim = c(25, 65), ylim = c(25, 65)) +
+  # Add labels and title
+  labs(
+    title = "Fantasy Basketball Prediction Model Performance",
+    subtitle = "Hover over points to see player details",
+    x = "Predicted Fantasy Points",
+    y = "Actual Fantasy Points",
+    color = "Prediction\nError (%)"
+  ) +
+  # Customize theme
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold"),
+    legend.position = "right"
+  )
+
+# Convert to interactive plotly
+interactive_plot <- ggplotly(p, tooltip = "text")
+
+# Display the plot
+interactive_plot
+```
+
+This next visual shows us which factors the model determined to be most important in predicting future performance. Understanding and interpreting this is crucial for understanding the factors that drive production and building heuristics over time to complement the statistical evidence. 
+
+```{r}
+# Extract the fitted model from the workflow
+model_fit <- fitted_model %>%
+  extract_fit_parsnip()
+
+# Get importance scores
+importance_df <- tibble(
+  feature = names(model_fit$fit$variable.importance),
+  importance = model_fit$fit$variable.importance
+) %>%
+  arrange(desc(importance))
+
+# Create a visualization of the top 20 most important features
+ggplot(importance_df %>% head(20), aes(x = reorder(feature, importance), y = importance)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  theme_minimal() +
+  labs(
+    title = "Most Important Features for Predicting Fantasy Performance",
+    x = "Features",
+    y = "Importance Score",
+    subtitle = "Based on Random Forest Variable Importance"
+  )
+```
+
+Now that we've tested our model's accuracy using the 2024 season, we can use it to identify potential trade targets in the current season. The table below shows how players are currently performing compared to what our model expects them to score based on their career patterns. This comparison is particularly useful for trading - if a player is scoring well below their predicted points, they might be a smart trade target. The idea is that players often return to their expected level of performance over time. For example, if a proven star is having a slow start but our model predicts much higher scoring based on their history, they could be undervalued by other managers and worth trading for. Conversely, if a player is significantly outperforming their predicted score, it might be wise to consider trading them away while their value is high. There is a strength statistic indicating how far the player's performance is diverging from what was expected through a buy/sell/strong indicator.
+
+
+```{r}
+
+# Step 1: Create next season's fantasy points
+# For each player, we want their stats in year T to predict year T+1
+FtsyPred25 <- GoodStats %>%
+  # First sort by player name and season to line things up properly
+  arrange(player, season) %>%
+  # Group by player to look at their stats across seasons
+  group_by(player) %>%
+  # Create next season's fantasy points
+  mutate(
+    # This is what we want to predict - next year's fantasy points per game
+    NxtSznScr = lead(ScorePerGame),
+    # We'll also note their age next season
+    NxtSznAge = lead(age)
+  ) %>%
+  # Remove rows where we don't have next season's data
+  filter(!is.na(NxtSznScr)) %>%
+  # Remove players with very little playing time (using same 20 min threshold)
+  filter(mp >= 20)
+
+# Use all data through 2024 for training
+train_data_2025 <- FtsyPred25 %>% filter(season < 2024)
+
+# Prepare 2024 data for predicting 2025
+prediction_data_2025 <- GoodStats %>% 
+  filter(season == 2024) %>%
+  filter(mp >= 20) %>%  # Apply same minutes filter
+  mutate(
+    NxtSznScr = NA,  # This will be what we're predicting
+    NxtSznAge = age + 1  # Age for next season
+  )
+
+# Step 3: Create our model recipe
+fantasy_recipe_2025 <- recipe(NxtSznScr ~ ., data = train_data_2025) %>% 
+  # Remove columns we don't want to use for prediction
+  step_rm(player, season, NxtSznAge, team, awards, ScorePerGame, rk) %>%
+  # Convert position to dummy variables
+  step_dummy(pos) %>%
+  # Handle any missing values
+  step_impute_mean(all_numeric_predictors()) %>%
+  # Put everything on a similar scale
+  step_normalize(all_numeric_predictors())
+
+# Step 4: Create our model
+fantasy_model25 <- rand_forest(trees = 100) %>%
+  set_engine("ranger", importance = "impurity") %>%
+  set_mode("regression")
+
+# Step 5: Combine recipe and model into a workflow
+fantasy_workflow_2025 <- workflow() %>%
+  add_recipe(fantasy_recipe_2025) %>%
+  add_model(fantasy_model25)
+
+# Step 6: Train the model
+fitted_model_2025 <- fantasy_workflow_2025 %>%
+  fit(data = train_data_2025)
+
+# Step 7: Make predictions for 2025
+predictions25 <- fitted_model_2025 %>%
+  predict(prediction_data_2025) %>%
+  bind_cols(
+    prediction_data_2025 %>% 
+    select(player)
+  )
+
+
+```
+
+
+
+
+```{r}
+#Dyamic Scraping Current Fanatasy LeaderBoard
+
+library(RSelenium)
+
+# Function for polite scraping
+scrape.sleep <- function(call.period = c(0.5, 1)) {
+  delay <- runif(1, call.period[1], call.period[2])
+  cat(paste0(" delay of ", round(delay, 2), " seconds\n"))
+  Sys.sleep(delay) 
+}
+
+# Initialize Selenium driver
+rD <- rsDriver(browser = "firefox", chromever = NULL, verbose = FALSE)
+remDr <- rD[["client"]]
+
+
+# Navigate to the url
+url <- "https://hashtagbasketball.com/fantasy-basketball-rankings"
+remDr$navigate(url)
+scrape.sleep(c(2, 3))  # Give page time to load
+
+# Extract the page source
+page <- remDr$getPageSource()[[1]]
+
+# First inspect what tables are actually on the page
+tables <- read_html(page) %>%
+  html_elements("table") 
+
+# Print number of tables found
+#print(paste("Number of tables found:", length(tables)))
+
+# Look at each table
+#for(i in seq_along(tables)) {
+ # cat("\nTable", i, "preview:\n")
+ # print(head(html_table(tables[[i]])))
+#}
+
+# IMPORTANT: Before closing R or running this code again, always run these two lines:
+remDr$close()
+rD[["server"]]$stop()
+```
+
+```{r}
+
+library(stringi)  # For string normalization
+library(kableExtra)
+
+# Process current fantasy rankings with standardized names
+currentrank <- tables[[3]] %>%
+  html_table() %>%
+  as_tibble() %>%
+  select(Player = PLAYER, GP = GP, 
+         Points = PTS, Rebounds = TREB, 
+         Assists = AST, Steals = STL, Blocks = BLK, Turnovers = TO) %>%
+  filter(Player != "PLAYER") %>% 
+  mutate(
+    player_standardized_name = stringi::stri_trans_general(Player, "Latin-ASCII"),
+    across(c(GP, Points, Rebounds, Assists, Steals, Blocks, Turnovers), as.numeric),
+    FantasyPoints = Points + 1.2 * Rebounds + 1.5 * Assists + 3 * Blocks + 3 * Steals - Turnovers
+  ) %>%
+  drop_na()
+
+# Prepare predictions24 data with standardized names - change this part
+prediction_data_2025 <- predictions25 %>%  # Change to 2025 predictions24
+  mutate(
+    player_standardized_name = stringi::stri_trans_general(player, "Latin-ASCII"),
+    PredictedFP = round(.pred, 1)
+  ) %>%
+  select(player_standardized_name, PredictedFP)
+
+# Join and format final table - change this part
+combinedrank25 <- currentrank %>%  # New variable name
+  left_join(prediction_data_2025, by = "player_standardized_name") %>%  # Change to 2025 predictions
+  select(-player_standardized_name) %>%
+  arrange(desc(FantasyPoints)) %>%
+  mutate(across(c(FantasyPoints, PredictedFP), ~round(., 1))) %>% 
+  distinct(Player, .keep_all = TRUE) 
+
+
+# Add Buy/Sell analysis
+BuyorSell <- combinedrank25 %>% 
+  mutate(
+    # Calculate difference between predicted and current performance
+    Performance_Gap = PredictedFP - FantasyPoints,
+    
+    # Create Buy/Sell score (higher positive number = stronger buy, lower negative = stronger sell)
+    BuySellScore = round(Performance_Gap * (GP/82), 1), # Weight by games played to account for sample size
+    
+    # Add categorical recommendation
+    Recommendation = case_when(
+      BuySellScore > 3 ~ "Strong Buy",
+      BuySellScore > 1 ~ "Buy",
+      BuySellScore < -3 ~ "Strong Sell",
+      BuySellScore < -1 ~ "Sell",
+      TRUE ~ "Hold"
+    )
+  ) %>%
+  arrange(desc(abs(FantasyPoints))) # Sort by strongest recommendations first
+
+# Create final formatted table with Buy/Sell analysis
+CFRKable_2025 <- BuyorSell %>%
+  kable(
+    caption = "Fantasy Basketball Rankings: Buy/Sell Analysis Based on 2025 Projections",
+    col.names = c("Player", "GP", "Points", "Rebounds", "Assists", "Steals", 
+                  "Blocks", "Turnovers", "Current FP", "Predicted 2025 FP",
+                  "Gap", "Buy/Sell Score", "Recommendation"),
+    align = c('l', rep('c', 12)),
+    digits = 1
+  ) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    fixed_thead = TRUE,
+    full_width = FALSE
+  ) %>%
+  kableExtra::scroll_box(height = "400px")
+```
+
+
+This just shows how good the 2025 prediction model is... For some reason the buy/sell table says to sell for almost everybody. Not sure how to fix.
+
+```{r}
+
+p <- ggplot(BuyorSell, aes(x = FantasyPoints, y = PredictedFP, 
+                          text = paste("Player:", Player,
+                                     "\nCurrent:", FantasyPoints,
+                                     "\nPredicted:", PredictedFP))) +
+  geom_abline(linetype = "dashed") +
+  geom_point(aes(color = Performance_Gap)) +
+  labs(title = "2025 Predictions vs Current Performance") +
+  theme_minimal()
+
+ggplotly(p, tooltip = "text")
+
+```
+
+Concluding paragraph:
+
+In the dynamic world of fantasy basketball, success comes from blending statistical insights with genuine basketball knowledge. This analysis shows that while past performance helps predict future results, basketball remains wonderfully unpredictable, that's what makes it exciting. The tools and models we've explored here provide a framework for making smarter decisions, especially when it comes to trading players who might be performing above or below their true potential. But remember, these predictions are guides, not guarantees. The best fantasy managers combine data-driven insights with an understanding of the intangibles like team chemistry, player development, and even those magical hot streaks that can define a season. You're now equipped with both analytical tools and strategic understanding that put you ahead of the typical fantasy manager. Whether you're joining your first league or aiming to finally claim that championship trophy, you have everything you need to compete at a high level. Good luck.
+
