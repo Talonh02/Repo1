@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talon Hird — Quantitative Research Portfolio</title>
+    <title>Talon Hird — Finance Graduate & Academic All-Canadian</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
@@ -225,6 +225,135 @@
             color: var(--sage);
         }
 
+        .header-details {
+            margin-top: 1rem;
+            color: var(--sage);
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .header-details a {
+            color: var(--navy);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 1px;
+        }
+
+        .header-details a:hover {
+            color: var(--gold);
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 3rem 0 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .section-header h2 {
+            font-family: 'Crimson Text', serif;
+            font-size: 2rem;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .achievement-category {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(30, 41, 59, 0.08);
+        }
+
+        .achievement-category h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 0.5rem;
+        }
+
+        .achievement-category ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievement-category li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .achievement-category li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .media-item {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(30, 41, 59, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .media-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.1);
+            border-color: var(--gold);
+        }
+
+        .media-item h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+
+        .media-item h4 a {
+            color: var(--navy);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 1px;
+            font-weight: 600;
+        }
+
+        .media-item h4 a:hover {
+            color: var(--gold);
+            border-bottom-color: var(--navy);
+        }
+
+        .media-item p {
+            color: var(--sage);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 2rem 1rem;
@@ -247,6 +376,16 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .achievements-grid,
+            .media-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -254,69 +393,168 @@
     <div class="container">
         <header>
             <h1>Talon Hird</h1>
-            <p class="subtitle">Quantitative Research & Data Science</p>
+            <p class="subtitle">Finance Graduate • Three-Time Academic All-Canadian • National Wrestling Medalist</p>
+            <div class="header-details">
+                <p>Bachelor of Commerce in Finance • University of Alberta School of Business</p>
+                <p>Duncan, BC • <a href="mailto:hird@ualberta.ca">hird@ualberta.ca</a> • (250) 416-9899</p>
+            </div>
         </header>
 
+        <!-- About Section -->
+        <div class="project">
+            <h2>About</h2>
+            <p class="project-description">
+                Finance graduate with a 3.8 GPA, combining analytical expertise in quantitative research and data science with exceptional athletic achievement. Three-time USPORTS Academic All-Canadian and two-time national wrestling medalist, demonstrating excellence in both academic and competitive environments. Experienced in financial modeling, statistical analysis, and investment research, with a strong foundation in R programming, machine learning, and market analysis.
+            </p>
+        </div>
+
+        <!-- Academic Projects -->
+        <div class="section-header">
+            <h2>Academic Portfolio</h2>
+        </div>
+
         <div class="project-grid">
+            <!-- Data Science Projects -->
             <div class="project">
-                <h2>Fantasy Basketball Analytics</h2>
+                <h2>Data Science & Analytics</h2>
                 <p class="project-description">
-                    Comprehensive statistical framework employing machine learning methodologies to forecast NBA player performance metrics within fantasy basketball ecosystems. Features proprietary algorithms for player valuation and strategic portfolio optimization.
+                    Advanced statistical modeling and machine learning applications in sports analytics and performance optimization, demonstrating proficiency in R programming and predictive modeling techniques.
                 </p>
                 
                 <div class="tech-stack">
-                    <div class="tech-stack-label">Technical Implementation</div>
-                    <div class="tech-list">R Statistical Computing, Random Forest Algorithms, Web Data Acquisition, Advanced Visualization</div>
+                    <div class="tech-stack-label">Technical Skills</div>
+                    <div class="tech-list">R Programming, Machine Learning, Statistical Modeling, Data Visualization, Web Scraping</div>
                 </div>
 
                 <div class="features">
-                    <h3>Key Capabilities</h3>
+                    <h3>Project Highlights</h3>
                     <ul>
-                        <li>Historical dataset compilation spanning 25 years (2000-2025)</li>
-                        <li>Predictive modeling achieving 73% variance explanation (R² = 0.73)</li>
-                        <li>Automated player valuation and trading signal generation</li>
-                        <li>Interactive analytical dashboards and statistical reporting</li>
+                        <li><strong>Fantasy Basketball Analytics:</strong> Machine learning model achieving 73% prediction accuracy for NBA player performance</li>
+                        <li><strong>Athletic Performance Analysis:</strong> Statistical framework for competitive athlete selection using longitudinal data</li>
+                        <li><strong>Historical Data Processing:</strong> Web scraping and analysis of 25 years of professional sports data</li>
                     </ul>
                 </div>
 
                 <div class="project-links">
-                    <a href="Beating_The_League copy.html" target="_blank" class="btn btn-primary">View Analysis</a>
-                    <a href="Beating_The_League copy.qmd" class="btn btn-secondary">Source Code</a>
+                    <a href="Academic-Projects/Data-Science/Beating_The_League copy.html" target="_blank" class="btn btn-primary">Basketball Analytics</a>
+                    <a href="Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="btn btn-primary">Athletic Analysis</a>
                 </div>
             </div>
 
+            <!-- Investment Analysis -->
             <div class="project">
-                <h2>Athletic Performance Optimization</h2>
+                <h2>Investment Analysis & Financial Modeling</h2>
                 <p class="project-description">
-                    Rigorous statistical evaluation framework for athletic candidate selection utilizing longitudinal performance data analysis. Employs sophisticated modeling techniques to assess cardiovascular efficiency and competitive readiness metrics.
+                    Comprehensive equity research and valuation models for technology companies, applying fundamental analysis, DCF modeling, and industry comparison methodologies to generate investment recommendations.
                 </p>
                 
                 <div class="tech-stack">
-                    <div class="tech-stack-label">Technical Implementation</div>
-                    <div class="tech-list">R Statistical Modeling, Hypothesis Testing, Regression Analysis, Performance Visualization</div>
+                    <div class="tech-stack-label">Financial Tools</div>
+                    <div class="tech-list">DCF Modeling, Comparable Analysis, Financial Statement Analysis, Excel Financial Modeling</div>
                 </div>
 
                 <div class="features">
-                    <h3>Key Capabilities</h3>
+                    <h3>Investment Research</h3>
                     <ul>
-                        <li>Longitudinal efficiency analysis with trend identification</li>
-                        <li>Statistical significance testing and confidence interval estimation</li>
-                        <li>Environmental factor impact quantification and modeling</li>
-                        <li>Evidence-based selection recommendation algorithms</li>
+                        <li><strong>Palantir Technologies:</strong> Comprehensive equity analysis with DCF valuation and industry positioning assessment</li>
+                        <li><strong>Meta Platforms:</strong> Technology sector analysis with financial modeling and growth projections</li>
+                        <li><strong>Valuation Methodologies:</strong> Multiple approaches including discounted cash flow and market multiples</li>
                     </ul>
                 </div>
 
                 <div class="project-links">
-                    <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="btn btn-primary">View Analysis</a>
-                    <a href="Talon.Hird&Ethan.Egert_Athlete.Selection copy.qmd" class="btn btn-secondary">Source Code</a>
+                    <a href="Academic-Projects/Investment-Analysis/Palantir Investment Analysis - Google Slides.pdf" target="_blank" class="btn btn-primary">Palantir Analysis</a>
+                    <a href="Academic-Projects/Investment-Analysis/" class="btn btn-secondary">All Projects</a>
                 </div>
+            </div>
+
+            <!-- Philosophy Research -->
+            <div class="project">
+                <h2>Applied Philosophy & Ethics</h2>
+                <p class="project-description">
+                    Critical examination of environmental and energy policy through philosophical lens, exploring the intersection of economic development, environmental responsibility, and ethical resource extraction practices.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Research Areas</div>
+                    <div class="tech-list">Environmental Ethics, Policy Analysis, Critical Theory, Resource Economics</div>
+                </div>
+
+                <div class="features">
+                    <h3>Research Focus</h3>
+                    <ul>
+                        <li><strong>Oil Sands Analysis:</strong> Philosophical examination of energy policy and environmental narratives</li>
+                        <li><strong>Ethical Framework Development:</strong> Applied philosophy in contemporary policy debates</li>
+                        <li><strong>Interdisciplinary Approach:</strong> Combining philosophical theory with economic and environmental analysis</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Academic-Projects/Philosophy/" class="btn btn-secondary">View Research</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="section-header">
+            <h2>Athletic & Academic Achievements</h2>
+        </div>
+
+        <div class="achievements-grid">
+            <div class="achievement-category">
+                <h3>Academic Excellence</h3>
+                <ul>
+                    <li>Three-Time USPORTS Academic All-Canadian (2022, 2023, 2024)</li>
+                    <li>Bachelor of Commerce in Finance, 3.8 GPA</li>
+                    <li>University of Alberta School of Business</li>
+                    <li>Minor in Philosophy</li>
+                </ul>
+            </div>
+
+            <div class="achievement-category">
+                <h3>Athletic Accomplishments</h3>
+                <ul>
+                    <li>Two-Time USPORTS National Wrestling Medalist (3rd 2023, 2nd 2024)</li>
+                    <li>Three-Time Canada-West Conference Champion (2022, 2023, 2024)</li>
+                    <li>Five-Time BC High School Wrestling Champion (2016-2020)</li>
+                    <li>Greco Roman National Champion (2018)</li>
+                    <li>BC 2020 Most Outstanding Male Wrestler</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Media Coverage -->
+        <div class="section-header">
+            <h2>Media Coverage & Recognition</h2>
+        </div>
+
+        <div class="media-grid">
+            <div class="media-item">
+                <h4><a href="https://bearsandpandas.ca/news/2024/2/10/wrestling-bears-capture-third-straight-canada-west-title.aspx" target="_blank">Bears Capture Third Straight Canada West Title</a></h4>
+                <p>University of Alberta Athletics feature on team championship leadership</p>
+            </div>
+
+            <div class="media-item">
+                <h4><a href="https://www.vancouverislandfreedaily.com/sports/cowichan-wrestler-wins-historic-fifth-gold-in-five-years-7190827" target="_blank">Historic Fifth Gold Achievement</a></h4>
+                <p>Vancouver Island Free Daily profile on unprecedented high school success</p>
+            </div>
+
+            <div class="media-item">
+                <h4><a href="https://varsityletters.ca/b-c-high-school-wrestling-championships-2020-maple-ridges-ramblers-cowichans-hird-make-their-mark-on-lec-mats/" target="_blank">Provincial Championships Coverage</a></h4>
+                <p>Varsity Letters feature on competitive excellence and sportsmanship</p>
+            </div>
+
+            <div class="media-item">
+                <h4><a href="https://www.cowichanvalleycitizen.com/sports/provincial-success-stands-out-at-cowichan-secondary-awards-811289" target="_blank">Academic and Athletic Recognition</a></h4>
+                <p>Cowichan Valley Citizen coverage of dual excellence in academics and athletics</p>
             </div>
         </div>
 
         <footer>
             <div class="footer-links">
-                <a href="https://github.com/Talonh02">GitHub Repository</a>
-                <a href="mailto:contact@talonhird.com">Professional Contact</a>
+                <a href="https://github.com/Talonh02">GitHub Portfolio</a>
+                <a href="mailto:hird@ualberta.ca">Contact</a>
+                <a href="https://bearsandpandas.ca/sports/wrestling/roster/talon-hird/139">Athletic Profile</a>
             </div>
             <p class="copyright">© 2024 Talon Hird. All rights reserved.</p>
         </footer>
