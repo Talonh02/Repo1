@@ -270,8 +270,8 @@
             let rotateY = -30;
             let isHovering = false;
             
-            const defaultSpeed = 0.15;
-            const hoverSpeed = 0.02;
+            const defaultSpeed = 0.8; // Increased rotation speed
+            const hoverSpeed = 0.1; // Slower speed on hover
 
             cube.addEventListener('mouseenter', () => { isHovering = true; });
             cube.addEventListener('mouseleave', () => { isHovering = false; });
@@ -284,5 +284,6 @@
                 requestAnimationFrame(animate);
             }
 
+            // Start the animation
             animate();
         });
