@@ -6,16 +6,21 @@
     <title>Talon Hird — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Unified Palette */
-            --bg-color: #121212;
-            --surface-color: #1e1e1e;
-            --primary-text: #e0e0e0;
-            --secondary-text: #a0a0a0;
-            --accent-color: #c9a961; /* Academic Gold as the primary accent */
-            --glow-color: rgba(201, 169, 97, 0.7);
+            /* Light Palette */
+            --bg-start: #fdfcfb;
+            --bg-end: #f8f4f0;
+            --text-dark: #2d3748;
+            --text-light: #5a677b;
+            --accent-gold: #b7791f;
+
+            /* Cube Palette */
+            --cube-base: #282828;
+            --cube-highlight: #3a3a3a;
+            --cube-text: #e0e0e0;
+            --cube-hover-glow: rgba(183, 121, 31, 0.4);
         }
 
         * {
@@ -25,46 +30,27 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes rotatePrism {
-            0% { transform: translateZ(-100px) rotateY(0deg); }
-            100% { transform: translateZ(-100px) rotateY(-360deg); }
-        }
-        
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Source Sans Pro', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--primary-text);
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Hide overflow for canvas */
+            overflow: hidden;
             position: relative;
         }
         
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
         .main-container {
             width: 100%;
             display: flex;
@@ -79,9 +65,8 @@
 
         header {
             text-align: center;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-            opacity: 0;
+            margin-bottom: 2rem;
+            animation: fadeIn 1.2s ease-out;
         }
 
         h1 {
@@ -89,110 +74,85 @@
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             margin-bottom: 0.5rem;
-            letter-spacing: 0.02em;
-            color: white;
         }
 
         .subtitle {
-            font-family: 'Source Sans Pro', sans-serif;
             font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--secondary-text);
-            font-style: italic;
+            color: var(--text-light);
             font-weight: 300;
             max-width: 600px;
         }
         
-        .nexus-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 4rem 0;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 0.5s forwards;
-        }
-
         .scene {
-            width: 200px;
-            height: 200px;
-            perspective: 1200px;
-            margin-bottom: 4rem;
+            width: 250px;
+            height: 250px;
+            perspective: 1500px;
+            margin: 2rem 0;
         }
 
-        .prism {
+        .cube {
             width: 100%;
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            animation: rotatePrism 25s linear infinite;
-        }
-
-        .prism.is-hovered {
-            animation-play-state: paused;
+            /* transform is now set by JS for smooth animation */
         }
         
-        .prism-face {
+        .cube-face {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-text);
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-            cursor: pointer;
-            backface-visibility: hidden;
-            background: linear-gradient(160deg, var(--surface-color), #2a2a2a);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .face-academic { transform: rotateY(0deg) translateZ(115px); }
-        .face-athletic { transform: rotateY(120deg) translateZ(115px); }
-        .face-personal { transform: rotateY(240deg) translateZ(115px); }
-
-        .prism-face:hover {
-            box-shadow: 0 0 40px 5px var(--glow-color);
-            border-color: var(--accent-color);
-        }
-
-        .nexus-nav {
-            display: flex;
-            gap: 3rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: var(--secondary-text);
             text-decoration: none;
-            position: relative;
-            padding: 0.5rem;
-            transition: color 0.4s ease;
+            color: var(--cube-text);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            letter-spacing: 1px;
+            transition: box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+            
+            /* Subtler, sleek texture */
+            background: linear-gradient(145deg, var(--cube-base), var(--cube-highlight));
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        
+        .cube-face:hover {
+            box-shadow: 0 0 45px 5px var(--cube-hover-glow);
+            color: white;
+            border-color: var(--accent-gold);
         }
 
-        .nav-link:hover {
-            color: var(--primary-text);
+        /* Positioning each face of the cube */
+        .face-front  { transform: rotateY(0deg) translateZ(125px); }
+        .face-back   { transform: rotateY(180deg) translateZ(125px); }
+        .face-right  { transform: rotateY(90deg) translateZ(125px); }
+        .face-left   { transform: rotateY(-90deg) translateZ(125px); }
+        .face-top    { transform: rotateX(90deg) translateZ(125px); }
+        .face-bottom { transform: rotateX(-90deg) translateZ(125px); }
+
+        .navigation-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            animation: fadeIn 1.2s ease-out 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
         }
-        .nav-link:hover::after {
-            width: 100%;
+
+        .navigation-links a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+
+        .navigation-links a:hover {
+            color: var(--text-dark);
+            border-bottom-color: var(--accent-gold);
         }
 
         footer {
@@ -200,13 +160,11 @@
             text-align: center;
             padding: 2rem;
             font-size: 0.9rem;
-            color: var(--secondary-text);
+            color: var(--text-light);
             position: relative;
             z-index: 2;
             margin-top: auto;
-            opacity: 0;
-            animation: fadeIn 1s ease 1s forwards;
-            background-color: var(--bg-color); /* To ensure text is readable over canvas */
+            animation: fadeIn 1.2s ease-out;
         }
         
         .footer-links {
@@ -214,40 +172,65 @@
         }
 
         .footer-links a {
-            color: var(--secondary-text);
+            color: var(--text-light);
             text-decoration: none;
             margin: 0 1rem;
-            transition: color 0.3s;
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
         }
         .footer-links a:hover {
-            color: var(--accent-color);
+            color: var(--accent-gold);
+            border-bottom-color: var(--accent-gold);
+        }
+        
+        @media (max-width: 600px) {
+            .scene {
+                width: 200px;
+                height: 200px;
+                margin: 1.5rem 0;
+            }
+            .cube-face {
+                width: 200px;
+                height: 200px;
+                font-size: 1.4rem;
+            }
+            .face-front  { transform: rotateY(0deg) translateZ(100px); }
+            .face-back   { transform: rotateY(180deg) translateZ(100px); }
+            .face-right  { transform: rotateY(90deg) translateZ(100px); }
+            .face-left   { transform: rotateY(-90deg) translateZ(100px); }
+            .face-top    { transform: rotateX(90deg) translateZ(100px); }
+            .face-bottom { transform: rotateX(-90deg) translateZ(100px); }
         }
 
     </style>
 </head>
 <body>
-    <canvas id="particle-canvas"></canvas>
     <div class="main-container">
         <header>
             <h1>Talon Hird</h1>
-            <p class="subtitle">About Me.</p>
+            <p class="subtitle">About Me</p>
         </header>
 
-        <div class="nexus-wrapper">
-            <div class="scene" id="scene">
-                <div class="prism" id="prism">
-                    <a href="academic.html" class="prism-face face-academic" data-face="academics">Academics</a>
-                    <a href="athletic.html" class="prism-face face-athletic" data-face="athletics & media">Athletics & Media</a>
-                    <a href="personal.html" class="prism-face face-personal" data-face="personal">Personal</a>
-                </div>
+        <div class="scene">
+            <div class="cube" id="cube">
+                <a href="academic.html" class="cube-face face-front">Academic</a>
+                <a href="athletic.html" class="cube-face face-right">Athletic</a>
+                <a href="personal.html" class="cube-face face-top">Personal</a>
+                
+                <!-- Opposite faces now also link for full coverage -->
+                <a href="athletic.html" class="cube-face face-left">Athletic</a>
+                <a href="personal.html" class="cube-face face-bottom">Personal</a>
+                <a href="academic.html" class="cube-face face-back">Academic</a>
             </div>
-
-            <nav class="nexus-nav">
-                <a href="academic.html" class="nav-link" data-target="academic">Academics</a>
-                <a href="athletic.html" class="nav-link" data-target="athletic">Athletics & Media</a>
-                <a href="personal.html" class="nav-link" data-target="personal">Personal</a>
-            </nav>
         </div>
+
+        <nav class="navigation-links">
+            <a href="academic.html">Academic</a>
+            <a href="athletic.html">Athletic</a>
+            <a href="personal.html">Personal</a>
+        </nav>
+
     </div>
     
     <footer>
@@ -261,87 +244,36 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const prism = document.getElementById('prism');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            // --- Particle Background Script ---
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            let particles = [];
-            const particleCount = 50;
-
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 1.5 + 0.5;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                    this.color = 'rgba(201, 169, 97, 0.3)'; // Faint gold
-                }
-                update() {
-                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                }
-                draw() {
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                particles = [];
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (const particle of particles) {
-                    particle.update();
-                    particle.draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-
-            initParticles();
-            animateParticles();
+            const cube = document.getElementById('cube');
             
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initParticles();
-            });
+            let rotateX = -20;
+            let rotateY = -30;
+            let isHovering = false;
+            
+            // Define rotation speeds
+            const defaultSpeed = 0.15; // Increased rotation speed
+            const hoverSpeed = 0.02; // Slower speed on hover
 
+            cube.addEventListener('mouseenter', () => { isHovering = true; });
+            cube.addEventListener('mouseleave', () => { isHovering = false; });
 
-            // --- Prism Interaction Script ---
-            navLinks.forEach(link => {
-                link.addEventListener('mouseenter', () => {
-                    const targetFace = link.dataset.target;
-                    prism.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
-                    if (targetFace === 'academic') {
-                        prism.style.transform = 'translateZ(-100px) rotateY(0deg)';
-                    } else if (targetFace === 'athletic') {
-                        prism.style.transform = 'translateZ(-100px) rotateY(-120deg)';
-                    } else if (targetFace === 'personal') {
-                        prism.style.transform = 'translateZ(-100px) rotateY(-240deg)';
-                    }
-                    prism.classList.add('is-hovered');
-                });
+            function animate() {
+                // Determine speed based on hover state
+                const currentSpeed = isHovering ? hoverSpeed : defaultSpeed;
 
-                link.addEventListener('mouseleave', () => {
-                    prism.style.transition = 'transform 4s linear'; // Slower transition back to auto-rotate
-                    prism.classList.remove('is-hovered');
-                });
-            });
+                // Increment rotation angles
+                rotateX += currentSpeed;
+                rotateY += currentSpeed;
+
+                // Apply the rotation
+                cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+                // Call the next frame
+                requestAnimationFrame(animate);
+            }
+
+            // Start the animation loop
+            animate();
         });
     </script>
 </body>

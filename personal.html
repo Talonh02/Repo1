@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Interests — Talon Hird</title>
+    <title>Interests & Philosophy — Talon Hird</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <style>
         :root {
-            --cosmic-deep: #0a0a23;
-            --cosmic-blue: #1a1a3e;
-            --cosmic-purple: #2d1b69;
-            --nebula-violet: #4c2a85;
-            --starlight: #e6e6fa;
-            --silver: #c0c0c0;
-            --cosmic-gold: #ffd700;
-            --void-black: #000011;
-            --ethereal-white: #f8f8ff;
+            --bg-color: #00000a;
+            --text-primary: #e6e6fa;
+            --text-secondary: #a0a0b0;
+            --accent-glow: #ffd700;
+            --surface-bg: rgba(26, 26, 62, 0.1);
+            --surface-border: rgba(255, 215, 0, 0.2);
         }
         
         * {
@@ -26,416 +23,181 @@
             box-sizing: border-box;
         }
 
-        @keyframes starfield {
-            0% { transform: translateY(0px) rotate(0deg); }
-            100% { transform: translateY(-2000px) rotate(360deg); }
-        }
-
-        @keyframes nebula {
-            0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
-            50% { opacity: 0.6; transform: scale(1.1) rotate(180deg); }
-        }
-
-        @keyframes philosophy {
-            0%, 100% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         body {
-            font-family: 'Crimson Text', 'Source Sans Pro', serif;
-            line-height: 1.8;
-            color: var(--starlight);
-            background: radial-gradient(ellipse at center, var(--cosmic-blue) 0%, var(--cosmic-deep) 70%, var(--void-black) 100%);
+            font-family: 'Space Mono', monospace;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
+        #star-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, var(--starlight), transparent),
-                radial-gradient(2px 2px at 40% 70%, var(--silver), transparent),
-                radial-gradient(1px 1px at 90% 40%, var(--starlight), transparent),
-                radial-gradient(1px 1px at 50% 50%, var(--cosmic-gold), transparent),
-                radial-gradient(2px 2px at 10% 80%, var(--starlight), transparent),
-                radial-gradient(1px 1px at 80% 10%, var(--silver), transparent);
-            background-size: 300px 300px, 400px 400px, 200px 200px, 350px 350px, 250px 250px, 300px 300px;
-            animation: starfield 100s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, transparent 20%, var(--nebula-violet) 40%, transparent 60%),
-                        radial-gradient(circle at 70% 80%, transparent 30%, var(--cosmic-purple) 50%, transparent 70%);
-            opacity: 0.4;
-            animation: nebula 30s ease-in-out infinite;
-            pointer-events: none;
             z-index: 1;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 3rem 2.5rem;
+            padding: 4rem 2rem;
             position: relative;
             z-index: 2;
+            animation: fadeIn 1.2s ease-out;
         }
 
-        .back-nav {
-            margin-bottom: 2rem;
-        }
-
-        .back-nav a {
-            color: var(--starlight);
+        .header-nav a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid var(--cosmic-gold);
-            padding-bottom: 2px;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px var(--cosmic-gold);
-            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
-
-        .back-nav a:hover {
-            color: var(--cosmic-gold);
-            border-bottom-color: var(--starlight);
-            text-shadow: 0 0 15px var(--cosmic-gold);
+        
+        .header-nav a:hover {
+            color: var(--accent-glow);
         }
-
+        
         header {
             text-align: center;
-            margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            position: relative;
+            margin: 4rem 0 6rem 0;
         }
-
-        header::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cosmic-gold), var(--starlight), var(--cosmic-gold), transparent);
-            box-shadow: 0 0 20px var(--cosmic-gold);
-        }
-
-        header::after {
-            content: '⬟ ⬢ ⬡';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--cosmic-gold);
-            font-size: 0.8rem;
-            letter-spacing: 8px;
-            animation: philosophy 20s ease-in-out infinite;
-        }
-
-        h1 {
+        
+        header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
-            font-weight: 400;
-            color: var(--starlight);
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.05em;
-            text-shadow: 0 0 30px var(--nebula-violet);
-            position: relative;
-        }
-
-        h1::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--cosmic-gold), var(--starlight), var(--cosmic-gold));
-            box-shadow: 0 0 15px var(--cosmic-gold);
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            color: var(--silver);
             font-style: italic;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 20px var(--cosmic-purple);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: white;
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
             margin-top: 1rem;
+            letter-spacing: 1px;
         }
 
         .content-section {
-            background: linear-gradient(145deg, 
-                rgba(26, 26, 62, 0.7), 
-                rgba(45, 27, 105, 0.6),
-                rgba(10, 10, 35, 0.8)
-            );
-            border: 1px solid var(--cosmic-gold);
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
             border-radius: 12px;
-            padding: 4rem;
+            padding: 3rem;
             margin-bottom: 3rem;
-            box-shadow: 
-                0 0 50px rgba(255, 215, 0, 0.3),
-                inset 0 0 50px rgba(76, 42, 133, 0.2);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
-        .content-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                var(--cosmic-gold), 
-                var(--starlight), 
-                var(--cosmic-gold), 
-                transparent
-            );
-            box-shadow: 0 0 20px var(--cosmic-gold);
-        }
-
-        .content-section::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, transparent 30%, var(--nebula-violet) 70%, transparent 100%);
-            opacity: 0.1;
-            animation: philosophy 40s ease-in-out infinite;
-        }
-
-        .placeholder-message {
+        .content-section h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--starlight);
-            margin-bottom: 2rem;
             font-style: italic;
-            letter-spacing: 0.03em;
-            text-shadow: 0 0 25px var(--cosmic-gold);
-            position: relative;
-            z-index: 1;
-        }
-
-        .placeholder-description {
-            font-size: 1.3rem;
-            color: var(--silver);
-            line-height: 1.9;
-            font-style: italic;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 15px var(--cosmic-purple);
-            position: relative;
-            z-index: 1;
-            letter-spacing: 0.02em;
-        }
-
-        .coming-soon {
-            background: linear-gradient(135deg, 
-                rgba(76, 42, 133, 0.4) 0%, 
-                rgba(26, 26, 62, 0.6) 50%,
-                rgba(45, 27, 105, 0.4) 100%
-            );
-            padding: 2.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--cosmic-gold);
-            margin-top: 2rem;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .coming-soon h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--cosmic-gold);
+            font-size: 2rem;
+            color: white;
             margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            text-shadow: 0 0 15px var(--cosmic-gold);
+        }
+        
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
         }
 
-        .coming-soon ul {
+        .explorations-list {
             list-style: none;
             padding-left: 0;
         }
 
-        .coming-soon li {
+        .explorations-list li {
             position: relative;
-            padding-left: 2.5rem;
+            padding-left: 2rem;
             margin-bottom: 1rem;
-            color: var(--starlight);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-shadow: 0 0 10px var(--cosmic-purple);
         }
 
-        .coming-soon li::before {
-            content: "◊";
+        .explorations-list li::before {
+            content: "✧";
             position: absolute;
             left: 0;
-            font-size: 1.2em;
-            color: var(--cosmic-gold);
-            text-shadow: 0 0 10px var(--cosmic-gold);
+            top: 2px;
+            color: var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+        }
+        
+        .explorations-list a {
+             color: var(--text-primary);
+             text-decoration: none;
+             border-bottom: 1px dashed var(--surface-border);
+             transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        
+        .explorations-list a:hover {
+            color: var(--accent-glow);
+            border-bottom-color: var(--accent-glow);
         }
 
         footer {
             text-align: center;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cosmic-gold), var(--starlight), var(--cosmic-gold), transparent);
-            box-shadow: 0 0 20px var(--cosmic-gold);
-        }
-
-        footer::after {
-            content: '◆ ◇ ◆';
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--cosmic-gold);
-            font-size: 0.7rem;
-            letter-spacing: 6px;
-            text-shadow: 0 0 10px var(--cosmic-gold);
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--surface-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            margin-bottom: 1.5rem;
-            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         .footer-links a {
-            color: var(--starlight);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            font-style: italic;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px var(--cosmic-purple);
+            margin: 0 1rem;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: var(--cosmic-gold);
-            border-bottom-color: var(--cosmic-gold);
-            text-shadow: 0 0 15px var(--cosmic-gold);
-        }
-
-        .copyright {
-            font-size: 0.95rem;
-            color: var(--silver);
-            font-style: italic;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px var(--cosmic-purple);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 2rem 1.5rem;
-            }
-            
-            h1 {
-                font-size: 2.4rem;
-                letter-spacing: 0.03em;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .content-section {
-                padding: 3rem 2rem;
-            }
-            
-            .placeholder-message {
-                font-size: 1.8rem;
-            }
-            
-            .placeholder-description {
-                font-size: 1.1rem;
-            }
-            
-            .coming-soon {
-                padding: 2rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .coming-soon li {
-                padding-left: 2rem;
-                font-size: 1rem;
-            }
+            color: var(--accent-glow);
         }
     </style>
 </head>
 <body>
+    <canvas id="star-canvas"></canvas>
+
     <div class="container">
-        <div class="back-nav">
-            <a href="index.html">← Back to Portfolio</a>
-        </div>
+        <nav class="header-nav">
+            <a href="homepage.html">← Back to Portfolio</a>
+        </nav>
 
         <header>
-            <h1>Interests and Philosophy</h1>
-            <p class="subtitle">Blank For Now</p>
+            <h1>Interests & Philosophy</h1>
+            <p>A space for curiosity, contemplation, and cosmic perspective.</p>
         </header>
 
-        <div class="content-section">
-            <h2 class="placeholder-message">Filler Title Here</h2>
-            <p class="placeholder-description">
-                Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here Filler Text Here
-            </p>
-            
-            <div class="coming-soon">
-                <h3>Personal Documents</h3>
-                <ul>
-                    <li><a href="Personal-Docs/personal1.html" target="_blank" style="color: var(--cosmic-gold); text-decoration: none; border-bottom: 1px solid var(--cosmic-gold);">Personal Reflection 1</a></li>
-                    <li><a href="Personal-Docs/personal2.html" target="_blank" style="color: var(--cosmic-gold); text-decoration: none; border-bottom: 1px solid var(--cosmic-gold);">Personal Reflection 2</a></li>
+        <main>
+            <section class="content-section">
+                <h2>The Unseen Arena</h2>
+                <p>Beyond the worlds of academic achievement and athletic excellence lies this space, reserved for the profound contemplations that define the essence of being. Here, philosophy meets future, where thoughts on existence, technology, and the infinite possibilities of human consciousness find their voice.</p>
+                
+                <h3 style="color: var(--accent-glow); margin-bottom: 1.5rem; font-size: 1.1rem; letter-spacing: 1px;">EXPLORATIONS</h3>
+                <ul class="explorations-list">
+                    <li><a href="Personal-Docs/personal1.html" target="_blank">Existential Essays: Reflections on consciousness & purpose</a></li>
+                    <li><a href="Personal-Docs/personal2.html" target="_blank">Future Visions: Contemplations on technology & humanity</a></li>
+                    <li>Philosophical Musings: The intersection of ancient wisdom and modern understanding</li>
+                    <li>Cosmic Perspectives: Our place in the universe and the meaning we create</li>
                 </ul>
-            </div>
-        </div>
+            </section>
+        </main>
 
         <footer>
             <div class="footer-links">
-                <a href="index.html">Home</a>
+                <a href="homepage.html">Home</a>
                 <a href="academic.html">Academics</a>
                 <a href="athletic.html">Athletics & Media</a>
                 <a href="mailto:hird@ualberta.ca">Contact</a>
@@ -443,5 +205,108 @@
             <p class="copyright">© 2025 Talon Hird. All rights reserved.</p>
         </footer>
     </div>
+
+    <script>
+        // Starfield Canvas Animation
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height, stars;
+
+        function init() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5,
+                    vx: Math.floor(Math.random() * 50) - 25,
+                    vy: Math.floor(Math.random() * 50) - 25
+                });
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = "lighter";
+
+            for (let i = 0, x = stars.length; i < x; i++) {
+                const s = stars[i];
+
+                ctx.fillStyle = "#ffffff";
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.fillStyle = "black";
+                ctx.stroke();
+            }
+
+            ctx.beginPath();
+            for (let i = 0, x = stars.length; i < x; i++) {
+                const starI = stars[i];
+                ctx.moveTo(starI.x, starI.y);
+                if(distance(mouse, starI) < 150) ctx.lineTo(mouse.x, mouse.y);
+                for (let j = 0, x = stars.length; j < x; j++) {
+                    const starJ = stars[j];
+                    if (distance(starI, starJ) < 150) {
+                        ctx.lineTo(starJ.x, starJ.y);
+                    }
+                }
+            }
+            ctx.lineWidth = 0.05;
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+        }
+
+        function distance(point1, point2) {
+            let xs = 0;
+            let ys = 0;
+
+            xs = point2.x - point1.x;
+            xs = xs * xs;
+
+            ys = point2.y - point1.y;
+            ys = ys * ys;
+
+            return Math.sqrt(xs + ys);
+        }
+
+        function update() {
+            for (let i = 0, x = stars.length; i < x; i++) {
+                let s = stars[i];
+
+                s.x += s.vx / 60;
+                s.y += s.vy / 60;
+
+                if (s.x < 0 || s.x > width) s.vx = -s.vx;
+                if (s.y < 0 || s.y > height) s.vy = -s.vy;
+            }
+        }
+
+        let mouse = {
+            x: 0,
+            y: 0
+        };
+        canvas.addEventListener('mousemove', function(e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function tick() {
+            draw();
+            update();
+            requestAnimationFrame(tick);
+        }
+
+        window.onresize = init;
+        
+        init();
+        tick();
+    </script>
 </body>
 </html>
