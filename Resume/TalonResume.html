@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', 'Times New Roman', serif;
+            background-color: #faf8f5; /* Warm ivory */
+            color: #1a1a1a;
+            line-height: 1.15;
+            padding: 8px;
+            font-size: 0.72em;
+        }
+        
+        .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 22px 28px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e8e2d4;
+        }
+        
+        /* Header Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #2c3e50, transparent);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            color: #2c3e50;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+        
+        .contact-info {
+            font-size: 1.1em;
+            color: #5a5a5a;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        
+        .contact-info span {
+            margin: 0 20px;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 12px;
+        }
+        
+        h2 {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 20px;
+            background: #2c3e50;
+        }
+        
+        h3 {
+            font-size: 1.2em;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .job-header, .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e8e2d4;
+            padding-bottom: 8px;
+        }
+        
+        .job-title, .degree {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        
+        .company, .school {
+            font-style: italic;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .date {
+            color: #888;
+            font-size: 0.95em;
+            font-style: italic;
+            font-weight: 400;
+        }
+        
+        /* List Styles */
+        ul {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+        
+        li {
+            margin-bottom: 2px;
+            line-height: 1.2;
+            color: #333;
+        }
+        
+        /* Summary Section */
+        .summary {
+            font-style: italic;
+            color: #444;
+            line-height: 1.3;
+            text-align: justify;
+            margin-bottom: 8px;
+            font-size: 1em;
+            border-left: 3px solid #2c3e50;
+            padding-left: 20px;
+            background: #fafafa;
+            padding: 12px;
+            padding-left: 18px;
+        }
+        
+        /* Core Competencies */
+        .competencies-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            list-style: none;
+            margin-left: 0;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 3px;
+        }
+        
+        .competencies-grid li {
+            position: relative;
+            padding-left: 15px;
+            color: #333;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        .competencies-grid li::before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        
+        /* Awards Section */
+        .awards-list {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .awards-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        
+        .awards-list li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        /* Media Section */
+        .media-links {
+            list-style: none;
+            margin-left: 0;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 3px;
+        }
+        
+        .media-links li {
+            margin-bottom: 10px;
+            border-bottom: 1px dotted #ddd;
+            padding-bottom: 8px;
+        }
+        
+        .media-links li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .media-links a {
+            color: #1e3a5f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 1px;
+        }
+        
+        .media-links a:hover {
+            color: #d4af37;
+            border-bottom-color: #1e3a5f;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 0;
+                background-color: white;
+                font-size: 0.9em;
+            }
+            
+            .resume-container {
+                box-shadow: none;
+                border: none;
+                padding: 40px;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            .job-header, .education-header {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            
+            ul {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            
+            h2 {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            
+            .header {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+            
+            .summary, .competencies-grid, .media-links {
+                background: white !important;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resume-container {
+                padding: 30px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+                letter-spacing: 2px;
+            }
+            
+            .job-header, .education-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .date {
+                margin-top: 5px;
+            }
+            
+            .competencies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Talon Hird</h1>
+            <div class="contact-info">
+                <span>Duncan, BC</span>
+                <span>•</span>
+                <span>hird@ualberta.ca | talonh02@gmail.com</span>
+                <span>•</span>
+                <span>(250) 416-9899</span>
+            </div>
+        </div>
+        
+        <!-- Professional Summary -->
+        <div class="section">
+            <h2>Professional Summary</h2>
+            <p class="summary">
+                Finance graduate (3.8 GPA) and three-time USPORTS Academic All-Canadian with strong analytical, data science, financial modeling skills, and economic acumen. Seeking entry-level finance position in BC, Canada.
+            </p>
+        </div>
+        
+        <!-- Education -->
+        <div class="section">
+            <h2>Education</h2>
+            <div class="education-header">
+                <div>
+                    <span class="school"><strong>University of Alberta, Alberta School of Business</strong></span> | Edmonton, AB
+                </div>
+            </div>
+            <div class="degree">Bachelor of Commerce in Finance, Minor in Philosophy | Convocation November 2025</div>
+            <div style="margin-top: 5px; color: #666; font-style: italic;">GPA: 3.8/4.0</div>
+        </div>
+        
+        <!-- Core Competencies -->
+        <div class="section">
+            <h2>Core Competencies</h2>
+            <ul class="competencies-grid">
+                <li>Financial Modeling (DCF, Residual Income)</li>
+                <li>Data Science (R, Python, Excel)</li>
+                <li>Financial Statement Analysis</li>
+                <li>Derivatives & Risk Management Fundamentals</li>
+                <li>Venture Capital & Entrepreneurial Finance</li>
+                <li>Applied Generative AI For Research and Productivity (ChatGPT, Gemini, & Claude)</li>
+            </ul>
+        </div>
+        
+        <!-- Portfolio -->
+        <div class="section">
+            <h2>Portfolio</h2>
+            <ul class="media-links" style="margin-bottom: 15px;">
+                <li><a href="https://talonh02.github.io/Repo1/" target="_blank">Website</a> - Academic projects, athletic achievements, and professional experience</li>
+            </ul>
+        </div>
+        
+        <!-- Employment Experience -->
+        <div class="section">
+            <h2>Employment Experience</h2>
+            
+            <div class="job-header">
+                <div><span class="job-title">Assistant Auditor/Bookkeeper</span> | <span class="company">JDP Wasserman & Associates</span> | Wetaskiwin, AB</div>
+                <div class="date">May 2023 – Aug 2023</div>
+            </div>
+            <ul>
+                <li>Collaborated with senior auditor on municipal document analysis and audit procedures</li>
+                <li>Managed financial records for multiple small business clients using QuickBooks and Excel</li>
+                <li>Performed detailed account reconciliation and data entry with high accuracy</li>
+            </ul>
+            
+            <div class="job-header">
+                <div><span class="job-title">Park Operator</span> | <span class="company">Lakeview Park Campground</span> | Lake Cowichan, BC</div>
+                <div class="date">Jun 2022 – Aug 2022</div>
+            </div>
+            <ul>
+                <li>Managed daily operations including customer service, sales transactions, and facility maintenance</li>
+                <li>Demonstrated strong communication and de-escalation skills with customers</li>
+                <li>Mentored junior co-worker, completing painting project two weeks ahead of schedule</li>
+            </ul>
+            
+            <div class="job-header">
+                <div><span class="job-title">Concrete Laborer</span> | <span class="company">Trademark Concrete Ltd.</span> | Duncan, BC</div>
+                <div class="date">Jun 2019 – Aug 2021 (Summers)</div>
+            </div>
+            <ul>
+                <li>Contributed to efficient project completion through teamwork and problem-solving in fast-paced environment</li>
+                <li>Led and supervised job site activities, including material movement and pre-pour preparation</li>
+            </ul>
+        </div>
+        
+        <!-- Leadership Experience -->
+        <div class="section">
+            <h2>Leadership Experience</h2>
+            
+            <div class="job-header">
+                <div><span class="job-title">Wrestling Coach</span> | <span class="company">Various Clubs & Programs</span></div>
+                <div class="date">2018 – Present</div>
+            </div>
+            <ul>
+                <li>Coached youth athletes at Cowichan Valley Wrestling Club (CVWC), Edmonton Wrestling Club (EWC), and Amiskwaciy Academy, developing technical skills and competitive strategies</li>
+                <li>Led wrestling camps for children and mentored high school athletes through intensive training programs, fostering discipline and goal-setting abilities</li>
+                <li>Analyzed individual athlete performance data and developed customized training regimens to optimize competition outcomes and accelerate skill acquisition</li>
+                <li>Collaborated with senior coaches to implement team-wide training protocols and prepare athletes for upcoming competitions</li>
+            </ul>
+        </div>
+        
+        <!-- Awards & Honours -->
+        <div class="section">
+            <h2>Awards & Honours</h2>
+            <ul class="awards-list">
+                <li><strong>Three-Time USPORTS Academic All-Canadian</strong> (2022, 2023, 2024) - Awarded to varsity athletes maintaining exceptional academic standing while competing at the national level</li>
+                <li><strong>Two-Time USPORTS National Wrestling Medalist</strong> (3rd 2023, 2nd 2024) - Competed against Canada's top university wrestlers</li>
+                <li><strong>Three-Time Canada-West Conference Wrestling Champion</strong> (2022, 2023, 2024) - Led University of Alberta Golden Bears to three consecutive team championships</li>
+                <li><strong>BC 2020 Most Outstanding Male Wrestler</strong> - British Columbia Secondary School Wrestling Association's highest individual honor</li>
+                <li><strong>Five-Time BC High School Wrestling Champion</strong> (2016-2020) - Fifth wrestler in BC history to achieve consecutive championships across all high school years</li>
+                <li><strong>Greco Roman National Champion</strong> (2018) - Canadian national title in classical wrestling discipline</li>
+                <li><strong>Senior & Junior Athlete of the Year</strong> (Grades 10, 11 & 12), Cowichan Secondary School</li>
+                <li><strong>Honours With Distinction</strong> (Grades 10, 11 & 12), Cowichan Secondary School - Maintained academic excellence throughout high school</li>
+            </ul>
+        </div>
+        
+        <!-- Media Coverage -->
+        <div class="section">
+            <h2>Media Coverage & Recognition</h2>
+            <ul class="media-links">
+                <li><a href="https://bearsandpandas.ca/news/2024/2/10/wrestling-bears-capture-third-straight-canada-west-title.aspx" target="_blank">Bears Capture Third Straight Canada West Title</a> - University of Alberta Athletics feature on team championship victory</li>
+                <li><a href="https://www.vancouverislandfreedaily.com/sports/cowichan-wrestler-wins-historic-fifth-gold-in-five-years-7190827" target="_blank">Cowichan Wrestler Wins Historic Fifth Gold in Five Years</a> - Vancouver Island Free Daily profile on unprecedented achievement</li>
+                <li><a href="https://varsityletters.ca/b-c-high-school-wrestling-championships-2020-maple-ridges-ramblers-cowichans-hird-make-their-mark-on-lec-mats/" target="_blank">BC High School Wrestling Championships 2020</a> - Varsity Letters coverage of provincial championship performance</li>
+                <li><a href="https://www.cowichanvalleycitizen.com/sports/provincial-success-stands-out-at-cowichan-secondary-awards-811289" target="_blank">Provincial Success at Cowichan Secondary Awards</a> - Local recognition for academic and athletic excellence</li>
+                <li><a href="https://www.cowichanvalleycitizen.com/sports/athletic-achievements-honoured-at-cow-high-798519" target="_blank">Athletic Achievements Honoured</a> - Additional coverage of high school accomplishments</li>
+                <li><a href="https://www.lakecowichangazette.com/sports/best-of-the-t-birds-honoured-at-awards-night-946276" target="_blank">Best of the T-Birds Honoured at Awards Night</a> - Lake Cowichan Gazette feature on school athletics</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

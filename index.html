@@ -6,7 +6,7 @@
     <title>Talon Hird — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Light Palette */
@@ -47,10 +47,29 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
         
+        /* Resume Link Styles */
+        .resume-link {
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            z-index: 10;
+            text-decoration: none;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+        
+        .resume-link:hover {
+            color: var(--accent-gold);
+        }
+
         .main-container {
             width: 100%;
             display: flex;
@@ -95,7 +114,6 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            /* transform is now set by JS for smooth animation */
         }
         
         .cube-face {
@@ -111,8 +129,6 @@
             font-size: 1.75rem;
             letter-spacing: 1px;
             transition: box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-            
-            /* Subtler, sleek texture */
             background: linear-gradient(145deg, var(--cube-base), var(--cube-highlight));
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -123,7 +139,6 @@
             border-color: var(--accent-gold);
         }
 
-        /* Positioning each face of the cube */
         .face-front  { transform: rotateY(0deg) translateZ(125px); }
         .face-back   { transform: rotateY(180deg) translateZ(125px); }
         .face-right  { transform: rotateY(90deg) translateZ(125px); }
@@ -185,6 +200,10 @@
         }
         
         @media (max-width: 600px) {
+            .resume-link {
+                top: 1.5rem;
+                right: 1.5rem;
+            }
             .scene {
                 width: 200px;
                 height: 200px;
@@ -206,6 +225,8 @@
     </style>
 </head>
 <body>
+    <a href="Resume/TalonResume.html" target="_blank" class="resume-link">Resume</a>
+
     <div class="main-container">
         <header>
             <h1>Talon Hird</h1>
@@ -217,8 +238,6 @@
                 <a href="academic.html" class="cube-face face-front">Academic</a>
                 <a href="athletic.html" class="cube-face face-right">Athletic</a>
                 <a href="personal.html" class="cube-face face-top">Personal</a>
-                
-                <!-- Opposite faces now also link for full coverage -->
                 <a href="athletic.html" class="cube-face face-left">Athletic</a>
                 <a href="personal.html" class="cube-face face-bottom">Personal</a>
                 <a href="academic.html" class="cube-face face-back">Academic</a>
@@ -229,6 +248,7 @@
             <a href="academic.html">Academic</a>
             <a href="athletic.html">Athletic</a>
             <a href="personal.html">Personal</a>
+            <a href="Resume/TalonResume.html" target="_blank" style="color: var(--accent-gold); font-weight: 600;">Resume</a>
         </nav>
 
     </div>
@@ -239,7 +259,7 @@
              <a href="mailto:hird@ualberta.ca">Contact</a>
              <a href="https://bearsandpandas.ca/roster.aspx?rp_id=13013" target="_blank" rel="noopener noreferrer">Athletic Profile</a>
         </div>
-        <p>© 2025 Talon Hird. All rights reserved.</p>
+        <p class="copyright">© 2025 Talon Hird. All rights reserved.</p>
     </footer>
 
     <script>
@@ -250,31 +270,19 @@
             let rotateY = -30;
             let isHovering = false;
             
-            // Define rotation speeds
-            const defaultSpeed = 0.15; // Increased rotation speed
-            const hoverSpeed = 0.02; // Slower speed on hover
+            const defaultSpeed = 0.15;
+            const hoverSpeed = 0.02;
 
             cube.addEventListener('mouseenter', () => { isHovering = true; });
             cube.addEventListener('mouseleave', () => { isHovering = false; });
 
             function animate() {
-                // Determine speed based on hover state
                 const currentSpeed = isHovering ? hoverSpeed : defaultSpeed;
-
-                // Increment rotation angles
                 rotateX += currentSpeed;
                 rotateY += currentSpeed;
-
-                // Apply the rotation
                 cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-                // Call the next frame
                 requestAnimationFrame(animate);
             }
 
-            // Start the animation loop
             animate();
         });
-    </script>
-</body>
-</html>
