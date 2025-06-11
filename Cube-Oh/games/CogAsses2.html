@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube-Oh: Cognitive Assessment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --bg-start: #fdfcfb;
+            --bg-end: #f8f4f0;
+            --text-dark: #2d3748;
+            --text-light: #5a677b;
+            --accent-gold: #b7791f;
+            --accent-gold-glow: rgba(183, 121, 31, 0.5);
+            --cube-base: #282828;
+            --correct-color: #22c55e; /* Green 500 */
+            --incorrect-color: #ef4444; /* Red 500 */
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            width: 90vw;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        #canvas-container {
+            width: 250px;
+            height: 250px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        canvas { display: block; width: 100%; height: 100%; }
+        
+        .start-screen, .game-over-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% + 4rem);
+            height: calc(100% + 4rem);
+            background-color: rgba(253, 252, 251, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            transition: opacity 0.5s ease;
+        }
+        .start-screen.hidden, .game-over-screen.hidden { opacity: 0; pointer-events: none; }
+        .start-title, .game-over-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; }
+        .start-button, .restart-button {
+            font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 1rem; color: var(--bg-start);
+            background-color: var(--cube-base); padding: 0.8rem 2.5rem; border: none; border-radius: 8px; cursor: pointer;
+        }
+        .start-button:disabled { background-color: var(--text-light); cursor: not-allowed; }
+
+        #leaderboard-container { margin-top: 1.5rem; width: 80%; }
+        #leaderboard-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-dark); }
+        #leaderboard-list { list-style: none; padding: 0; }
+        #leaderboard-list li { display: flex; justify-content: space-between; padding: 0.25rem 0; font-size: 0.9rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        #leaderboard-list li span:first-child { font-weight: 700; }
+
+        #live-score-container {
+            position: absolute; top: 0; right: 0; font-family: 'Roboto', sans-serif;
+            font-weight: 700; font-size: 1.5rem; color: var(--text-dark); visibility: hidden;
+        }
+
+        #final-score-container { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--text-light); margin-bottom: 1.5rem; }
+        #final-score { font-size: 3rem; color: var(--accent-gold); }
+
+        #question-container { min-height: 80px; display: flex; justify-content: center; align-items: center; margin-bottom: 1rem; }
+        #question-text { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 4vw, 1.8rem); line-height: 1.4; transition: opacity 0.3s ease; }
+        
+        #feedback-message {
+            position: absolute; bottom: 100px; font-weight: 700; font-size: 1.2rem;
+            opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #name-input, #answer-input {
+            width: 100%; padding: 1rem; font-family: 'Roboto', sans-serif; font-size: 1.2rem; text-align: center;
+            color: var(--text-dark); background-color: transparent; border: 2px solid var(--text-light);
+            border-radius: 8px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        #name-input { margin-bottom: 1rem; max-width: 300px; }
+        #name-input:focus, #answer-input:focus { border-color: var(--accent-gold); box-shadow: 0 0 10px var(--accent-gold-glow); }
+        #answer-input.correct { border-color: var(--correct-color); }
+        #answer-input.incorrect { border-color: var(--incorrect-color); }
+
+        #timer-bar { width: 100%; height: 8px; background-color: var(--text-light); border-radius: 4px; margin-top: 1.5rem; overflow: hidden; }
+        #timer-bar-inner { height: 100%; width: 100%; background-color: var(--accent-gold); border-radius: 4px; transition: width 0.1s linear; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="live-score-container">Score: <span id="liveScore">0</span></div>
+        <div id="startScreen" class="start-screen">
+             <h1 class="start-title">Cognitive Assessment</h1>
+             <p style="margin-bottom: 1rem; color: var(--text-light); max-width: 300px;">Input name. An incorrect response terminates the assessment.</p>
+             <input type="text" id="name-input" placeholder="Enter Your Name..." maxlength="15">
+             <button id="startButton" class="start-button" disabled>Initiate</button>
+             <div id="leaderboard-container">
+                 <h2 id="leaderboard-title">All-Time High Scores</h2>
+                 <ol id="leaderboard-list"></ol>
+             </div>
+        </div>
+        <div id="gameOverScreen" class="game-over-screen hidden">
+             <h1 class="game-over-title">Assessment Complete</h1>
+             <p id="final-score-container">Final Score: <span id="finalScore">0</span></p>
+             <button id="restartButton" class="restart-button">Re-Initiate</button>
+        </div>
+        <div id="canvas-container"><canvas id="cubeCanvas"></canvas></div>
+        <div id="question-container"><p id="question-text"></p></div>
+        <div id="feedback-message"></div>
+        <input type="text" id="answer-input" placeholder="Input Response..." autocomplete="off">
+        <div id="timer-bar"><div id="timer-bar-inner"></div></div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, addDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- 3D Scene ---
+        const scene = new THREE.Scene();
+        const container = document.getElementById('canvas-container');
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('cubeCanvas'), alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshBasicMaterial({ color: 0x282828 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xb7791f, linewidth: 2 });
+        const wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), lineMaterial);
+        scene.add(wireframe);
+        camera.position.z = 3.5;
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.005;
+            cube.rotation.y += 0.005;
+            wireframe.rotation.copy(cube.rotation);
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // --- DOM Elements ---
+        const questionText = document.getElementById('question-text');
+        const answerInput = document.getElementById('answer-input');
+        const timerBarInner = document.getElementById('timer-bar-inner');
+        const startScreen = document.getElementById('startScreen');
+        const gameOverScreen = document.getElementById('gameOverScreen');
+        const startButton = document.getElementById('startButton');
+        const restartButton = document.getElementById('restartButton');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const liveScoreContainer = document.getElementById('live-score-container');
+        const liveScoreDisplay = document.getElementById('liveScore');
+        const nameInput = document.getElementById('name-input');
+        const leaderboardList = document.getElementById('leaderboard-list');
+        const feedbackMessage = document.getElementById('feedback-message');
+        
+        // --- Game State ---
+        let score = 0, playerName = "", currentDifficulty = 1, correctInRow = 0;
+        let timerInterval, timeLeft = 10;
+        const TIME_LIMIT = 10;
+        let availableQuestions = [], currentQuestion;
+        
+        // --- Firebase State ---
+        let db, auth;
+        const LEADERBOARD_LIMIT = 5;
+        let leaderboardRef;
+
+        // --- Questions ---
+        const questions = [
+            { q: "What is the capital of France?", a: ["paris"], d: 1 },{ q: "What is 2 + 2?", a: ["4", "four"], d: 1 },{ q: "What color is a banana?", a: ["yellow"], d: 1 },{ q: "Which planet is known as the Red Planet?", a: ["mars"], d: 1 },{ q: "Who is the main character in the Harry Potter series?", a: ["harry potter"], d: 1 },{ q: "What is the opposite of 'hot'?", a: ["cold"], d: 1 },{ q: "How many days are in a week?", a: ["7", "seven"], d: 1 },{ q: "What is the name of the fairy in Peter Pan?", a: ["tinkerbell"], d: 1 },{ q: "What do bees make?", a: ["honey"], d: 1 },{ q: "What is the chemical symbol for water?", a: ["h2o"], d: 1 },
+            { q: "What is the capital of Japan?", a: ["tokyo"], d: 2 },{ q: "Who wrote 'Romeo and Juliet'?", a: ["william shakespeare", "shakespeare"], d: 2 },{ q: "What is the largest mammal in the world?", a: ["blue whale", "whale"], d: 2 },{ q: "What gas do plants absorb from the atmosphere?", a: ["carbon dioxide", "co2"], d: 2 },{ q: "Who painted the Mona Lisa?", a: ["leonardo da vinci", "da vinci"], d: 2 },{ q: "What is the currency of the United Kingdom?", a: ["pound", "pound sterling", "gbp"], d: 2 },{ q: "Which celebrity is known for the phrase 'You get a car!'?", a: ["oprah winfrey", "oprah"], d: 2 },{ q: "What is the hardest natural substance on Earth?", a: ["diamond"], d: 2 },{ q: "What does 'CPU' stand for?", a: ["central processing unit"], d: 2 },{ q: "In which country would you find the Pyramids of Giza?", a: ["egypt"], d: 2 },
+            { q: "What is the capital of Australia?", a: ["canberra"], d: 3 },{ q: "Who developed the theory of relativity?", a: ["albert einstein", "einstein"], d: 3 },{ q: "What is the main ingredient in guacamole?", a: ["avocado"], d: 3 },{ q: "Which element has the atomic number 1?", a: ["hydrogen"], d: 3 },{ q: "What is the name of the actor who played Jack Dawson in 'Titanic'?", a: ["leonardo dicaprio", "dicaprio"], d: 3 },{ q: "What is a 'sonnet'?", a: ["a 14-line poem", "a poem", "14-line poem"], d: 3 },{ q: "What is the square root of 144?", a: ["12", "twelve"], d: 3 },{ q: "Which artist cut off his own ear?", a: ["vincent van gogh", "van gogh"], d: 3 },{ q: "What does the 'E' in 'E=mc^2' stand for?", a: ["energy"], d: 3 },{ q: "What is the most spoken language in the world?", a: ["mandarin", "mandarin chinese", "chinese"], d: 3 },
+            { q: "What is the capital of Brazil?", a: ["brasília", "brasilia"], d: 4 },{ q: "What is the study of earthquakes called?", a: ["seismology"], d: 4 },{ q: "Who wrote the novel '1984'?", a: ["george orwell", "orwell"], d: 4 },{ q: "What is the chemical symbol for gold?", a: ["au"], d: 4 },{ q: "Which celebrity starred in the 'Mission: Impossible' film series?", a: ["tom cruise", "cruise"], d: 4 },{ q: "What is the literary term for a word that imitates a sound?", a: ["onomatopoeia"], d: 4 },{ q: "In Greek mythology, who was the god of the sea?", a: ["poseidon"], d: 4 },{ q: "What is the largest organ of the human body?", a: ["skin", "the skin"], d: 4 },{ q: "Who composed 'The Four Seasons'?", a: ["antonio vivaldi", "vivaldi"], d: 4 },{ q: "What is the process by which plants make their own food called?", a: ["photosynthesis"], d: 4 },
+            { q: "What is the capital of Canada?", a: ["ottawa"], d: 5 },{ q: "What is the boiling point of water in Celsius?", a: ["100", "100 degrees", "100 c"], d: 5 },{ q: "Who is credited with discovering penicillin?", a: ["alexander fleming", "fleming"], d: 5 },{ q: "What is the primary language spoken in Argentina?", a: ["spanish"], d: 5 },{ q: "Which singer is known as the 'Queen of Pop'?", a: ["madonna"], d: 5 },{ q: "What is the fear of spiders called?", a: ["arachnophobia"], d: 5 },{ q: "What is the world's longest river?", a: ["nile", "nile river"], d: 5 },{ q: "Who was the first person to walk on the moon?", a: ["neil armstrong", "armstrong"], d: 5 },{ q: "What does 'ISBN' stand for in the book world?", a: ["international standard book number"], d: 5 },{ q: "What type of animal is a 'Kookaburra'?", a: ["bird", "kingfisher"], d: 5 }
+        ];
+
+        // --- Firebase Functions ---
+        async function initializeFirebase() {
+            try {
+                const firebaseConfig = JSON.parse(__firebase_config);
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                leaderboardRef = collection(db, `/artifacts/${appId}/public/data/leaderboard`);
+                
+                listenForLeaderboardUpdates();
+
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                leaderboardList.innerHTML = '<li>Leaderboard unavailable.</li>';
+            }
+        }
+
+        function listenForLeaderboardUpdates() {
+            const q = query(leaderboardRef, orderBy("score", "desc"), limit(LEADERBOARD_LIMIT));
+            onSnapshot(q, (snapshot) => {
+                leaderboardList.innerHTML = '';
+                if(snapshot.empty) {
+                     leaderboardList.innerHTML = '<li>No scores yet. Be the first!</li>';
+                }
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const li = document.createElement('li');
+                    li.innerHTML = `<span>${data.name}</span><span>${data.score}</span>`;
+                    leaderboardList.appendChild(li);
+                });
+            });
+        }
+        
+        async function saveScoreToLeaderboard(name, score) {
+             if(!leaderboardRef || score === 0) return; // Don't save zero scores
+             try {
+                await addDoc(leaderboardRef, { name, score, createdAt: new Date() });
+             } catch (error) {
+                console.error("Error saving score:", error);
+             }
+        }
+        
+        // --- Game Functions ---
+        function getNextQuestion() {
+            let questionPool = availableQuestions.filter(q => q.d === currentDifficulty);
+            if (questionPool.length === 0) {
+                 if(currentDifficulty < 5) {
+                    currentDifficulty++;
+                    return getNextQuestion(); // Retry with the new difficulty
+                 } else {
+                    gameOver();
+                    return null;
+                 }
+            }
+            const randomIndex = Math.floor(Math.random() * questionPool.length);
+            const question = questionPool[randomIndex];
+            availableQuestions = availableQuestions.filter(q => q.q !== question.q);
+            return question;
+        }
+
+        function displayQuestion() {
+            currentQuestion = getNextQuestion();
+            if (!currentQuestion) return;
+            questionText.style.opacity = 0;
+            setTimeout(() => {
+                questionText.textContent = currentQuestion.q;
+                questionText.style.opacity = 1;
+            }, 300);
+            answerInput.value = "";
+            answerInput.disabled = false;
+            answerInput.focus();
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timeLeft = TIME_LIMIT;
+            timerBarInner.style.transition = 'none';
+            timerBarInner.style.width = '100%';
+            setTimeout(() => {
+                 timerBarInner.style.transition = `width ${TIME_LIMIT}s linear`;
+                 timerBarInner.style.width = '0%';
+            }, 100);
+            timerInterval = setInterval(() => {
+                if (--timeLeft < 0) {
+                    checkAnswer();
+                }
+            }, 1000);
+        }
+
+        function showFeedback(message, isCorrect) {
+            feedbackMessage.textContent = message;
+            feedbackMessage.style.color = isCorrect ? 'var(--correct-color)' : 'var(--incorrect-color)';
+            feedbackMessage.style.opacity = 1;
+            feedbackMessage.style.transform = 'translateY(-10px)';
+            answerInput.classList.add(isCorrect ? 'correct' : 'incorrect');
+            setTimeout(() => {
+                feedbackMessage.style.opacity = 0;
+                feedbackMessage.style.transform = 'translateY(0px)';
+                answerInput.classList.remove('correct', 'incorrect');
+            }, 1000);
+        }
+        
+        function handleCorrectAnswer() {
+            score++;
+            liveScoreDisplay.textContent = score;
+            correctInRow++;
+            if (correctInRow >= 2 && currentDifficulty < 5) {
+                currentDifficulty++;
+                correctInRow = 0;
+            }
+            lineMaterial.color.setHex(0x22c55e); // Green
+            showFeedback("Correct", true);
+            setTimeout(() => {
+                lineMaterial.color.setHex(0xb7791f); // Reset to gold
+                displayQuestion();
+            }, 1000);
+        }
+
+        function handleIncorrectAnswer() {
+            lineMaterial.color.setHex(0xef4444); // Red
+            showFeedback("Incorrect", false);
+            setTimeout(() => {
+                lineMaterial.color.setHex(0xb7791f); // Reset to gold
+                gameOver();
+            }, 1000);
+        }
+
+        function checkAnswer() {
+            clearInterval(timerInterval);
+            answerInput.disabled = true;
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            if (currentQuestion && currentQuestion.a.includes(userAnswer)) {
+                handleCorrectAnswer();
+            } else {
+                handleIncorrectAnswer();
+            }
+        }
+
+        function startGame() {
+            playerName = nameInput.value.trim();
+            if (!playerName) {
+                // This check is redundant due to the button being disabled, but good for safety.
+                return;
+            }
+            startScreen.classList.add('hidden');
+            score = 0;
+            liveScoreDisplay.textContent = score;
+            liveScoreContainer.style.visibility = 'visible';
+            currentDifficulty = 1;
+            correctInRow = 0;
+            availableQuestions = [...questions];
+            displayQuestion();
+        }
+        
+        async function gameOver() {
+            await saveScoreToLeaderboard(playerName, score);
+            finalScoreDisplay.textContent = score;
+            gameOverScreen.classList.remove('hidden');
+            liveScoreContainer.style.visibility = 'hidden';
+            questionText.textContent = "";
+            answerInput.value = "";
+            answerInput.disabled = true;
+            clearInterval(timerInterval);
+        }
+
+        // --- Event Listeners ---
+        nameInput.addEventListener('input', () => {
+            startButton.disabled = nameInput.value.trim().length === 0;
+        });
+        answerInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', () => {
+             gameOverScreen.classList.add('hidden');
+             startScreen.classList.remove('hidden');
+        });
+        
+        // Initializer
+        initializeFirebase();
+
+    </script>
+</body>
+</html>
