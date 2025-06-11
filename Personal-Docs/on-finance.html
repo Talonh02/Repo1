@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Reflection 1 — Talon Hird</title>
+    <title>On Finance — Talon Hird</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
@@ -90,6 +90,10 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            position: relative;
+            z-index: 10;
         }
 
         .back-nav a:hover {
@@ -103,11 +107,11 @@
 
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 7vw, 3.5rem);
+            font-size: clamp(3rem, 8vw, 4.5rem);
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 1rem;
-            line-height: 1.1;
+            line-height: 1;
         }
         
         .content-divider {
@@ -123,6 +127,17 @@
             text-align: left;
             font-size: 1.2rem;
             color: var(--text-primary);
+        }
+
+        .financial-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .financial-link:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -161,25 +176,17 @@
         </nav>
 
         <header>
-            <h1>Personal Reflection 1</h1>
+            <h1>On Finance</h1>
         </header>
         <div class="content-divider"></div>
 
         <main>
             <section class="content-section">
-                <p>Example reflection in personal 1. This new layout provides a more professional and focused reading experience, suitable for thoughtful essays and reflections. The typography is chosen for its clarity and elegance, ensuring the content is easy to read against the subtly animated vine background.</p>
-                
-                <p>Further paragraphs can be added here to expand on the topic, each one styled consistently to maintain the clean, document-like feel of the page. The design is intended to be both immersive and highly readable.</p>
+                <p>
+                    Finance, I think to many, represents the peak of academic superficiality. A degree that only money hungry capitalist pigs enter into in order to parasitically siphon money from the system of hard working citizens by means of gambling and usury. When one pauses to further contemplate however, the role of finance in the world, the science, and the philosophy behind it, they would soon realize how important and interesting of a discipline it really is. Like philosophy, finance is something I consider to be a pervasive subject as its influence touches almost everything one encounters on a daily basis. <a href="financial-history.html" class="financial-link">It is after all, in its essence, the theory of value and how to allocate it.</a> For better or worse, value in our modern society is measured by how much something is worth on the open market—i.e., how much people are willing to pay for it. This obviously creates all sorts of problems for things some people see as a right or as beyond the scope of monetary value or things with sentimental worth, etc., but the mechanics of this are particularly interesting when it comes to evaluating the value of a business. Since businesses don't typically have much sentimental value to small investors, and economics assumes informed and rational agents, the value of a business is determined as the present value of future remittances to the investors, adjusted for risk.
+                </p>
             </section>
         </main>
-
-        <footer>
-            <div class="footer-links">
-                <a href="../index.html">Home</a>
-                <a href="../personal.html">Personal</a>
-                <a href="mailto:hird@ualberta.ca">Contact</a>
-            </div>
-        </footer>
     </div>
 </body>
 </html>
