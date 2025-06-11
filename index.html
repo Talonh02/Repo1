@@ -19,19 +19,16 @@
             /* Cube Palette */
             --cube-base: #282828;
             --cube-highlight: #3a3a3a;
-            --cube-text: #e0e0e0;
             --cube-hover-glow: rgba(183, 121, 31, 0.4);
+
+            /* Voice Agent Active State */
+            --voice-active-glow: rgba(34, 211, 238, 0.7); /* Cyan glow */
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         html {
@@ -51,6 +48,31 @@
             position: relative;
         }
         
+        /* Go Back Link */
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1001;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .back-link.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+        }
+
         .main-container {
             width: 100%;
             max-width: 1200px;
@@ -62,12 +84,22 @@
             flex-grow: 1;
             position: relative;
             z-index: 2;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        /* Transition classes for fading content */
+        .fadeable-content {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .content-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
         }
 
         header {
             text-align: center;
             margin-bottom: 2rem;
-            animation: fadeIn 1.2s ease-out;
         }
 
         h1 {
@@ -76,19 +108,13 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-
-        .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            color: var(--text-light);
-            font-weight: 300;
-            max-width: 600px;
-        }
         
         .scene {
             width: 250px;
             height: 250px;
             perspective: 1500px;
             margin: 2rem 0;
+            cursor: pointer;
         }
 
         .cube {
@@ -105,20 +131,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            text-decoration: none;
-            color: var(--cube-text);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            letter-spacing: 1px;
-            transition: box-shadow 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
             background: linear-gradient(145deg, var(--cube-base), var(--cube-highlight));
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .cube-face:hover {
+        .scene:hover .cube-face {
             box-shadow: 0 0 45px 5px var(--cube-hover-glow);
-            color: white;
             border-color: var(--accent-gold);
+        }
+        
+        @keyframes pulse-active {
+            0% { box-shadow: 0 0 10px 0px rgba(34, 211, 238, 0.3); }
+            50% { box-shadow: 0 0 50px 10px var(--voice-active-glow); }
+            100% { box-shadow: 0 0 10px 0px rgba(34, 211, 238, 0.3); }
+        }
+
+        .voice-active .cube-face {
+            animation: pulse-active 2s ease-in-out infinite;
+            border-color: var(--voice-active-glow) !important; /* Override hover */
         }
 
         .face-front  { transform: rotateY(0deg) translateZ(125px); }
@@ -132,9 +163,6 @@
             display: flex;
             gap: clamp(1rem, 4vw, 2rem);
             margin-top: 2rem;
-            animation: fadeIn 1.2s ease-out 0.2s;
-            opacity: 0;
-            animation-fill-mode: forwards;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -156,60 +184,22 @@
             border-bottom-color: var(--accent-gold);
         }
 
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            position: relative;
-            z-index: 2;
-            margin-top: auto;
-            animation: fadeIn 1.2s ease-out;
-        }
-        
-        .footer-links {
-            margin-bottom: 0.5rem;
+        /* Voice Widget Positioning */
+        elevenlabs-convai {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 1000 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            transition: opacity 0.3s ease !important;
         }
 
-        .footer-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            margin: 0 clamp(0.5rem, 2vw, 1rem);
-            transition: color 0.3s, border-bottom-color 0.3s;
-            border-bottom: 1px solid transparent;
-            padding-bottom: 2px;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
-        }
-        .footer-links a:hover {
-            color: var(--accent-gold);
-            border-bottom-color: var(--accent-gold);
+        elevenlabs-convai.visible {
+            opacity: 1 !important;
+            pointer-events: auto !important;
         }
         
-        @media (max-width: 768px) {
-            body {
-                padding: 0 1rem;
-            }
-            
-            .main-container {
-                padding: 1rem;
-            }
-            
-            header {
-                margin-bottom: 1.5rem;
-            }
-            
-            .navigation-links {
-                gap: 1rem;
-                margin-top: 1.5rem;
-            }
-            
-            .navigation-links a {
-                font-size: 1rem;
-                padding: 0.4rem 0.8rem;
-            }
-        }
-
         @media (max-width: 600px) {
             .scene {
                 width: 200px;
@@ -219,7 +209,6 @@
             .cube-face {
                 width: 200px;
                 height: 200px;
-                font-size: 1.4rem;
             }
             .face-front  { transform: rotateY(0deg) translateZ(100px); }
             .face-back   { transform: rotateY(180deg) translateZ(100px); }
@@ -229,119 +218,108 @@
             .face-bottom { transform: rotateX(-90deg) translateZ(100px); }
         }
 
-        @media (max-width: 480px) {
-            .main-container {
-                padding: 0.5rem;
-            }
-            
-            .scene {
-                width: 170px;
-                height: 170px;
-                margin: 1rem 0;
-            }
-            
-            .cube-face {
-                width: 170px;
-                height: 170px;
-                font-size: 1.2rem;
-            }
-            
-            .face-front  { transform: rotateY(0deg) translateZ(85px); }
-            .face-back   { transform: rotateY(180deg) translateZ(85px); }
-            .face-right  { transform: rotateY(90deg) translateZ(85px); }
-            .face-left   { transform: rotateY(-90deg) translateZ(85px); }
-            .face-top    { transform: rotateX(90deg) translateZ(85px); }
-            .face-bottom { transform: rotateX(-90deg) translateZ(85px); }
-            
-            .navigation-links {
-                gap: 0.5rem;
-                margin-top: 1rem;
-            }
-            
-            .navigation-links a {
-                padding: 0.3rem 0.6rem;
-                font-size: 0.9rem;
-            }
-            
-            .footer-links {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .footer-links a {
-                margin: 0.2rem 0.5rem;
-                font-size: 0.8rem;
-            }
-        }
-
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-link" id="back-link">← Go Back</a>
+
     <div class="main-container">
-        <header>
+        <header class="fadeable-content">
             <h1>Talon Hird</h1>
-            <p class="subtitle"></p>
         </header>
 
-        <div class="scene">
+        <div class="scene" id="cube-activator">
             <div class="cube" id="cube">
-                <a href="academic.html" class="cube-face face-front">Academics</a>
-                <a href="athletic.html" class="cube-face face-right">Athletics</a>
-                <a href="personal.html" class="cube-face face-top">Thoughts</a>
-                <a href="athletic.html" class="cube-face face-left">Athletics</a>
-                <a href="personal.html" class="cube-face face-bottom">Thoughts</a>
-                <a href="academic.html" class="cube-face face-back">Academics</a>
+                <div class="cube-face face-front"></div>
+                <div class="cube-face face-right"></div>
+                <div class="cube-face face-top"></div>
+                <div class="cube-face face-left"></div>
+                <div class="cube-face face-bottom"></div>
+                <div class="cube-face face-back"></div>
             </div>
         </div>
 
-        <nav class="navigation-links">
+        <nav class="navigation-links fadeable-content">
             <a href="academic.html">Academics</a>
             <a href="athletic.html">Athletics</a>
             <a href="personal.html">Thoughts</a>
             <a href="Resume/TalonResume.html" target="_blank" style="color: var(--accent-gold); font-weight: 600;">Resume</a>
         </nav>
-
+        
     </div>
     
-    <footer>
-        <div class="footer-links">
-             <a href="https://github.com/Talonh02" target="_blank" rel="noopener noreferrer">GitHub</a>
-             <a href="mailto:hird@ualberta.ca">Contact</a>
-             <a href="https://bearsandpandas.ca/roster.aspx?rp_id=13013" target="_blank" rel="noopener noreferrer">Athletic Profile</a>
-        </div>
-        <p class="copyright">© 2025 Talon Hird. All rights reserved.</p>
-    </footer>
+    <elevenlabs-convai agent-id="agent_01jxg38ba1egstw56cvcbxkfj4"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cube = document.getElementById('cube');
+            const cubeActivator = document.getElementById('cube-activator');
+            const fadeableContent = document.querySelectorAll('.fadeable-content');
+            const backLink = document.getElementById('back-link');
             
             let rotateX = -20;
             let rotateY = -30;
             let isHovering = false;
+            let isVoiceActive = false;
             
-            const defaultSpeed = 0.15; // Decreased rotation speed
-            const hoverSpeed = 0.02; // Slower speed on hover
+            const defaultSpeed = 0.1; 
+            const hoverSpeed = 0.02;
 
-            cube.addEventListener('mouseenter', () => { isHovering = true; });
-            cube.addEventListener('mouseleave', () => { isHovering = false; });
+            let voiceAgentElement = null;
+            let voiceAgentLaunchButton = null;
 
+            function initializeVoiceAgent() {
+                voiceAgentElement = document.querySelector('elevenlabs-convai');
+                if (voiceAgentElement && voiceAgentElement.shadowRoot) {
+                    voiceAgentLaunchButton = voiceAgentElement.shadowRoot.querySelector('button');
+                    if (voiceAgentLaunchButton) {
+                        clearInterval(initInterval);
+                    }
+                }
+            }
+            const initInterval = setInterval(initializeVoiceAgent, 100);
+
+            function setVoiceMode(active) {
+                isVoiceActive = active;
+                if (active) {
+                    fadeableContent.forEach(el => el.classList.add('content-hidden'));
+                    cube.classList.add('voice-active');
+                    voiceAgentElement.classList.add('visible');
+                    backLink.classList.add('visible');
+                } else {
+                    // This case is now handled by the refresh link, but we keep it
+                    // in case of other potential ways to close the agent in the future.
+                    fadeableContent.forEach(el => el.classList.remove('content-hidden'));
+                    cube.classList.remove('voice-active');
+                    voiceAgentElement.classList.remove('visible');
+                    backLink.classList.remove('visible');
+                }
+            }
+            
+            cubeActivator.addEventListener('click', () => {
+                if (!isVoiceActive && voiceAgentLaunchButton) {
+                    voiceAgentLaunchButton.click();
+                    setVoiceMode(true);
+                } else if (!isVoiceActive) {
+                    // Fallback if button isn't found, just change UI state
+                    setVoiceMode(true);
+                }
+            });
+            
+            cubeActivator.addEventListener('mouseenter', () => { isHovering = true; });
+            cubeActivator.addEventListener('mouseleave', () => { isHovering = false; });
+            
             function animate() {
-                const currentSpeed = isHovering ? hoverSpeed : defaultSpeed;
+                const currentSpeed = (isHovering && !isVoiceActive) ? hoverSpeed : defaultSpeed;
                 rotateX += currentSpeed;
                 rotateY += currentSpeed;
                 cube.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                 requestAnimationFrame(animate);
             }
 
-            // Start the animation
             animate();
         });
     </script>
-
-    <!-- ElevenLabs Voice Agent -->
-    <elevenlabs-convai agent-id="agent_01jxg38ba1egstw56cvcbxkfj4"></elevenlabs-convai>
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
 </html>
