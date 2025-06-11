@@ -51,25 +51,6 @@
             position: relative;
         }
         
-        /* Resume Link Styles */
-        .resume-link {
-            position: absolute;
-            top: 2.5rem;
-            right: 2.5rem;
-            z-index: 10;
-            text-decoration: none;
-            color: var(--text-light);
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            font-weight: 400;
-            transition: color 0.3s ease;
-        }
-        
-        .resume-link:hover {
-            color: var(--accent-gold);
-        }
-
         .main-container {
             width: 100%;
             display: flex;
@@ -200,10 +181,6 @@
         }
         
         @media (max-width: 600px) {
-            .resume-link {
-                top: 1.5rem;
-                right: 1.5rem;
-            }
             .scene {
                 width: 200px;
                 height: 200px;
@@ -225,8 +202,6 @@
     </style>
 </head>
 <body>
-    <a href="Resume/TalonResume.html" target="_blank" class="resume-link">Resume</a>
-
     <div class="main-container">
         <header>
             <h1>Talon Hird</h1>
@@ -270,8 +245,8 @@
             let rotateY = -30;
             let isHovering = false;
             
-            const defaultSpeed = 0.8; // Increased rotation speed
-            const hoverSpeed = 0.1; // Slower speed on hover
+            const defaultSpeed = 0.15; // Decreased rotation speed
+            const hoverSpeed = 0.02; // Slower speed on hover
 
             cube.addEventListener('mouseenter', () => { isHovering = true; });
             cube.addEventListener('mouseleave', () => { isHovering = false; });
@@ -287,3 +262,6 @@
             // Start the animation
             animate();
         });
+    </script>
+</body>
+</html>
