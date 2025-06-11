@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice AI Test — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-start: #fdfcfb;
+            --bg-end: #f8f4f0;
+            --text-dark: #2d3748;
+            --text-light: #5a677b;
+            --accent-gold: #b7791f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .test-container {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .instructions {
+            background: rgba(183, 121, 31, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .instructions h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .voice-widget-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            border: 2px dashed var(--accent-gold);
+        }
+
+        .status {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Voice AI Test Page</h1>
+        <p class="subtitle">
+            Testing ElevenLabs conversational AI integration for portfolio interactions.
+            This voice agent should be able to discuss my background, projects, and experience.
+        </p>
+
+        <div class="instructions">
+            <h3>How to Test:</h3>
+            <p>The voice widget should appear below. Try asking questions like:</p>
+            <ul style="text-align: left; margin-top: 0.5rem;">
+                <li>"Tell me about Talon's background"</li>
+                <li>"What projects has he worked on?"</li>
+                <li>"What are his academic achievements?"</li>
+                <li>"Tell me about his wrestling career"</li>
+            </ul>
+        </div>
+
+        <div class="voice-widget-container">
+            <h3>Voice Agent</h3>
+            <p>The conversational AI widget should load here:</p>
+            
+            <!-- ElevenLabs Voice Agent Widget -->
+            <elevenlabs-convai agent-id="agent_01jxg38ba1egstw56cvcbxkfj4"></elevenlabs-convai>
+            
+            <p class="status">Widget status: Loading ElevenLabs ConvAI...</p>
+        </div>
+
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+    </div>
+
+    <!-- ElevenLabs ConvAI Script -->
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    
+    <script>
+        // Optional: Add some JavaScript to detect when the widget loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the widget loaded successfully
+            setTimeout(function() {
+                const widget = document.querySelector('elevenlabs-convai');
+                const status = document.querySelector('.status');
+                
+                if (widget && widget.shadowRoot) {
+                    status.textContent = 'Widget status: Loaded successfully!';
+                    status.style.color = '#28a745';
+                } else {
+                    status.textContent = 'Widget status: Check console for any loading issues';
+                    status.style.color = '#dc3545';
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
