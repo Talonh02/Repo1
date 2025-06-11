@@ -53,11 +53,12 @@
         
         .main-container {
             width: 100%;
+            max-width: 1200px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: clamp(1rem, 4vw, 2rem);
             flex-grow: 1;
             position: relative;
             z-index: 2;
@@ -129,21 +130,25 @@
 
         .navigation-links {
             display: flex;
-            gap: 2rem;
+            gap: clamp(1rem, 4vw, 2rem);
             margin-top: 2rem;
             animation: fadeIn 1.2s ease-out 0.2s;
             opacity: 0;
             animation-fill-mode: forwards;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .navigation-links a {
             font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
             color: var(--text-light);
             text-decoration: none;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem clamp(0.5rem, 2vw, 1rem);
             border-bottom: 2px solid transparent;
             transition: color 0.3s, border-bottom-color 0.3s;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .navigation-links a:hover {
@@ -170,16 +175,41 @@
         .footer-links a {
             color: var(--text-light);
             text-decoration: none;
-            margin: 0 1rem;
+            margin: 0 clamp(0.5rem, 2vw, 1rem);
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 1px solid transparent;
             padding-bottom: 2px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
         }
         .footer-links a:hover {
             color: var(--accent-gold);
             border-bottom-color: var(--accent-gold);
         }
         
+        @media (max-width: 768px) {
+            body {
+                padding: 0 1rem;
+            }
+            
+            .main-container {
+                padding: 1rem;
+            }
+            
+            header {
+                margin-bottom: 1.5rem;
+            }
+            
+            .navigation-links {
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+            
+            .navigation-links a {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
         @media (max-width: 600px) {
             .scene {
                 width: 200px;
@@ -197,6 +227,52 @@
             .face-left   { transform: rotateY(-90deg) translateZ(100px); }
             .face-top    { transform: rotateX(90deg) translateZ(100px); }
             .face-bottom { transform: rotateX(-90deg) translateZ(100px); }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 0.5rem;
+            }
+            
+            .scene {
+                width: 170px;
+                height: 170px;
+                margin: 1rem 0;
+            }
+            
+            .cube-face {
+                width: 170px;
+                height: 170px;
+                font-size: 1.2rem;
+            }
+            
+            .face-front  { transform: rotateY(0deg) translateZ(85px); }
+            .face-back   { transform: rotateY(180deg) translateZ(85px); }
+            .face-right  { transform: rotateY(90deg) translateZ(85px); }
+            .face-left   { transform: rotateY(-90deg) translateZ(85px); }
+            .face-top    { transform: rotateX(90deg) translateZ(85px); }
+            .face-bottom { transform: rotateX(-90deg) translateZ(85px); }
+            
+            .navigation-links {
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+            
+            .navigation-links a {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links a {
+                margin: 0.2rem 0.5rem;
+                font-size: 0.8rem;
+            }
         }
 
     </style>

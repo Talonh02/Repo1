@@ -40,7 +40,8 @@
             background-color: var(--bg-seashell);
             min-height: 100vh;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
         
         .background-vines {
@@ -200,6 +201,69 @@
 
         .footer-links a:hover {
             color: var(--accent-gold);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 4rem 1rem 2rem 1rem;
+            }
+            
+            header h1 {
+                font-size: clamp(3rem, 12vw, 5rem);
+            }
+            
+            .writing-sections h3 {
+                font-size: 1.3rem;
+            }
+            
+            .explorations-list {
+                padding-left: 0;
+            }
+            
+            .explorations-list li {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 3rem 0.5rem 2rem 0.5rem;
+            }
+            
+            header h1 {
+                font-size: clamp(2.5rem, 15vw, 4rem);
+                margin-bottom: 0.5rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .content-section p {
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+            
+            .writing-sections h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .explorations-list li {
+                font-size: 1rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .footer-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-links a {
+                margin: 0.2rem 0.5rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
