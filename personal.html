@@ -76,7 +76,11 @@
             font-style: italic;
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             color: white;
-            text-shadow: 0 0 15px var(--accent-glow);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-glow));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         header p {
@@ -182,15 +186,13 @@
 
         <main>
             <section class="content-section">
-                <h2>Personal Writing</h2>
+                <h2>Writing</h2>
                 <p>A collection of personal reflections and writing projects.</p>
                 
                 <h3 style="color: var(--accent-glow); margin-bottom: 1.5rem; font-size: 1.1rem; letter-spacing: 1px;">DOCUMENTS</h3>
                 <ul class="explorations-list">
-                    <li><a href="Personal-Docs/personal1.html" target="_blank">Personal Reflection 1</a></li>
-                    <li><a href="Personal-Docs/personal2.html" target="_blank">Personal Reflection 2</a></li>
-                    <li>Future reflection paper</li>
-                    <li>Title here</li>
+                    <li><a href="Personal-Docs/personal1.html" target="_blank">Reflection</a></li>
+                    <li><a href="Personal-Docs/personal2.html" target="_blank">Reflection</a></li>
                 </ul>
             </section>
         </main>
