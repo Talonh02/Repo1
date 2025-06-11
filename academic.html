@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Excellence — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oxford-blue: #0f1419;
+            --navy-deep: #1a2332;
+            --academic-gold: #c9a961;
+            --parchment: #f4f1e8;
+            --ivory: #faf8f3;
+            --charcoal: #2c3e50;
+            --scholarly-brown: #8b4513;
+            --burgundy: #722f37;
+            --warm-white: #fffef9;
+            --academic-gray: #5d6d7e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes scholarly {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.1; }
+        }
+
+        @keyframes wisdom {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-2px); }
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Playfair Display', serif;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: 
+                linear-gradient(135deg, var(--ivory) 0%, var(--parchment) 40%, var(--warm-white) 100%);
+            min-height: 100vh;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--oxford-blue) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--navy-deep) 0%, transparent 50%);
+            opacity: 0.03;
+            pointer-events: none;
+            animation: scholarly 20s ease-in-out infinite;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2.5rem;
+            position: relative;
+        }
+
+        .back-nav {
+            margin-bottom: 2rem;
+        }
+
+        .back-nav a {
+            color: var(--oxford-blue);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid var(--academic-gold);
+            padding-bottom: 3px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .back-nav a:hover {
+            color: var(--burgundy);
+            border-bottom-color: var(--scholarly-brown);
+            animation: wisdom 2s ease-in-out;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2.5rem;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 350px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--oxford-blue), 
+                var(--academic-gold), 
+                var(--navy-deep),
+                transparent
+            );
+            border-radius: 2px;
+        }
+
+        header::after {
+            content: '⚜ ❖ ⚜';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--academic-gold);
+            font-size: 1rem;
+            letter-spacing: 12px;
+            animation: wisdom 15s ease-in-out infinite;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 500;
+            color: var(--oxford-blue);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.02em;
+            text-shadow: 2px 2px 4px rgba(201, 169, 97, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--academic-gray);
+            font-style: italic;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .project {
+            background: linear-gradient(145deg, 
+                rgba(255, 254, 249, 0.95), 
+                rgba(250, 248, 243, 0.9),
+                rgba(244, 241, 232, 0.95)
+            );
+            border: 2px solid var(--academic-gold);
+            border-radius: 8px;
+            padding: 4rem;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 40px rgba(15, 20, 25, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                var(--oxford-blue), 
+                var(--academic-gold), 
+                var(--navy-deep),
+                var(--burgundy)
+            );
+        }
+
+        .project::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--parchment) 0%, transparent 70%);
+            opacity: 0.4;
+            animation: scholarly 25s ease-in-out infinite;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 60px rgba(15, 20, 25, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border-color: var(--burgundy);
+        }
+
+        .project h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--oxford-blue);
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-description {
+            font-size: 1.25rem;
+            color: var(--charcoal);
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-stack {
+            background: linear-gradient(135deg, 
+                rgba(250, 248, 243, 0.9) 0%, 
+                rgba(255, 254, 249, 0.8) 100%
+            );
+            padding: 2rem 2.5rem;
+            border-radius: 6px;
+            margin: 2.5rem 0;
+            border-left: 6px solid var(--burgundy);
+            border-right: 2px solid var(--academic-gold);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(15, 20, 25, 0.05);
+        }
+
+        .tech-stack-label {
+            font-weight: 600;
+            color: var(--oxford-blue);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+        }
+
+        .tech-list {
+            color: var(--scholarly-brown);
+            font-size: 1.1rem;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .features {
+            margin: 2.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--burgundy);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--charcoal);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features li::before {
+            content: "◆";
+            position: absolute;
+            left: 0;
+            color: var(--academic-gold);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2.5rem;
+            border-top: 2px solid var(--academic-gold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-links::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--oxford-blue);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.4s ease;
+            border: 2px solid;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(15, 20, 25, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--oxford-blue), var(--navy-deep));
+            color: var(--ivory);
+            border-color: var(--oxford-blue);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--burgundy), var(--scholarly-brown));
+            border-color: var(--burgundy);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(15, 20, 25, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--scholarly-brown);
+            border-color: var(--academic-gold);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, var(--academic-gold), var(--scholarly-brown));
+            color: var(--ivory);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(201, 169, 97, 0.3);
+        }
+
+        .transcript-section {
+            margin-top: 5rem;
+            padding-top: 3.5rem;
+            border-top: 4px solid var(--academic-gold);
+            position: relative;
+        }
+
+        .transcript-section::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--oxford-blue), 
+                var(--burgundy),
+                transparent
+            );
+        }
+
+        .transcript-section::after {
+            content: '❖ ⚜ ❖';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--academic-gold);
+            font-size: 1.1rem;
+            letter-spacing: 15px;
+            animation: wisdom 20s ease-in-out infinite;
+        }
+
+        .transcript-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--oxford-blue);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        .transcript-container {
+            background: linear-gradient(145deg, 
+                rgba(255, 254, 249, 0.95), 
+                rgba(250, 248, 243, 0.9),
+                rgba(244, 241, 232, 0.95)
+            );
+            border: 3px solid var(--academic-gold);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 
+                0 12px 50px rgba(15, 20, 25, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .transcript-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--oxford-blue), 
+                var(--academic-gold), 
+                var(--burgundy)
+            );
+            border-radius: 10px 10px 0 0;
+        }
+
+        .transcript-link {
+            display: inline-block;
+            color: var(--oxford-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            border-bottom: 3px solid var(--academic-gold);
+            padding-bottom: 5px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        .transcript-link:hover {
+            color: var(--burgundy);
+            border-bottom-color: var(--burgundy);
+            animation: wisdom 2s ease-in-out;
+        }
+
+        .transcript-description {
+            margin-top: 1.5rem;
+            color: var(--scholarly-brown);
+            font-style: italic;
+            font-size: 1.15rem;
+            letter-spacing: 0.02em;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding-top: 3rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent,
+                var(--oxford-blue), 
+                var(--academic-gold), 
+                var(--burgundy),
+                transparent
+            );
+            border-radius: 2px;
+        }
+
+        footer::after {
+            content: '⚜ ❖ ⚜';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--academic-gold);
+            font-size: 0.9rem;
+            letter-spacing: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--oxford-blue);
+            text-decoration: none;
+            font-weight: 500;
+            font-style: italic;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-links a:hover {
+            color: var(--burgundy);
+            border-bottom-color: var(--academic-gold);
+            animation: wisdom 2s ease-in-out;
+        }
+
+        .copyright {
+            font-size: 0.95rem;
+            color: var(--academic-gray);
+            font-style: italic;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+                letter-spacing: 0.01em;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .project {
+                padding: 3rem 2rem;
+                border-radius: 6px;
+            }
+            
+            .tech-stack {
+                padding: 1.5rem 2rem;
+            }
+            
+            .features li {
+                padding-left: 2rem;
+                font-size: 1rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .transcript-section h2 {
+                font-size: 2rem;
+            }
+            
+            .transcript-container {
+                padding: 2rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-nav">
+            <a href="homepage.html">← Back to Portfolio</a>
+        </div>
+
+        <header>
+            <h1>Academics</h1>
+            <p class="subtitle">School Projects</p>
+        </header>
+
+        <div class="project-grid">
+            <!-- Data Science Projects -->
+            <div class="project">
+                <h2>Data Science & Analytics</h2>
+                <p class="project-description">
+                    Advanced statistical modeling and machine learning applications in sports analytics and performance optimization, demonstrating proficiency in R programming and predictive modeling techniques.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Technical Skills</div>
+                    <div class="tech-list">R Programming, Machine Learning, Statistical Modeling, Data Visualization, Web Scraping</div>
+                </div>
+
+                <div class="features">
+                    <h3>Project Highlights</h3>
+                    <ul>
+                        <li><strong>Fantasy Basketball Analytics:</strong> Machine learning model achieving 73% prediction accuracy for NBA player performance</li>
+                        <li><strong>Athletic Performance Analysis:</strong> Statistical framework for competitive athlete selection using longitudinal data</li>
+                        <li><strong>Historical Data Processing:</strong> Web scraping and analysis of 25 years of professional sports data</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Academic-Projects/Data-Science/Beating_The_League copy.html" target="_blank" class="btn btn-primary">Basketball Analytics</a>
+                    <a href="Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="btn btn-primary">Athletic Analysis</a>
+                </div>
+            </div>
+
+            <!-- Investment Analysis -->
+            <div class="project">
+                <h2>Investment Analysis & Financial Modeling</h2>
+                <p class="project-description">
+                    Comprehensive equity research and valuation models for technology companies, applying fundamental analysis, DCF modeling, and industry comparison methodologies to generate investment recommendations.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Financial Tools</div>
+                    <div class="tech-list">DCF Modeling, Comparable Analysis, Financial Statement Analysis, Excel Financial Modeling</div>
+                </div>
+
+                <div class="features">
+                    <h3>Investment Research</h3>
+                    <ul>
+                        <li><strong>Palantir Technologies:</strong> Comprehensive equity analysis with DCF valuation and industry positioning assessment</li>
+                        <li><strong>Meta Platforms:</strong> Technology sector analysis with financial modeling and growth projections</li>
+                        <li><strong>Valuation Methodologies:</strong> Multiple approaches including discounted cash flow and market multiples</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="btn btn-primary">Palantir Analysis</a>
+                    <a href="Academic-Projects/Investment-Analysis/pltrslideshow.pdf" target="_blank" class="btn btn-secondary">Palantir Slideshow</a>
+                    <a href="Academic-Projects/Investment-Analysis/metainvsanlys.pdf" target="_blank" class="btn btn-primary">Meta Analysis</a>
+                    <a href="Academic-Projects/Investment-Analysis/metaslideshow.pdf" target="_blank" class="btn btn-secondary">Meta Slideshow</a>
+                </div>
+            </div>
+
+            <!-- Philosophy Research -->
+            <div class="project">
+                <h2>Applied Philosophy & Ethics</h2>
+                <p class="project-description">
+                    Critical examination of environmental and energy policy through philosophical lens, exploring the intersection of economic development, environmental responsibility, and ethical resource extraction practices.
+                </p>
+                
+                <div class="tech-stack">
+                    <div class="tech-stack-label">Research Areas</div>
+                    <div class="tech-list">Environmental Ethics, Policy Analysis, Critical Theory, Resource Economics</div>
+                </div>
+
+                <div class="features">
+                    <h3>Research Focus</h3>
+                    <ul>
+                        <li><strong>Oil Sands Analysis:</strong> Philosophical examination of energy policy and environmental narratives</li>
+                        <li><strong>Political Philosophy:</strong> Critical analysis of contemporary political theory and governance</li>
+                        <li><strong>Ethical Framework Development:</strong> Applied philosophy in contemporary policy debates</li>
+                        <li><strong>Interdisciplinary Approach:</strong> Combining philosophical theory with economic and environmental analysis</li>
+                    </ul>
+                </div>
+
+                <div class="project-links">
+                    <a href="Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="btn btn-primary">Oil Sands Essay</a>
+                    <a href="Academic-Projects/Philosophy/UPN/UPNslideshow.pdf" target="_blank" class="btn btn-secondary">Oil Sands Slideshow</a>
+                    <a href="Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="btn btn-primary">Political Philosophy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Transcript Section -->
+        <div class="transcript-section">
+            <h2>Official Academic Transcript</h2>
+            <div class="transcript-container">
+                <a href="Transcript/TRSPCT copy.pdf" target="_blank" class="transcript-link">📄 View Official Transcript</a>
+                <p class="transcript-description">
+                    Bachelor of Commerce in Finance, Minor in Philosophy<br>
+                    University of Alberta School of Business<br>
+                    Overall GPA: 3.8/4.0
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="homepage.html">Home</a>
+                <a href="athletic.html">Athletics & Media</a>
+                <a href="personal.html">Personal</a>
+                <a href="mailto:hird@ualberta.ca">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Talon Hird. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

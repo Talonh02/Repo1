@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Reflection 2 — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cosmic-deep: #0a0a23;
+            --cosmic-blue: #1a1a3e;
+            --cosmic-purple: #2d1b69;
+            --nebula-violet: #4c2a85;
+            --starlight: #e6e6fa;
+            --silver: #c0c0c0;
+            --cosmic-gold: #ffd700;
+            --void-black: #000011;
+            --ethereal-white: #f8f8ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', 'Source Sans Pro', serif;
+            line-height: 1.8;
+            color: var(--starlight);
+            background: radial-gradient(ellipse at center, var(--cosmic-blue) 0%, var(--cosmic-deep) 70%, var(--void-black) 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-nav {
+            margin-bottom: 2rem;
+        }
+
+        .back-nav a {
+            color: var(--starlight);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid var(--cosmic-gold);
+            padding-bottom: 2px;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px var(--cosmic-gold);
+            letter-spacing: 0.5px;
+        }
+
+        .back-nav a:hover {
+            color: var(--cosmic-gold);
+            border-bottom-color: var(--starlight);
+            text-shadow: 0 0 15px var(--cosmic-gold);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: var(--starlight);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 30px var(--nebula-violet);
+        }
+
+        .content {
+            background: linear-gradient(145deg, 
+                rgba(26, 26, 62, 0.7), 
+                rgba(45, 27, 105, 0.6),
+                rgba(10, 10, 35, 0.8)
+            );
+            border: 1px solid var(--cosmic-gold);
+            border-radius: 12px;
+            padding: 4rem;
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 0 50px rgba(255, 215, 0, 0.3),
+                inset 0 0 50px rgba(76, 42, 133, 0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--starlight);
+            text-shadow: 0 0 10px var(--cosmic-purple);
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--starlight);
+            text-decoration: none;
+            font-weight: 500;
+            font-style: italic;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px var(--cosmic-purple);
+            margin: 0 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--cosmic-gold);
+            border-bottom-color: var(--cosmic-gold);
+            text-shadow: 0 0 15px var(--cosmic-gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-nav">
+            <a href="../personal.html">← Back to Personal</a>
+        </div>
+
+        <header>
+            <h1>Personal Reflection 2</h1>
+        </header>
+
+        <div class="content">
+            <p>Example reflection in personal 2</p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="../homepage.html">Home</a>
+                <a href="../personal.html">Personal</a>
+                <a href="mailto:hird@ualberta.ca">Contact</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
