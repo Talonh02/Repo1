@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Projects | Bauhaus Design 2</title>
+    <style>
+        /* BAUHAUS DESIGN 2: ASYMMETRICAL BALANCE
+           Core principle: Dynamic asymmetry with primary color emphasis
+           Focus on typography hierarchy and geometric composition */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            overflow-x: hidden;
+        }
+        
+        /* Main container: Asymmetrical layout system */
+        .container {
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Header: Bold typographic statement */
+        .header {
+            position: relative;
+            height: 250px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            padding: 0 5vw;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            background-color: #ff0000;
+            transform: skewX(-15deg);
+            transform-origin: top left;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background-color: #ffcc00;
+        }
+        
+        .title-composition {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .main-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        .title-line-1 {
+            color: #ffffff;
+            text-shadow: 3px 3px 0px #000000;
+        }
+        
+        .title-line-2 {
+            color: #000000;
+            margin-left: 2rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #000000;
+            margin-top: 1rem;
+            margin-left: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Navigation: Geometric tab system */
+        .nav-tabs {
+            display: flex;
+            margin: 0 5vw;
+            gap: 0;
+            margin-top: -20px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .nav-tab {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 100%, 20px 100%);
+            margin-right: -20px;
+        }
+        
+        .nav-tab:hover,
+        .nav-tab.active {
+            background-color: #0066cc;
+            transform: translateY(-5px);
+            z-index: 4;
+        }
+        
+        .nav-tab:nth-child(2) {
+            background-color: #ff0000;
+        }
+        
+        .nav-tab:nth-child(3) {
+            background-color: #ffcc00;
+            color: #000000;
+        }
+        
+        .nav-tab:nth-child(4) {
+            background-color: #0066cc;
+        }
+        
+        /* Main content: Dynamic layout */
+        .main-content {
+            padding: 80px 5vw;
+            position: relative;
+        }
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .projects-column {
+            position: relative;
+        }
+        
+        .section-block {
+            margin-bottom: 100px;
+            position: relative;
+        }
+        
+        .section-number {
+            position: absolute;
+            left: -80px;
+            top: 0;
+            font-size: 8rem;
+            font-weight: 900;
+            color: #f0f0f0;
+            line-height: 1;
+            z-index: -1;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 6px;
+            background-color: #ff0000;
+        }
+        
+        .section-title.philosophy::after { background-color: #0066cc; }
+        .section-title.data::after { background-color: #ffcc00; }
+        
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .project-item {
+            background: #ffffff;
+            border-left: 8px solid #ff0000;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:nth-child(even) {
+            border-left-color: #0066cc;
+            margin-left: 40px;
+        }
+        
+        .project-item:nth-child(3n) {
+            border-left-color: #ffcc00;
+            margin-left: 20px;
+        }
+        
+        .project-item:hover {
+            transform: translateX(20px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .project-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+        
+        .project-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #444;
+        }
+        
+        .project-action {
+            display: inline-flex;
+            align-items: center;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .project-action:hover::before {
+            left: 0;
+        }
+        
+        .project-action:hover {
+            color: #ffffff;
+        }
+        
+        /* Sidebar: Geometric elements */
+        .info-sidebar {
+            position: relative;
+        }
+        
+        .info-block {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 40px 30px;
+            margin-bottom: 40px;
+            position: relative;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-block:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        
+        .info-block:nth-child(even) {
+            background-color: #ff0000;
+            transform: rotate(2deg);
+            margin-left: 20px;
+        }
+        
+        .info-block:nth-child(3n) {
+            background-color: #0066cc;
+            transform: rotate(-1deg);
+        }
+        
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+        
+        .info-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Geometric background elements */
+        .bg-geometry {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-shape {
+            position: absolute;
+            opacity: 0.03;
+        }
+        
+        .bg-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #ff0000;
+            top: 20%;
+            right: 10%;
+        }
+        
+        .bg-square {
+            width: 200px;
+            height: 200px;
+            background-color: #0066cc;
+            bottom: 30%;
+            left: 5%;
+            transform: rotate(45deg);
+        }
+        
+        .bg-triangle {
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid #ffcc00;
+            top: 50%;
+            right: 30%;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+                margin: 20px 5vw;
+            }
+            
+            .nav-tab {
+                clip-path: none;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .section-number {
+                display: none;
+            }
+            
+            .project-item {
+                margin-left: 0 !important;
+            }
+            
+            .info-block {
+                transform: none !important;
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bg-geometry">
+            <div class="bg-shape bg-circle"></div>
+            <div class="bg-shape bg-square"></div>
+            <div class="bg-shape bg-triangle"></div>
+        </div>
+        
+        <header class="header">
+            <div class="title-composition">
+                <div class="main-title">
+                    <div class="title-line-1">TALON</div>
+                    <div class="title-line-2">HIRD</div>
+                </div>
+                <div class="subtitle">Projects & Analysis</div>
+            </div>
+        </header>
+        
+        <nav class="nav-tabs">
+            <div class="nav-tab active">Finance</div>
+            <div class="nav-tab">Philosophy</div>
+            <div class="nav-tab">Data Science</div>
+            <div class="nav-tab">Commentary</div>
+        </nav>
+        
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="projects-column">
+                    <section class="section-block">
+                        <div class="section-number">01</div>
+                        <h2 class="section-title">Finance Analysis</h2>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <h3 class="project-name">Meta Investment Analysis</h3>
+                                <p class="project-desc">Comprehensive evaluation of Meta's financial position, market dynamics, and investment potential through rigorous quantitative analysis.</p>
+                                <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" class="project-action">View Analysis</a>
+                            </div>
+                            <div class="project-item">
+                                <h3 class="project-name">Palantir Strategic Assessment</h3>
+                                <p class="project-desc">Deep-dive analysis of Palantir's business model, competitive positioning, and long-term growth prospects in data analytics.</p>
+                                <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" class="project-action">View Report</a>
+                            </div>
+                            <div class="project-item">
+                                <h3 class="project-name">Financial Commentary</h3>
+                                <p class="project-desc">Ongoing analysis of market trends, economic indicators, and investment opportunities across multiple sectors.</p>
+                                <a href="../Personal-Docs/on-finance.html" class="project-action">Read Commentary</a>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="section-block">
+                        <div class="section-number">02</div>
+                        <h2 class="section-title philosophy">Philosophy & Ethics</h2>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <h3 class="project-name">Political Philosophy Analysis</h3>
+                                <p class="project-desc">Critical examination of contemporary political theories and their practical implications for modern governance structures.</p>
+                                <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" class="project-action">Read Analysis</a>
+                            </div>
+                            <div class="project-item">
+                                <h3 class="project-name">Environmental Ethics Study</h3>
+                                <p class="project-desc">Philosophical exploration of environmental responsibility, focusing on resource management and sustainable development practices.</p>
+                                <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" class="project-action">View Study</a>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section class="section-block">
+                        <div class="section-number">03</div>
+                        <h2 class="section-title data">Data Science</h2>
+                        <div class="project-list">
+                            <div class="project-item">
+                                <h3 class="project-name">Athletic Performance Modeling</h3>
+                                <p class="project-desc">Statistical analysis and predictive modeling of athletic performance metrics using advanced data science methodologies.</p>
+                                <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" class="project-action">View Research</a>
+                            </div>
+                            <div class="project-item">
+                                <h3 class="project-name">Competitive Analysis Framework</h3>
+                                <p class="project-desc">Systematic approach to sports analytics and performance prediction using R and statistical modeling techniques.</p>
+                                <a href="../Academic-Projects/Data-Science/Beating_The_League copy.html" class="project-action">Explore Models</a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                
+                <aside class="info-sidebar">
+                    <div class="info-block">
+                        <h3 class="info-title">Analytical Approach</h3>
+                        <p class="info-text">Systematic methodology combining quantitative analysis with strategic thinking across finance, philosophy, and data science domains.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3 class="info-title">Research Focus</h3>
+                        <p class="info-text">Interdisciplinary projects emphasizing evidence-based conclusions and practical applications of theoretical frameworks.</p>
+                    </div>
+                    <div class="info-block">
+                        <h3 class="info-title">Academic Foundation</h3>
+                        <p class="info-text">University-level research and analysis demonstrating rigorous academic standards and professional presentation.</p>
+                    </div>
+                </aside>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

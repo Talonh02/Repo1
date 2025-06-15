@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinwheel Triangles — Talon Hird</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .triangle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .triangle:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Red Triangle - Top sector radiating from center */
+        .triangle-red {
+            background: #ff0000;
+            clip-path: polygon(50% 50%, 0% 0%, 100% 0%);
+            z-index: 3;
+        }
+
+        /* Blue Triangle - Bottom-left sector radiating from center */
+        .triangle-blue {
+            background: #0066ff;
+            clip-path: polygon(50% 50%, 0% 0%, 0% 100%, 100% 100%);
+            z-index: 2;
+        }
+
+        /* Yellow Triangle - Right sector radiating from center */
+        .triangle-yellow {
+            background: #ffdd00;
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back</a>
+
+    <div class="triangle triangle-red"></div>
+    <div class="triangle triangle-blue"></div>
+    <div class="triangle triangle-yellow"></div>
+</body>
+</html>

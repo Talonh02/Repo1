@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Projects | Bauhaus Design 1</title>
+    <style>
+        /* BAUHAUS DESIGN 1: GRID FUNCTIONALISM
+           Core principle: Form follows function through systematic grid structure
+           Emphasis on mathematical proportions and modular construction */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.4;
+        }
+        
+        /* Grid system based on Bauhaus proportional relationships */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 0;
+        }
+        
+        /* Header: Bold geometric composition */
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(90deg, #ff0000 0%, #ff0000 33.33%, #0066cc 33.33%, #0066cc 66.66%, #ffcc00 66.66%);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* Left sidebar: Navigation as functional element */
+        .nav-sidebar {
+            background-color: #000000;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .nav-item {
+            background-color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background-color: #ff0000;
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+        
+        .nav-item.finance { border-left: 8px solid #ff0000; }
+        .nav-item.philosophy { border-left: 8px solid #0066cc; }
+        .nav-item.personal { border-left: 8px solid #ffcc00; }
+        .nav-item.commentary { border-left: 8px solid #000000; }
+        
+        /* Main content: Systematic layout */
+        .main-content {
+            padding: 60px 40px;
+            background-color: #f8f8f8;
+        }
+        
+        .content-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .section-number {
+            background-color: #ff0000;
+            color: #ffffff;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: #ffffff;
+            border: 2px solid #000000;
+            padding: 25px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #0066cc, #ffcc00);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .project-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: background-color 0.2s ease;
+        }
+        
+        .project-link:hover {
+            background-color: #ff0000;
+        }
+        
+        /* Right sidebar: Geometric accent */
+        .accent-sidebar {
+            background: linear-gradient(180deg, #ff0000 0%, #ff0000 25%, #0066cc 25%, #0066cc 50%, #ffcc00 50%, #ffcc00 75%, #000000 75%);
+            position: relative;
+        }
+        
+        .geometric-element {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #ffffff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        
+        /* Footer: Functional information bar */
+        .footer {
+            grid-column: 1 / -1;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-text {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-accent {
+            width: 100px;
+            height: 20px;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            
+            .nav-sidebar {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 20px;
+            }
+            
+            .nav-item {
+                min-width: 120px;
+            }
+            
+            .accent-sidebar {
+                display: none;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-grid">
+        <header class="header">
+            <h1>Talon Hird</h1>
+        </header>
+        
+        <nav class="nav-sidebar">
+            <div class="nav-item finance">Finance</div>
+            <div class="nav-item philosophy">Philosophy</div>
+            <div class="nav-item personal">Personal</div>
+            <div class="nav-item commentary">Commentary</div>
+        </nav>
+        
+        <main class="main-content">
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <h2 class="section-title">Finance Analysis & Investment Commentary</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">Meta Investment Analysis</h3>
+                        <p class="project-description">Comprehensive financial analysis examining Meta's market position, growth potential, and investment viability through systematic data evaluation.</p>
+                        <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" class="project-link">View Analysis</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">Palantir Strategic Review</h3>
+                        <p class="project-description">In-depth assessment of Palantir's business model, competitive advantages, and long-term investment prospects in the data analytics sector.</p>
+                        <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" class="project-link">View Analysis</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">Financial Commentary</h3>
+                        <p class="project-description">Ongoing analysis and commentary on market trends, economic indicators, and investment opportunities across various sectors.</p>
+                        <a href="../Personal-Docs/on-finance.html" class="project-link">Read Commentary</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <h2 class="section-title">Philosophy & Academic Writing</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">Political Philosophy Analysis</h3>
+                        <p class="project-description">Critical examination of contemporary political theories and their practical applications in modern governance systems.</p>
+                        <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" class="project-link">Read Analysis</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">Environmental Ethics Study</h3>
+                        <p class="project-description">Philosophical exploration of environmental responsibility, focusing on oil sands development and sustainable resource management.</p>
+                        <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" class="project-link">View Study</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="content-section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <h2 class="section-title">Data Science & Research</h2>
+                </div>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">Athletic Performance Analysis</h3>
+                        <p class="project-description">Statistical modeling and data analysis of athletic performance metrics, selection criteria, and competitive outcomes.</p>
+                        <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" class="project-link">View Research</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">Predictive Modeling</h3>
+                        <p class="project-description">Advanced statistical methods applied to sports performance prediction and competitive analysis using R and data science techniques.</p>
+                        <a href="../Academic-Projects/Data-Science/Beating_The_League copy.html" class="project-link">View Models</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <aside class="accent-sidebar">
+            <div class="geometric-element"></div>
+        </aside>
+        
+        <footer class="footer">
+            <div class="footer-text">Systematic Design | Functional Purpose</div>
+            <div class="footer-accent"></div>
+        </footer>
+    </div>
+</body>
+</html>

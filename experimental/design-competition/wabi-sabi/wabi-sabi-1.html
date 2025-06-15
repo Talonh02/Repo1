@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Contemplative Reflections</title>
+    <style>
+        /* Wabi-Sabi Design 1: "Weathered Stone" - Embracing natural textures and imperfection */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f4f1eb 0%, #e8e3d6 100%);
+            color: #5a5248;
+            overflow-x: hidden;
+        }
+        
+        /* Imperfect organic shapes as background elements */
+        .organic-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.03;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+        
+        .shape-1 {
+            background: #b5a490;
+            width: 400px;
+            height: 300px;
+            top: 10%;
+            right: -100px;
+            transform: rotate(15deg);
+        }
+        
+        .shape-2 {
+            background: #8b7355;
+            width: 250px;
+            height: 350px;
+            bottom: 20%;
+            left: -50px;
+            transform: rotate(-20deg);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+        
+        /* Asymmetrical header with natural spacing */
+        .header {
+            margin-bottom: 4rem;
+            margin-left: 1.5rem;
+        }
+        
+        .name {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #6b5b4f;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+            position: relative;
+        }
+        
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, #a69080 0%, transparent 100%);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #8b7d6b;
+            font-style: italic;
+            margin-left: 0.5rem;
+        }
+        
+        /* Project sections with organic, imperfect layouts */
+        .section {
+            margin-bottom: 3.5rem;
+            position: relative;
+        }
+        
+        .section:nth-child(even) {
+            margin-left: 2rem;
+        }
+        
+        .section:nth-child(odd) {
+            margin-right: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: #6b5b4f;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #a69080;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(166, 144, 128, 0.2);
+            position: relative;
+            transform: rotate(0.5deg);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:nth-child(even) {
+            transform: rotate(-0.3deg);
+            margin-left: 1rem;
+        }
+        
+        .project-card:hover {
+            transform: rotate(0deg) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(166, 144, 128, 0.15);
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            color: #5a5248;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .project-description {
+            color: #7a6b5d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Texture overlay for aged paper effect */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(166, 144, 128, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 80% 20%, rgba(139, 115, 85, 0.05) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, rgba(181, 164, 144, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px, 120px 120px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Gentle fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .name {
+                font-size: 2.2rem;
+            }
+            
+            .section:nth-child(even),
+            .section:nth-child(odd) {
+                margin-left: 0;
+                margin-right: 0;
+            }
+            
+            .project-card:nth-child(even) {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="organic-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+    
+    <div class="texture-overlay"></div>
+    
+    <div class="container">
+        <header class="header fade-in">
+            <h1 class="name">Talon Hird</h1>
+            <p class="subtitle">Reflections on Markets, Philosophy, and Life</p>
+        </header>
+        
+        <section class="section fade-in">
+            <h2 class="section-title">Financial Analysis & Commentary</h2>
+            <div class="project-card">
+                <h3 class="project-title">Investment Thesis Development</h3>
+                <p class="project-description">Deep-dive analyses of market opportunities, exploring the intersection of fundamental analysis and behavioral economics. Each piece reflects years of studying market patterns and human nature.</p>
+            </div>
+            <div class="project-card">
+                <h3 class="project-title">Market Commentary</h3>
+                <p class="project-description">Thoughtful observations on economic trends, policy implications, and their ripple effects through various asset classes. Written with the patience of long-term thinking.</p>
+            </div>
+        </section>
+        
+        <section class="section fade-in">
+            <h2 class="section-title">Philosophical Inquiries</h2>
+            <div class="project-card">
+                <h3 class="project-title">Academic Research</h3>
+                <p class="project-description">Scholarly explorations of political philosophy, environmental ethics, and the moral frameworks that guide decision-making in complex systems.</p>
+            </div>
+            <div class="project-card">
+                <h3 class="project-title">Essays on Meaning</h3>
+                <p class="project-description">Personal investigations into questions of purpose, responsibility, and the good life. These writings emerge from quiet contemplation and lived experience.</p>
+            </div>
+        </section>
+        
+        <section class="section fade-in">
+            <h2 class="section-title">Reflective Writing</h2>
+            <div class="project-card">
+                <h3 class="project-title">Personal Meditations</h3>
+                <p class="project-description">Honest reflections on growth, setbacks, and the ongoing process of becoming. These pieces embrace vulnerability as a path to understanding.</p>
+            </div>
+            <div class="project-card">
+                <h3 class="project-title">Cultural Commentary</h3>
+                <p class="project-description">Critical yet compassionate observations on contemporary issues, seeking nuance in an increasingly polarized world.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

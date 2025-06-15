@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird — Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Minimalist Design 1: Pure White Space */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pure-white: #ffffff;
+            --near-black: #111111;
+            --light-gray: #f8f8f8;
+            --medium-gray: #666666;
+            --subtle-line: #e8e8e8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--pure-white);
+            color: var(--near-black);
+            line-height: 1.6;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            min-height: 100vh;
+        }
+
+        /* Typography Hierarchy */
+        .name {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6rem;
+        }
+
+        /* Project Categories */
+        .projects {
+            display: grid;
+            gap: 4rem;
+        }
+
+        .project-category {
+            border-top: 1px solid var(--subtle-line);
+            padding-top: 2rem;
+        }
+
+        .project-category:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--near-black);
+        }
+
+        .project-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .project-item:hover {
+            border-bottom-color: var(--subtle-line);
+        }
+
+        .project-link {
+            color: var(--near-black);
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .project-year {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+            margin-left: 2rem;
+        }
+
+        /* Subtle hover states */
+        .project-item:hover .project-link {
+            color: var(--medium-gray);
+        }
+
+        /* Navigation at bottom */
+        .navigation {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--subtle-line);
+            text-align: center;
+        }
+
+        .nav-link {
+            color: var(--medium-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin: 0 2rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--near-black);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 4rem 1.5rem;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .project-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+            
+            .project-year {
+                margin-left: 0;
+            }
+            
+            .nav-link {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="name">Talon Hird</h1>
+            <p class="subtitle">Projects & Commentary</p>
+        </header>
+
+        <main class="projects">
+            <section class="project-category">
+                <h2 class="category-title">Finance & Investment Analysis</h2>
+                <div class="project-list">
+                    <div class="project-item">
+                        <a href="../Investment-Analysis/metainvsanlys.pdf" target="_blank" class="project-link">Meta Investment Analysis</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="project-link">Palantir Investment Commentary</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Personal-Docs/financial-history.html" class="project-link">Personal Financial History</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Personal-Docs/on-finance.html" class="project-link">On Finance</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-category">
+                <h2 class="category-title">Philosophy & Academic Writing</h2>
+                <div class="project-list">
+                    <div class="project-item">
+                        <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="project-link">Political Philosophy Analysis</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="project-link">Environmental Ethics: Oil Sands</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-category">
+                <h2 class="category-title">Data Science & Analysis</h2>
+                <div class="project-list">
+                    <div class="project-item">
+                        <a href="../Academic-Projects/Data-Science/Beating_The_League copy.html" target="_blank" class="project-link">Beating The League: Analytics</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="project-link">Athlete Selection Analysis</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-category">
+                <h2 class="category-title">Personal Reflections</h2>
+                <div class="project-list">
+                    <div class="project-item">
+                        <a href="../Personal-Docs/personal1.html" class="project-link">Personal Thoughts</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-item">
+                        <a href="../Personal-Docs/main.html" class="project-link">Main Reflections</a>
+                        <span class="project-year">2024</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <nav class="navigation">
+            <a href="../../index.html" class="nav-link">Home</a>
+            <a href="../../academic.html" class="nav-link">Academic</a>
+            <a href="../../athletic.html" class="nav-link">Athletic</a>
+            <a href="../../Resume/TalonResume.html" class="nav-link">Resume</a>
+        </nav>
+    </div>
+</body>
+</html>

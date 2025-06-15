@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Gatsby's Dream</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: #0d0d0d;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        /* Ornate Pattern Background */
+        .ornate-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(218, 165, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(184, 134, 11, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 25% 75%, rgba(218, 165, 32, 0.08) 0%, transparent 50%);
+            background-size: 400px 400px, 600px 600px, 500px 500px, 450px 450px;
+            z-index: -1;
+        }
+        
+        /* Ornate Header with Gatsby Glamour */
+        .header {
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 8px solid;
+            border-image: linear-gradient(90deg, 
+                transparent 0%, 
+                #B8860B 25%, 
+                #DAA520 40%, 
+                #FFD700 50%, 
+                #DAA520 60%, 
+                #B8860B 75%, 
+                transparent 100%) 1;
+        }
+        
+        .ornate-frame {
+            border: 4px solid #DAA520;
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 0 auto;
+            max-width: 800px;
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.8) 0%, 
+                rgba(45, 45, 45, 0.6) 50%, 
+                rgba(26, 26, 26, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .ornate-frame::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid #FFD700;
+            border-radius: 30px;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(255, 215, 0, 0.1) 25%, 
+                transparent 50%, 
+                rgba(218, 165, 32, 0.1) 75%, 
+                transparent 100%);
+        }
+        
+        .ornate-corners {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #FFD700;
+        }
+        
+        .corner-tl { top: -20px; left: -20px; border-right: none; border-bottom: none; border-radius: 20px 0 0 0; }
+        .corner-tr { top: -20px; right: -20px; border-left: none; border-bottom: none; border-radius: 0 20px 0 0; }
+        .corner-bl { bottom: -20px; left: -20px; border-right: none; border-top: none; border-radius: 0 0 0 20px; }
+        .corner-br { bottom: -20px; right: -20px; border-left: none; border-top: none; border-radius: 0 0 20px 0; }
+        
+        .decorative-flourish {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #DAA520;
+            margin-bottom: 30px;
+        }
+        
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, 
+                #FFD700 0%, 
+                #FFFF99 25%, 
+                #DAA520 50%, 
+                #FFFF99 75%, 
+                #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 8px rgba(218, 165, 32, 0.4);
+        }
+        
+        .subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: #C0C0C0;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: #DAA520;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+        
+        /* Elegant Navigation */
+        .nav-container {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+            padding: 30px 0;
+            border-top: 2px solid #DAA520;
+            border-bottom: 2px solid #DAA520;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+        
+        .nav-item {
+            position: relative;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.8), 
+                rgba(45, 45, 45, 0.8));
+            border: 2px solid #DAA520;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #FFD700;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, #DAA520, #B8860B, #DAA520, #FFD700);
+            border-radius: 27px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-item:hover {
+            color: #000000;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(218, 165, 32, 0.4);
+        }
+        
+        /* Luxurious Main Content */
+        .main-content {
+            max-width: 1300px;
+            margin: 100px auto;
+            padding: 0 60px;
+        }
+        
+        .intro-section {
+            text-align: center;
+            margin-bottom: 100px;
+            padding: 60px;
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.6), 
+                rgba(45, 45, 45, 0.4), 
+                rgba(26, 26, 26, 0.6));
+            border: 2px solid #DAA520;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid #FFD700;
+            border-radius: 20px;
+            opacity: 0.5;
+        }
+        
+        .intro-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 30px;
+        }
+        
+        .intro-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #D3D3D3;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Elegant Project Showcase */
+        .projects-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 60px;
+            margin-top: 80px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.9) 0%, 
+                rgba(45, 45, 45, 0.7) 50%, 
+                rgba(26, 26, 26, 0.9) 100%);
+            border: 3px solid #DAA520;
+            border-radius: 25px;
+            padding: 50px 40px;
+            position: relative;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, 
+                #FFD700 0%, 
+                #DAA520 25%, 
+                #B8860B 50%, 
+                #DAA520 75%, 
+                #FFD700 100%);
+            border-radius: 28px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(218, 165, 32, 0.3);
+        }
+        
+        .project-ornament {
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #FFD700, #DAA520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .project-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.3rem;
+            font-weight: 600;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #D3D3D3;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .project-link {
+            display: block;
+            text-align: center;
+            padding: 18px 45px;
+            background: transparent;
+            border: 2px solid #DAA520;
+            border-radius: 30px;
+            color: #FFD700;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .project-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #DAA520, #FFD700, #FFFF99);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+        
+        .project-link:hover::before {
+            left: 0;
+        }
+        
+        .project-link:hover {
+            color: #000000;
+            border-color: #FFD700;
+            transform: scale(1.05);
+        }
+        
+        /* Glamorous Footer */
+        .footer {
+            background: linear-gradient(180deg, 
+                rgba(26, 26, 26, 0.8) 0%, 
+                #000000 100%);
+            padding: 80px 40px 50px;
+            text-align: center;
+            border-top: 8px solid;
+            border-image: linear-gradient(90deg, 
+                transparent 0%, 
+                #B8860B 25%, 
+                #DAA520 40%, 
+                #FFD700 50%, 
+                #DAA520 60%, 
+                #B8860B 75%, 
+                transparent 100%) 1;
+            margin-top: 120px;
+            position: relative;
+        }
+        
+        .footer-ornament {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: #DAA520;
+            margin-bottom: 30px;
+        }
+        
+        .footer-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: #C0C0C0;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .projects-showcase {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .main-content {
+                padding: 0 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .ornate-frame {
+                padding: 30px 20px;
+            }
+            
+            .intro-section {
+                padding: 40px 30px;
+            }
+            
+            .project-card {
+                padding: 40px 30px;
+            }
+            
+            .main-content {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ornate-bg"></div>
+    
+    <header class="header">
+        <div class="ornate-frame">
+            <div class="ornate-corners corner-tl"></div>
+            <div class="ornate-corners corner-tr"></div>
+            <div class="ornate-corners corner-bl"></div>
+            <div class="ornate-corners corner-br"></div>
+            
+            <div class="decorative-flourish">✦ ❖ ✦</div>
+            <h1 class="main-title">TALON HIRD</h1>
+            <p class="subtitle">Elegance in Excellence</p>
+            <p class="tagline">Where Sophistication Meets Success</p>
+        </div>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="#finance" class="nav-item">Finance</a>
+            <a href="#philosophy" class="nav-item">Philosophy</a>
+            <a href="#thoughts" class="nav-item">Thoughts</a>
+            <a href="#commentary" class="nav-item">Commentary</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <section class="intro-section">
+            <h2 class="intro-title">A Portfolio of Distinction</h2>
+            <p class="intro-text">
+                Welcome to a curated collection of intellectual pursuits and scholarly endeavors. 
+                Here, the worlds of finance, philosophy, and critical thought converge in an elegant 
+                symphony of academic excellence and personal reflection. Each project represents a 
+                commitment to the highest standards of scholarship and the pursuit of truth through 
+                rigorous analysis and thoughtful contemplation.
+            </p>
+        </section>
+        
+        <div class="projects-showcase">
+            <div class="project-card" id="finance">
+                <div class="project-ornament">💎</div>
+                <h3 class="project-title">Financial Artistry</h3>
+                <p class="project-description">
+                    Masterful analysis of financial markets and investment strategies, where mathematical 
+                    precision meets strategic vision. Each study represents a deep dive into the elegant 
+                    complexities of economic theory and market dynamics, crafted with scholarly rigor 
+                    and practical insight.
+                </p>
+                <a href="../Academic-Projects/Investment-Analysis/" class="project-link">Discover Excellence</a>
+            </div>
+            
+            <div class="project-card" id="philosophy">
+                <div class="project-ornament">🏺</div>
+                <h3 class="project-title">Philosophical Elegance</h3>
+                <p class="project-description">
+                    Sophisticated explorations of political philosophy, environmental ethics, and moral 
+                    reasoning that bridge timeless wisdom with contemporary challenges. Each essay is a 
+                    carefully crafted meditation on the fundamental questions that shape our world.
+                </p>
+                <a href="../Academic-Projects/Philosophy/" class="project-link">Explore Wisdom</a>
+            </div>
+            
+            <div class="project-card" id="thoughts">
+                <div class="project-ornament">🌟</div>
+                <h3 class="project-title">Personal Reflections</h3>
+                <p class="project-description">
+                    Intimate and thoughtful reflections on the journey of excellence, personal growth, 
+                    and the pursuit of meaning. These writings offer a glimpse into the mind of an 
+                    athlete-scholar navigating the intersection of achievement and wisdom.
+                </p>
+                <a href="../Personal-Docs/" class="project-link">Journey Within</a>
+            </div>
+            
+            <div class="project-card" id="commentary">
+                <div class="project-ornament">📜</div>
+                <h3 class="project-title">Critical Commentary</h3>
+                <p class="project-description">
+                    Incisive analysis of contemporary issues through the lens of economic theory, 
+                    political science, and philosophical reasoning. Each piece represents a commitment 
+                    to informed discourse and the pursuit of truth in public conversation.
+                </p>
+                <a href="../Media-Coverage/" class="project-link">Illuminate Truth</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-ornament">❖ ✦ ❖</div>
+        <p class="footer-text">Crafted with Distinction and Purpose</p>
+    </footer>
+</body>
+</html>

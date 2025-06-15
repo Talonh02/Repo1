@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Competition — 24 Submissions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .philosophy-section {
+            margin-bottom: 3rem;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .philosophy-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .brutalist { background: #2c2c2c; }
+        .minimalist { background: #f8f9fa; color: #333 !important; }
+        .memphis { background: linear-gradient(45deg, #ff6b9d, #45caff); }
+        .swiss { background: #e60000; }
+        .art-deco { background: linear-gradient(45deg, #d4af37, #ffd700); }
+        .cyberpunk { background: linear-gradient(45deg, #ff00ff, #00ffff); }
+        .bauhaus { background: linear-gradient(45deg, #ff0000, #0066cc, #ffcc00); }
+        .wabi-sabi { background: linear-gradient(45deg, #8fbc8f, #deb887); }
+
+        .philosophy-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .philosophy-description {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .submissions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .submission-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .submission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .submission-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .submission-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .submission-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .submission-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            z-index: 1000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        .stats {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .philosophy-section {
+                padding: 1.5rem;
+            }
+            
+            .submissions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Portfolio</a>
+
+    <div class="container">
+        <div class="header">
+            <h1>Design Competition</h1>
+            <p>8 AI Designers • 8 Different Philosophies • 24 Unique Submissions</p>
+        </div>
+
+        <div class="stats">
+            <strong>Personal Projects Page Designs</strong> — Finance • Philosophy • Reflections • Commentary<br>
+            <em>+ 3 Revolutionary Fusion Philosophies</em>
+        </div>
+
+        <!-- BRUTALIST SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon brutalist">BR</div>
+                <div>
+                    <div class="philosophy-title">Brutalist Designer</div>
+                    <div class="philosophy-description">Raw, bold, concrete-like aesthetics • Heavy typography • Stark contrasts</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Concrete Fortress</div>
+                    <div class="submission-description">Heavy, imposing typography with harsh shadows and thick borders. Military terminology reflecting competitive background.</div>
+                    <a href="design-competition/brutalist/brutalist-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Institutional Monolith</div>
+                    <div class="submission-description">Monolithic full-screen sections with governmental authority feel. Fixed sidebar navigation with vertical typography.</div>
+                    <a href="design-competition/brutalist/brutalist-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Modular Concrete System</div>
+                    <div class="submission-description">CSS Grid-based architecture creating modular concrete blocks with skewed geometric elements.</div>
+                    <a href="design-competition/brutalist/brutalist-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MINIMALIST SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon minimalist">MI</div>
+                <div>
+                    <div class="philosophy-title">Minimalist Designer</div>
+                    <div class="philosophy-description">Less is more • Abundant white space • Subtle typography • Clean lines</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Pure White Space</div>
+                    <div class="submission-description">Maximum white space utilization with subtle typography hierarchy and gentle animations.</div>
+                    <a href="design-competition/minimalist/minimalist-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Centered Simplicity</div>
+                    <div class="submission-description">Centered composition with serif elegance and balanced, harmonious layout.</div>
+                    <a href="design-competition/minimalist/minimalist-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Geometric Precision</div>
+                    <div class="submission-description">Structured grid system with monospace accents and technical, analytical aesthetic.</div>
+                    <a href="design-competition/minimalist/minimalist-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEMPHIS SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon memphis">ME</div>
+                <div>
+                    <div class="philosophy-title">Memphis Designer</div>
+                    <div class="philosophy-description">Bold colors • Geometric shapes • 80s aesthetic • Playful rebellion</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Financial Fever Dream</div>
+                    <div class="submission-description">Neon colors with floating geometric chaos and animated backgrounds. Playful typography mixing.</div>
+                    <a href="design-competition/memphis/memphis-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Asymmetric Academic Arcade</div>
+                    <div class="submission-description">Revolutionary 3-column grid with overlapping cards and dot clusters floating across the page.</div>
+                    <a href="design-competition/memphis/memphis-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Radical Rebellion Research</div>
+                    <div class="submission-description">Cyberpunk Memphis fusion with dark background, neon accents, and glowing effects.</div>
+                    <a href="design-competition/memphis/memphis-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SWISS SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon swiss">SW</div>
+                <div>
+                    <div class="philosophy-title">Swiss Designer</div>
+                    <div class="philosophy-description">Grid-based layouts • Clean typography • Functional precision • Mathematical proportions</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Modular Grid System</div>
+                    <div class="submission-description">Strict 12-column modular grid with mathematical precision and systematic font hierarchy.</div>
+                    <a href="design-competition/swiss/swiss-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Asymmetrical Typography</div>
+                    <div class="submission-description">Dramatic asymmetry with vertical emphasis, massive headlines, and bold typography.</div>
+                    <a href="design-competition/swiss/swiss-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Geometric Functionality</div>
+                    <div class="submission-description">Mathematical grid based on golden ratio with systematic geometry and functional design.</div>
+                    <a href="design-competition/swiss/swiss-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ART DECO SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon art-deco">AD</div>
+                <div>
+                    <div class="philosophy-title">Art Deco Designer</div>
+                    <div class="philosophy-description">Elegant luxury • Geometric patterns • Gold accents • Jazz age glamour</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Golden Empire</div>
+                    <div class="submission-description">Sunburst motifs with radial golden rays and crown-like decorative elements symbolizing achievement.</div>
+                    <a href="design-competition/art-deco/art-deco-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Vertical Elegance</div>
+                    <div class="submission-description">Skyscraper aesthetic with vertical line patterns and sophisticated stepped geometric forms.</div>
+                    <a href="design-competition/art-deco/art-deco-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Gatsby's Dream</div>
+                    <div class="submission-description">Ornate luxury with decorative frames, elegant curves, and sophisticated ornamental details.</div>
+                    <a href="design-competition/art-deco/art-deco-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CYBERPUNK SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon cyberpunk">CY</div>
+                <div>
+                    <div class="philosophy-title">Cyberpunk Designer</div>
+                    <div class="philosophy-description">Neon colors • Digital artifacts • Futuristic tech-noir • Terminal interfaces</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Neural Interface</div>
+                    <div class="submission-description">Matrix-inspired terminal with animated grid background, CRT scanlines, and glitch text effects.</div>
+                    <a href="design-competition/cyberpunk/cyberpunk-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Dystopian Interface</div>
+                    <div class="submission-description">Blade Runner aesthetic with digital rain, neon city backdrop, and holographic panel effects.</div>
+                    <a href="design-competition/cyberpunk/cyberpunk-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Ghost in the Shell</div>
+                    <div class="submission-description">Advanced AI consciousness interface with neural network patterns and rotating portal effects.</div>
+                    <a href="design-competition/cyberpunk/cyberpunk-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAUHAUS SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon bauhaus">BA</div>
+                <div>
+                    <div class="philosophy-title">Bauhaus Designer</div>
+                    <div class="philosophy-description">Form follows function • Primary colors • Geometric simplicity • Modernist ideals</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Grid Functionalism</div>
+                    <div class="submission-description">Systematic 3-column layout with primary colors and mathematical spacing system.</div>
+                    <a href="design-competition/bauhaus/bauhaus-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Asymmetrical Balance</div>
+                    <div class="submission-description">Dynamic asymmetry with rotating elements and bold geometric text composition.</div>
+                    <a href="design-competition/bauhaus/bauhaus-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Industrial Modernism</div>
+                    <div class="submission-description">Machine aesthetics with modular components and precision industrial details.</div>
+                    <a href="design-competition/bauhaus/bauhaus-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- WABI-SABI SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon wabi-sabi">WS</div>
+                <div>
+                    <div class="philosophy-title">Wabi-Sabi Designer</div>
+                    <div class="philosophy-description">Beauty in imperfection • Natural materials • Contemplative simplicity • Organic flow</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Weathered Stone</div>
+                    <div class="submission-description">Natural earth tones with asymmetrical cards and organic background shapes mimicking scattered stones.</div>
+                    <a href="design-competition/wabi-sabi/wabi-sabi-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Flowing River</div>
+                    <div class="submission-description">Three-column riverbank design with SVG wave dividers and gentle flowing animations.</div>
+                    <a href="design-competition/wabi-sabi/wabi-sabi-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Zen Garden</div>
+                    <div class="submission-description">Minimal earth tones with intentional empty spaces and breathing animations for contemplation.</div>
+                    <a href="design-competition/wabi-sabi/wabi-sabi-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- WABI-MINIMALIST FUSION SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon" style="background: linear-gradient(45deg, #8fbc8f, #f8f9fa); color: #333;">WM</div>
+                <div>
+                    <div class="philosophy-title">Wabi-Minimalist Fusion</div>
+                    <div class="philosophy-description">Natural imperfection + Clean minimalism • Organic textures + White space • Contemplative simplicity</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Organic Asymmetry</div>
+                    <div class="submission-description">Natural imperfection within structured grids. Cards with intentional micro-rotations and handcrafted feel.</div>
+                    <a href="design-competition/wabi-minimalist/wabi-minimalist-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Natural Textures in Clean Space</div>
+                    <div class="submission-description">Handcrafted contemplation meets digital precision. Paper-like textures with modern typography.</div>
+                    <a href="design-competition/wabi-minimalist/wabi-minimalist-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Contemplative Breathing Space</div>
+                    <div class="submission-description">Zen emptiness with purposeful asymmetry. Meditative digital space where imperfection serves contemplation.</div>
+                    <a href="design-competition/wabi-minimalist/wabi-minimalist-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAUHAUS-WABI FUSION SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon" style="background: linear-gradient(45deg, #ff0000, #8fbc8f); color: white;">BW</div>
+                <div>
+                    <div class="philosophy-title">Bauhaus-Wabi Fusion</div>
+                    <div class="philosophy-description">Geometric precision + Natural wisdom • Primary colors + Earth tones • Functional grids + Contemplative flow</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">The Geometric Garden</div>
+                    <div class="submission-description">Structured imperfection with geometric grids and organic breathing spaces. Wisdom boxes with contemplative quotes.</div>
+                    <a href="design-competition/bauhaus-wabi/bauhaus-wabi-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Industrial Zen</div>
+                    <div class="submission-description">Machine precision softened by human touch. Industrial materials meeting natural textures with zen spacing.</div>
+                    <a href="design-competition/bauhaus-wabi/bauhaus-wabi-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Balanced Asymmetry</div>
+                    <div class="submission-description">Mathematical precision with contemplative irregularities. Perfect imperfection in asymmetric layouts.</div>
+                    <a href="design-competition/bauhaus-wabi/bauhaus-wabi-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEO-BRUTALIST-DECO FUSION SECTION -->
+        <div class="philosophy-section">
+            <div class="philosophy-header">
+                <div class="philosophy-icon" style="background: linear-gradient(45deg, #2c2c2c, #d4af37); color: white;">NBD</div>
+                <div>
+                    <div class="philosophy-title">Neo-Brutalist-Deco Fusion</div>
+                    <div class="philosophy-description">Raw concrete + Golden luxury • Heavy typography + Elegant flourishes • Industrial power + Jazz Age glamour</div>
+                </div>
+            </div>
+            <div class="submissions-grid">
+                <div class="submission-card">
+                    <div class="submission-title">Monolithic Elegance</div>
+                    <div class="submission-description">Massive concrete blocks decorated with golden geometric patterns. Institutional power meeting sophisticated elegance.</div>
+                    <a href="design-competition/neo-brutalist-deco/neo-brutalist-deco-1.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Industrial Luxury</div>
+                    <div class="submission-description">Industrial materials elevated to luxury status. Harsh brutalist shadows softened by golden light.</div>
+                    <a href="design-competition/neo-brutalist-deco/neo-brutalist-deco-2.html" class="submission-link">View Design</a>
+                </div>
+                <div class="submission-card">
+                    <div class="submission-title">Concrete Palace</div>
+                    <div class="submission-description">A palace built from concrete and gold. Monolithic layouts with luxurious decorative details.</div>
+                    <a href="design-competition/neo-brutalist-deco/neo-brutalist-deco-3.html" class="submission-link">View Design</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

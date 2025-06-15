@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON.HIRD >> GHOST_IN_THE_SHELL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Audiowide:wght@400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Complex geometric background */
+        .geometric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #000 0%, #0a0a0a 50%, #000 100%);
+        }
+        
+        /* Hexagonal grid overlay */
+        .hex-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 1px 1px, #00ffff 1px, transparent 0);
+            background-size: 20px 20px;
+            animation: grid-drift 30s linear infinite;
+        }
+        
+        @keyframes grid-drift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+        
+        /* Holographic scan lines */
+        .holo-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.02) 2px,
+                    rgba(0, 255, 255, 0.02) 4px
+                );
+            animation: holo-scan 3s linear infinite;
+        }
+        
+        @keyframes holo-scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header-section {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .main-title {
+            font-family: 'Audiowide', cursive;
+            font-size: 5rem;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: title-shift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        @keyframes title-shift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ff00ff, transparent);
+            animation: underline-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes underline-glow {
+            0% {
+                box-shadow: 0 0 5px #ff00ff;
+            }
+            100% {
+                box-shadow: 0 0 20px #00ffff;
+            }
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .subtitle::before,
+        .subtitle::after {
+            content: '>>>';
+            position: absolute;
+            top: 0;
+            color: #ff00ff;
+            animation: bracket-pulse 1.5s ease-in-out infinite alternate;
+        }
+        
+        .subtitle::before {
+            left: -50px;
+        }
+        
+        .subtitle::after {
+            right: -50px;
+            content: '<<<';
+        }
+        
+        @keyframes bracket-pulse {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        .access-level {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff00ff;
+            padding: 1rem 2rem;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #ff00ff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .access-level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.3), transparent);
+            animation: security-sweep 2s infinite;
+        }
+        
+        @keyframes security-sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .modules-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .module-card {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .module-card:hover::before {
+            opacity: 1;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 20px 40px rgba(255, 0, 255, 0.2),
+                0 0 30px rgba(0, 255, 255, 0.2);
+            border-color: #ff00ff;
+        }
+        
+        .module-header {
+            padding: 2rem;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover .module-icon::before {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .module-title {
+            font-family: 'Audiowide', cursive;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .module-type {
+            color: #00ffff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .module-body {
+            padding: 2rem;
+        }
+        
+        .module-description {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        
+        .module-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff00ff;
+            margin-bottom: 0.25rem;
+        }
+        
+        .metric-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+        
+        .data-stream {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ffff;
+            padding: 1rem;
+            font-size: 0.8rem;
+            z-index: 3;
+        }
+        
+        .stream-header {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+        
+        .stream-line {
+            color: #0f0;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+        
+        .stream-line:nth-child(even) {
+            color: #ff00ff;
+        }
+        
+        .stream-line:nth-child(3n) {
+            color: #00ffff;
+        }
+        
+        .connection-portal {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            width: 150px;
+            height: 150px;
+            border: 3px solid #ff00ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.1), transparent);
+            animation: portal-spin 10s linear infinite;
+            z-index: 3;
+        }
+        
+        @keyframes portal-spin {
+            0% {
+                transform: rotate(0deg);
+                border-color: #ff00ff;
+            }
+            33% {
+                border-color: #00ffff;
+            }
+            66% {
+                border-color: #0f0;
+            }
+            100% {
+                transform: rotate(360deg);
+                border-color: #ff00ff;
+            }
+        }
+        
+        .portal-text {
+            color: #fff;
+            font-size: 0.9rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 1200px) {
+            .data-stream {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .modules-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .subtitle::before,
+            .subtitle::after {
+                display: none;
+            }
+            
+            .connection-portal {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="geometric-bg"></div>
+    <div class="hex-grid"></div>
+    <div class="holo-lines"></div>
+    
+    <div class="container">
+        <header class="header-section">
+            <h1 class="main-title">TALON.HIRD</h1>
+            <div class="subtitle">Ghost in the Shell</div>
+            <div class="access-level">Security Clearance: OMEGA</div>
+        </header>
+        
+        <div class="modules-container">
+            <div class="module-card" onclick="location.href='../finance-analysis/'">
+                <div class="module-header">
+                    <div class="module-icon">$</div>
+                    <h2 class="module-title">Financial Matrix</h2>
+                    <div class="module-type">Economic Warfare Suite</div>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        Corporate espionage-grade financial analysis. Market manipulation detection 
+                        algorithms and predictive economic modeling for the digital age.
+                    </p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <div class="metric-value">99.2%</div>
+                            <div class="metric-label">Precision</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">REAL</div>
+                            <div class="metric-label">Time</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">∞</div>
+                            <div class="metric-label">Depth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="module-card" onclick="location.href='../philosophy/'">
+                <div class="module-header">
+                    <div class="module-icon">Φ</div>
+                    <h2 class="module-title">Mind Palace</h2>
+                    <div class="module-type">Consciousness Engine</div>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        Neural network philosophy processing. Existential threat assessment 
+                        and ethical framework construction for post-human discourse.
+                    </p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <div class="metric-value">DEEP</div>
+                            <div class="metric-label">Thought</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">PURE</div>
+                            <div class="metric-label">Logic</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">TRUE</div>
+                            <div class="metric-label">Wisdom</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="module-card" onclick="location.href='../personal-thoughts/'">
+                <div class="module-header">
+                    <div class="module-icon">◊</div>
+                    <h2 class="module-title">Soul Archive</h2>
+                    <div class="module-type">Personal Memory Bank</div>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        Encrypted personal consciousness backup. Thought pattern analysis 
+                        and memory reconstruction protocols for authentic self-expression.
+                    </p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <div class="metric-value">LIVE</div>
+                            <div class="metric-label">Stream</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">SECURE</div>
+                            <div class="metric-label">Vault</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">RAW</div>
+                            <div class="metric-label">Truth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="module-card" onclick="location.href='../critical-analysis/'">
+                <div class="module-header">
+                    <div class="module-icon">⚡</div>
+                    <h2 class="module-title">Reality Hack</h2>
+                    <div class="module-type">Truth Extraction Protocol</div>
+                </div>
+                <div class="module-body">
+                    <p class="module-description">
+                        Social media infiltration and narrative deconstruction systems. 
+                        Real-time propaganda analysis and counter-intelligence operations.
+                    </p>
+                    <div class="module-metrics">
+                        <div class="metric">
+                            <div class="metric-value">LIVE</div>
+                            <div class="metric-label">Feed</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">SHARP</div>
+                            <div class="metric-label">Edge</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">TRUTH</div>
+                            <div class="metric-label">Seeker</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="data-stream">
+        <div class="stream-header">Live Data Stream</div>
+        <div class="stream-content" id="dataStream"></div>
+    </div>
+    
+    <div class="connection-portal">
+        <div class="portal-text">Neural<br>Link<br>Active</div>
+    </div>
+    
+    <script>
+        // Live data stream simulation
+        function generateDataStream() {
+            const streamContent = document.getElementById('dataStream');
+            const dataTypes = [
+                'NEURAL_SYNC: 100%',
+                'MEMORY_LOAD: 45.3TB',
+                'THOUGHT_RATE: 1.2M/s',
+                'REALITY_CHECK: OK',
+                'ENCRYPTION: AES-512',
+                'QUANTUM_STATE: STABLE',
+                'CONSCIOUSNESS: ONLINE',
+                'GHOST_PROTOCOL: ACTIVE',
+                'SHELL_INTEGRITY: 98.7%',
+                'DATA_FLOW: OPTIMAL'
+            ];
+            
+            function addStreamLine() {
+                const line = document.createElement('div');
+                line.className = 'stream-line';
+                line.textContent = dataTypes[Math.floor(Math.random() * dataTypes.length)];
+                
+                streamContent.appendChild(line);
+                
+                // Keep only last 15 lines
+                if (streamContent.children.length > 15) {
+                    streamContent.removeChild(streamContent.firstChild);
+                }
+                
+                // Scroll to bottom
+                streamContent.scrollTop = streamContent.scrollHeight;
+            }
+            
+            // Add initial lines
+            for (let i = 0; i < 10; i++) {
+                setTimeout(addStreamLine, i * 100);
+            }
+            
+            // Continue adding lines
+            setInterval(addStreamLine, 1500);
+        }
+        
+        // Holographic glitch effects
+        function addGlitchEffects() {
+            const cards = document.querySelectorAll('.module-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    // Random glitch effect
+                    if (Math.random() < 0.4) {
+                        this.style.filter = 'hue-rotate(180deg)';
+                        setTimeout(() => {
+                            this.style.filter = 'none';
+                        }, 200);
+                    }
+                });
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            generateDataStream();
+            addGlitchEffects();
+            
+            // Add random sparkle effects
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                sparkle.style.width = '2px';
+                sparkle.style.height = '2px';
+                sparkle.style.background = Math.random() > 0.5 ? '#ff00ff' : '#00ffff';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1';
+                sparkle.style.animation = 'sparkle 1s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }, 3000);
+        });
+        
+        // Add sparkle animation
+        const sparkleStyle = document.createElement('style');
+        sparkleStyle.textContent = `
+            @keyframes sparkle {
+                0% {
+                    opacity: 1;
+                    transform: scale(0);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(sparkleStyle);
+    </script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON_HIRD.exe // NEURAL_INTERFACE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Matrix-style background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(90deg, transparent 98%, #00ff41 100%),
+                linear-gradient(transparent 98%, #00ff41 100%);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            animation: matrix-scroll 20s linear infinite;
+        }
+        
+        @keyframes matrix-scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+        
+        /* Scanlines effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 65, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            animation: scan 0.1s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .terminal-header {
+            border: 2px solid #00ff41;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            position: relative;
+        }
+        
+        .terminal-header::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff41, #ff00ff, #00ffff, #00ff41);
+            z-index: -1;
+            animation: border-glow 2s linear infinite;
+        }
+        
+        @keyframes border-glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .terminal-prompt {
+            color: #ff00ff;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .name-glitch {
+            font-size: 3rem;
+            color: #00ffff;
+            text-shadow: 
+                0 0 5px #00ffff,
+                0 0 10px #00ffff,
+                0 0 15px #00ffff;
+            animation: glitch 1s infinite alternate;
+            display: inline-block;
+        }
+        
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+                filter: hue-rotate(90deg);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+                filter: hue-rotate(180deg);
+            }
+            60% {
+                transform: translate(2px, 2px);
+                filter: hue-rotate(270deg);
+            }
+            80% {
+                transform: translate(2px, -2px);
+                filter: hue-rotate(360deg);
+            }
+            100% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+        }
+        
+        .subtitle {
+            color: #ff00ff;
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .nav-module {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-module:hover::before {
+            left: 100%;
+        }
+        
+        .nav-module:hover {
+            box-shadow: 
+                0 0 20px rgba(0, 255, 65, 0.5),
+                inset 0 0 20px rgba(0, 255, 65, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .module-title {
+            color: #00ffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .module-desc {
+            color: #00ff41;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .module-status {
+            color: #ff00ff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .system-info {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 1rem;
+            font-size: 0.8rem;
+            z-index: 3;
+        }
+        
+        .status-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .status-value {
+            color: #00ffff;
+        }
+        
+        /* Glitch text animation for special elements */
+        .glitch-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch-text::before {
+            animation: glitch-anim-1 0.5s infinite linear alternate-reverse;
+            color: #ff00ff;
+            z-index: -1;
+        }
+        
+        .glitch-text::after {
+            animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+            color: #00ffff;
+            z-index: -2;
+        }
+        
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+                transform: skew(0.5deg);
+            }
+            5% {
+                clip: rect(12px, 9999px, 59px, 0);
+                transform: skew(0.4deg);
+            }
+            10% {
+                clip: rect(48px, 9999px, 29px, 0);
+                transform: skew(0.1deg);
+            }
+            100% {
+                clip: rect(42px, 9999px, 44px, 0);
+                transform: skew(0.5deg);
+            }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(65px, 9999px, 119px, 0);
+                transform: skew(0.2deg);
+            }
+            5% {
+                clip: rect(79px, 9999px, 31px, 0);
+                transform: skew(0.8deg);
+            }
+            10% {
+                clip: rect(53px, 9999px, 84px, 0);
+                transform: skew(0.3deg);
+            }
+            100% {
+                clip: rect(65px, 9999px, 119px, 0);
+                transform: skew(0.2deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .name-glitch {
+                font-size: 2rem;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .system-info {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="scanlines"></div>
+    
+    <div class="container">
+        <header class="terminal-header">
+            <div class="terminal-prompt">root@neural-net:~$ initialize_profile</div>
+            <h1 class="name-glitch">TALON HIRD</h1>
+            <div class="subtitle">// Neural Interface Active //</div>
+        </header>
+        
+        <div class="nav-grid">
+            <div class="nav-module" onclick="location.href='../finance-analysis/'">
+                <h2 class="module-title glitch-text" data-text="FINANCIAL_ANALYSIS.EXE">FINANCIAL_ANALYSIS.EXE</h2>
+                <p class="module-desc">Advanced market algorithms and investment neural networks. Predictive modeling for financial futures and risk assessment protocols.</p>
+                <div class="module-status">STATUS: [ONLINE] • SECURITY: [ENCRYPTED]</div>
+            </div>
+            
+            <div class="nav-module" onclick="location.href='../philosophy/'">
+                <h2 class="module-title glitch-text" data-text="PHILOSOPHY_CORE.DAT">PHILOSOPHY_CORE.DAT</h2>
+                <p class="module-desc">Deep thought processing engine. Academic discourse analysis and existential query resolution systems.</p>
+                <div class="module-status">STATUS: [PROCESSING] • DEPTH: [MAXIMUM]</div>
+            </div>
+            
+            <div class="nav-module" onclick="location.href='../personal-thoughts/'">
+                <h2 class="module-title glitch-text" data-text="CONSCIOUSNESS.LOG">CONSCIOUSNESS.LOG</h2>
+                <p class="module-desc">Personal reflection database and thought stream archives. Real-time consciousness monitoring and analysis.</p>
+                <div class="module-status">STATUS: [STREAMING] • ACCESS: [AUTHORIZED]</div>
+            </div>
+            
+            <div class="nav-module" onclick="location.href='../critical-analysis/'">
+                <h2 class="module-title glitch-text" data-text="CRITIQUE_ENGINE.APP">CRITIQUE_ENGINE.APP</h2>
+                <p class="module-desc">Current event analysis and social commentary protocols. Real-time data processing for critical discourse.</p>
+                <div class="module-status">STATUS: [ACTIVE] • UPDATES: [LIVE]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="system-info">
+        <div class="status-line">
+            <span>CPU:</span>
+            <span class="status-value">NEURAL_NET_v2.1</span>
+        </div>
+        <div class="status-line">
+            <span>RAM:</span>
+            <span class="status-value">∞ TB</span>
+        </div>
+        <div class="status-line">
+            <span>UPTIME:</span>
+            <span class="status-value">24/7/365</span>
+        </div>
+        <div class="status-line">
+            <span>NET:</span>
+            <span class="status-value">QUANTUM_LINK</span>
+        </div>
+    </div>
+    
+    <script>
+        // Add some interactive glitch effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const modules = document.querySelectorAll('.nav-module');
+            
+            modules.forEach(module => {
+                module.addEventListener('mouseenter', function() {
+                    // Random glitch effect on hover
+                    if (Math.random() < 0.3) {
+                        this.style.transform = `translateY(-5px) translateX(${Math.random() * 4 - 2}px)`;
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-5px)';
+                        }, 100);
+                    }
+                });
+            });
+            
+            // Typing effect for terminal prompt
+            const prompt = document.querySelector('.terminal-prompt');
+            const originalText = prompt.textContent;
+            prompt.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    prompt.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+</html>

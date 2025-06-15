@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON HIRD — Memphis Design #1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;700&family=Racing+Sans+One&display=swap" rel="stylesheet">
+    <style>
+        /* MEMPHIS DESIGN #1: "FINANCIAL FEVER DREAM" */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #FF1493;
+            --electric-blue: #00BFFF;
+            --laser-green: #00FF41;
+            --atomic-orange: #FF6600;
+            --hot-magenta: #FF00FF;
+            --cyber-yellow: #FFFF00;
+            --deep-purple: #8A2BE2;
+            --electric-lime: #CCFF00;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(45deg, var(--neon-pink), var(--electric-blue), var(--laser-green));
+            background-size: 400% 400%;
+            animation: memphis-bg 8s ease-in-out infinite;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes memphis-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* GEOMETRIC CHAOS BACKGROUND */
+        .chaos-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 43px solid var(--atomic-orange);
+            animation: spin-float 4s linear infinite;
+        }
+
+        .circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--cyber-yellow);
+            animation: pulse-float 3s ease-in-out infinite;
+        }
+
+        .square {
+            width: 40px;
+            height: 40px;
+            background: var(--hot-magenta);
+            transform: rotate(45deg);
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .squiggle {
+            width: 80px;
+            height: 6px;
+            background: var(--electric-lime);
+            border-radius: 3px;
+            position: relative;
+            animation: snake 5s ease-in-out infinite;
+        }
+
+        .squiggle::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            width: 40px;
+            height: 6px;
+            background: var(--deep-purple);
+            border-radius: 3px;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes spin-float { 0% { transform: rotate(0deg) translateY(0px); } 50% { transform: rotate(180deg) translateY(-15px); } 100% { transform: rotate(360deg) translateY(0px); } }
+        @keyframes pulse-float { 0%, 100% { transform: scale(1) translateY(0px); } 50% { transform: scale(1.2) translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(45deg) translateX(0px); } 25% { transform: rotate(50deg) translateX(5px); } 75% { transform: rotate(40deg) translateX(-5px); } }
+        @keyframes snake { 0%, 100% { transform: translateX(0px) rotate(0deg); } 25% { transform: translateX(10px) rotate(5deg); } 75% { transform: translateX(-10px) rotate(-5deg); } }
+
+        /* MAIN CONTENT */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Racing Sans One', cursive;
+            font-size: clamp(3rem, 8vw, 8rem);
+            color: white;
+            text-shadow: 4px 4px 0px var(--atomic-orange), 8px 8px 0px var(--deep-purple);
+            transform: rotate(-2deg);
+            margin-bottom: 1rem;
+            animation: title-pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes title-pulse {
+            0% { transform: rotate(-2deg) scale(1); }
+            100% { transform: rotate(-2deg) scale(1.05); }
+        }
+
+        .subtitle {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--cyber-yellow);
+            text-shadow: 2px 2px 0px black;
+            transform: rotate(1deg);
+            letter-spacing: 3px;
+        }
+
+        /* PROJECT GRID */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: white;
+            border: 6px solid black;
+            border-radius: 0;
+            position: relative;
+            padding: 2rem;
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+            box-shadow: 12px 12px 0px var(--neon-pink);
+        }
+
+        .project-card:nth-child(even) {
+            transform: rotate(1deg);
+            box-shadow: -12px 12px 0px var(--electric-blue);
+        }
+
+        .project-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 20;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: var(--laser-green);
+            border-radius: 50%;
+            border: 4px solid black;
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: black;
+            margin-bottom: 1rem;
+            text-decoration: underline;
+            text-decoration-color: var(--hot-magenta);
+            text-decoration-thickness: 4px;
+        }
+
+        .card-description {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+        }
+
+        .features-list li::before {
+            content: '▼';
+            position: absolute;
+            left: 0;
+            color: var(--atomic-orange);
+            font-size: 1.2rem;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .memphis-btn {
+            background: var(--cyber-yellow);
+            color: black;
+            border: 4px solid black;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .memphis-btn:hover {
+            background: var(--hot-magenta);
+            color: white;
+            transform: translate(3px, 3px);
+            box-shadow: -3px -3px 0px black;
+        }
+
+        .memphis-btn.secondary {
+            background: var(--electric-lime);
+            color: black;
+        }
+
+        .memphis-btn.secondary:hover {
+            background: var(--deep-purple);
+            color: white;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            background: black;
+            color: white;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-pink) 0px,
+                var(--neon-pink) 20px,
+                var(--electric-blue) 20px,
+                var(--electric-blue) 40px,
+                var(--laser-green) 40px,
+                var(--laser-green) 60px
+            );
+        }
+
+        .footer-title {
+            font-family: 'Racing Sans One', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--cyber-yellow);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            background: var(--neon-pink);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.2rem;
+            border: 4px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: var(--laser-green);
+            color: black;
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .project-card {
+                transform: rotate(0deg);
+                box-shadow: 8px 8px 0px var(--neon-pink);
+            }
+            
+            .main-title {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- GEOMETRIC CHAOS BACKGROUND -->
+    <div class="chaos-shapes">
+        <div class="shape triangle" style="top: 10%; left: 5%; animation-delay: -1s;"></div>
+        <div class="shape circle" style="top: 20%; right: 10%; animation-delay: -2s;"></div>
+        <div class="shape square" style="top: 30%; left: 15%; animation-delay: -0.5s;"></div>
+        <div class="shape squiggle" style="top: 40%; right: 20%; animation-delay: -1.5s;"></div>
+        <div class="shape triangle" style="top: 60%; left: 8%; animation-delay: -2.5s;"></div>
+        <div class="shape circle" style="bottom: 20%; right: 5%; animation-delay: -3s;"></div>
+        <div class="shape square" style="bottom: 30%; left: 12%; animation-delay: -0.8s;"></div>
+        <div class="shape squiggle" style="bottom: 10%; right: 15%; animation-delay: -1.8s;"></div>
+        <div class="shape triangle" style="top: 15%; left: 80%; animation-delay: -2.2s;"></div>
+        <div class="shape circle" style="top: 45%; left: 85%; animation-delay: -1.2s;"></div>
+        <div class="shape square" style="top: 70%; right: 8%; animation-delay: -2.8s;"></div>
+        <div class="shape squiggle" style="top: 80%; left: 25%; animation-delay: -0.3s;"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">TALON HIRD</h1>
+            <p class="subtitle">FINANCIAL FEVER DREAM</p>
+        </header>
+
+        <main class="projects-grid">
+            <!-- Data Science Card -->
+            <div class="project-card">
+                <h2 class="card-title">DATA SCIENCE & ANALYTICS</h2>
+                <p class="card-description">
+                    Advanced statistical modeling and machine learning applications that predict the future of sports performance with mathematical precision.
+                </p>
+                <ul class="features-list">
+                    <li>73% NBA performance prediction accuracy using ML algorithms</li>
+                    <li>Statistical framework for competitive athlete selection processes</li>
+                    <li>25 years of professional sports data processing via web scraping</li>
+                    <li>R Programming, Machine Learning, Data Visualization mastery</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="../Academic-Projects/Data-Science/Beating_The_League%20copy.html" target="_blank" class="memphis-btn">BASKETBALL ANALYTICS</a>
+                    <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection%20copy.html" target="_blank" class="memphis-btn secondary">ATHLETE ANALYSIS</a>
+                </div>
+            </div>
+
+            <!-- Investment Analysis Card -->
+            <div class="project-card">
+                <h2 class="card-title">INVESTMENT ANALYSIS</h2>
+                <p class="card-description">
+                    Comprehensive equity research and valuation methodologies applied to cutting-edge technology companies in dynamic market conditions.
+                </p>
+                <ul class="features-list">
+                    <li>DCF valuation models for Palantir Technologies analysis</li>
+                    <li>Meta Platforms growth projections and sector analysis</li>
+                    <li>Multiple valuation methodologies and market multiples</li>
+                    <li>Financial modeling expertise in Excel and beyond</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="memphis-btn">PALANTIR RESEARCH</a>
+                    <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" target="_blank" class="memphis-btn secondary">META ANALYSIS</a>
+                </div>
+            </div>
+
+            <!-- Philosophy Card -->
+            <div class="project-card">
+                <h2 class="card-title">APPLIED PHILOSOPHY</h2>
+                <p class="card-description">
+                    Critical examination of environmental policy, energy economics, and political theory through rigorous philosophical frameworks and ethical analysis.
+                </p>
+                <ul class="features-list">
+                    <li>Oil sands energy policy and environmental narrative analysis</li>
+                    <li>Contemporary political theory and governance structure critique</li>
+                    <li>Ethical frameworks for modern policy debate applications</li>
+                    <li>Environmental Ethics, Policy Analysis, Critical Theory focus</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="memphis-btn">OIL SANDS ETHICS</a>
+                    <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="memphis-btn secondary">POLITICAL THEORY</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <h2 class="footer-title">MEMPHIS DESIGN #1</h2>
+        <p>Bold geometries meet financial analysis in this postmodern portfolio presentation</p>
+        <a href="../../index.html" class="back-link">← BACK TO REALITY</a>
+    </footer>
+</body>
+</html>

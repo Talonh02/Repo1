@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Golden Empire</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Oswald:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        /* Golden Sunburst Background Pattern */
+        .sunburst-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, 
+                    transparent 30%, 
+                    rgba(218, 165, 32, 0.05) 40%, 
+                    transparent 50%),
+                conic-gradient(from 0deg at 50% 50%, 
+                    transparent 0deg, 
+                    rgba(218, 165, 32, 0.1) 45deg, 
+                    transparent 90deg, 
+                    rgba(218, 165, 32, 0.1) 135deg, 
+                    transparent 180deg,
+                    rgba(218, 165, 32, 0.1) 225deg,
+                    transparent 270deg,
+                    rgba(218, 165, 32, 0.1) 315deg,
+                    transparent 360deg);
+            z-index: -1;
+        }
+        
+        /* Header with Geometric Crown */
+        .header {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #DAA520;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #DAA520, #FFD700, #DAA520, transparent);
+        }
+        
+        .crown-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .crown-element {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 40px solid #DAA520;
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        .crown-element:nth-child(2) {
+            border-bottom-width: 60px;
+            border-left-width: 20px;
+            border-right-width: 20px;
+        }
+        
+        .crown-element::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 20px;
+            background: #FFD700;
+        }
+        
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFD700, #DAA520, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #C0C0C0;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        
+        /* Navigation with Geometric Design */
+        .nav-container {
+            background: #000000;
+            padding: 20px 0;
+            border-top: 2px solid #DAA520;
+            border-bottom: 2px solid #DAA520;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+        
+        .nav-item {
+            position: relative;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            border: 2px solid #DAA520;
+            clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
+            text-decoration: none;
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #000000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(218, 165, 32, 0.4);
+        }
+        
+        /* Main Content Container */
+        .main-content {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+        
+        /* Project Cards with Art Deco Styling */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 3px solid #DAA520;
+            position: relative;
+            padding: 40px;
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            transition: all 0.4s ease;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #FFD700, #DAA520, #B8860B, #DAA520);
+            clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(218, 165, 32, 0.3);
+        }
+        
+        .project-icon {
+            font-size: 3rem;
+            color: #FFD700;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+        
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #C0C0C0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .project-link {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #DAA520, #FFD700);
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: linear-gradient(45deg, #FFD700, #FFFF99);
+            transform: scale(1.05);
+        }
+        
+        /* Footer with Geometric Pattern */
+        .footer {
+            background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
+            padding: 60px 40px 40px;
+            text-align: center;
+            border-top: 4px solid #DAA520;
+            margin-top: 100px;
+        }
+        
+        .footer-decoration {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+        
+        .diamond {
+            width: 20px;
+            height: 20px;
+            background: #DAA520;
+            transform: rotate(45deg);
+            position: relative;
+        }
+        
+        .diamond::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background: #FFD700;
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            color: #C0C0C0;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .main-content {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sunburst-bg"></div>
+    
+    <header class="header">
+        <div class="crown-decoration">
+            <div class="crown-element"></div>
+            <div class="crown-element"></div>
+            <div class="crown-element"></div>
+        </div>
+        <h1 class="main-title">TALON HIRD</h1>
+        <p class="subtitle">Golden Empire of Ideas</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="#finance" class="nav-item">Finance</a>
+            <a href="#philosophy" class="nav-item">Philosophy</a>
+            <a href="#thoughts" class="nav-item">Thoughts</a>
+            <a href="#commentary" class="nav-item">Commentary</a>
+        </div>
+    </nav>
+    
+    <main class="main-content">
+        <div class="projects-grid">
+            <div class="project-card" id="finance">
+                <div class="project-icon">💰</div>
+                <h2 class="project-title">Financial Analysis</h2>
+                <p class="project-description">
+                    Sophisticated investment strategies and market analysis combining quantitative rigor with strategic insight. 
+                    Exploring market dynamics through the lens of mathematical precision and economic theory.
+                </p>
+                <div class="project-links">
+                    <a href="../Academic-Projects/Investment-Analysis/" class="project-link">View Analysis</a>
+                </div>
+            </div>
+            
+            <div class="project-card" id="philosophy">
+                <div class="project-icon">🏛️</div>
+                <h2 class="project-title">Philosophical Essays</h2>
+                <p class="project-description">
+                    Deep explorations of political philosophy, environmental ethics, and moral reasoning. 
+                    Academic writing that bridges classical thought with contemporary challenges.
+                </p>
+                <div class="project-links">
+                    <a href="../Academic-Projects/Philosophy/" class="project-link">Read Essays</a>
+                </div>
+            </div>
+            
+            <div class="project-card" id="thoughts">
+                <div class="project-icon">💭</div>
+                <h2 class="project-title">Personal Reflections</h2>
+                <p class="project-description">
+                    Intimate thoughts on life, success, and personal growth. Reflections from an athlete-scholar 
+                    navigating the intersection of physical excellence and intellectual pursuit.
+                </p>
+                <div class="project-links">
+                    <a href="../Personal-Docs/" class="project-link">Explore Thoughts</a>
+                </div>
+            </div>
+            
+            <div class="project-card" id="commentary">
+                <div class="project-icon">📰</div>
+                <h2 class="project-title">Critical Commentary</h2>
+                <p class="project-description">
+                    Sharp analysis of current events through the lens of economic theory, political science, 
+                    and philosophical reasoning. Contemporary issues examined with scholarly rigor.
+                </p>
+                <div class="project-links">
+                    <a href="../Media-Coverage/" class="project-link">Read Commentary</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-decoration">
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+        </div>
+        <p class="footer-text">Excellence in All Endeavors</p>
+    </footer>
+</body>
+</html>

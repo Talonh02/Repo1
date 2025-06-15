@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON HIRD — Memphis Design #2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Bungee&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* MEMPHIS DESIGN #2: "ASYMMETRIC ACADEMIC ARCADE" */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coral-blast: #FF7F7F;
+            --turquoise-pop: #40E0D0;
+            --lemon-zap: #FFF700;
+            --grape-punch: #9966CC;
+            --mint-shock: #00FF7F;
+            --peach-fizz: #FFCBA4;
+            --azure-boom: #007FFF;
+            --rose-bomb: #FF1493;
+        }
+
+        body {
+            font-family: 'Fredoka One', cursive;
+            background: var(--peach-fizz);
+            background-image: 
+                radial-gradient(circle at 25% 25%, var(--turquoise-pop) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--mint-shock) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--lemon-zap) 0%, transparent 50%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* PATTERN OVERLAY */
+        .pattern-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(255,255,255,0.1) 15px, rgba(255,255,255,0.1) 30px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* FLOATING ELEMENTS */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .floating-shape {
+            position: absolute;
+            animation: float-drift 8s ease-in-out infinite;
+        }
+
+        .dot-cluster {
+            width: 20px;
+            height: 20px;
+            background: var(--rose-bomb);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .dot-cluster::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 25px;
+            width: 15px;
+            height: 15px;
+            background: var(--azure-boom);
+            border-radius: 50%;
+        }
+
+        .dot-cluster::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            width: 12px;
+            height: 12px;
+            background: var(--grape-punch);
+            border-radius: 50%;
+        }
+
+        .zigzag {
+            width: 100px;
+            height: 8px;
+            background: var(--coral-blast);
+            position: relative;
+            clip-path: polygon(0 0, 20% 100%, 40% 0, 60% 100%, 80% 0, 100% 100%, 100% 0);
+        }
+
+        .spiral {
+            width: 60px;
+            height: 60px;
+            border: 6px solid var(--turquoise-pop);
+            border-radius: 50%;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            animation: spin-spiral 3s linear infinite;
+        }
+
+        @keyframes float-drift {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            25% { transform: translate(20px, -20px) rotate(90deg); }
+            50% { transform: translate(-15px, -40px) rotate(180deg); }
+            75% { transform: translate(-25px, -20px) rotate(270deg); }
+        }
+
+        @keyframes spin-spiral {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .title-block {
+            grid-column: 2;
+            grid-row: 1;
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border: 8px solid black;
+            position: relative;
+            transform: rotate(-3deg);
+        }
+
+        .title-block::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 40px;
+            height: 40px;
+            background: var(--lemon-zap);
+            border: 4px solid black;
+            transform: rotate(45deg);
+        }
+
+        .title-block::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: -15px;
+            width: 30px;
+            height: 30px;
+            background: var(--mint-shock);
+            border-radius: 50%;
+            border: 4px solid black;
+        }
+
+        .main-title {
+            font-family: 'Bungee', cursive;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            color: black;
+            margin-bottom: 0.5rem;
+            text-shadow: 3px 3px 0px var(--coral-blast);
+        }
+
+        .subtitle {
+            font-family: 'Righteous', cursive;
+            font-size: 1.5rem;
+            color: var(--grape-punch);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .side-decor-left {
+            grid-column: 1;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .side-decor-right {
+            grid-column: 3;
+            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .decor-element {
+            width: 80px;
+            height: 80px;
+            background: var(--turquoise-pop);
+            border: 6px solid black;
+            position: relative;
+        }
+
+        .decor-element.triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid var(--azure-boom);
+            background: none;
+            border-top: 6px solid black;
+        }
+
+        .decor-element.circle {
+            border-radius: 50%;
+            background: var(--rose-bomb);
+        }
+
+        .decor-element.square {
+            transform: rotate(45deg);
+            background: var(--lemon-zap);
+        }
+
+        /* ASYMMETRIC PROJECT LAYOUT */
+        .projects-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: white;
+            border: 6px solid black;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:nth-child(1) {
+            grid-column: 1 / 3;
+            grid-row: 1;
+            transform: rotate(1deg);
+            background: var(--lemon-zap);
+        }
+
+        .project-card:nth-child(2) {
+            grid-column: 3;
+            grid-row: 1 / 3;
+            transform: rotate(-2deg);
+            background: var(--mint-shock);
+        }
+
+        .project-card:nth-child(3) {
+            grid-column: 1 / 3;
+            grid-row: 2;
+            transform: rotate(0.5deg);
+            background: var(--coral-blast);
+        }
+
+        .project-card:hover {
+            transform: rotate(0deg) scale(1.02);
+            z-index: 20;
+            box-shadow: 15px 15px 0px rgba(0,0,0,0.3);
+        }
+
+        .card-corner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: var(--grape-punch);
+            border: 3px solid black;
+        }
+
+        .card-corner.top-left {
+            top: -12px;
+            left: -12px;
+            border-radius: 50%;
+        }
+
+        .card-corner.top-right {
+            top: -12px;
+            right: -12px;
+            transform: rotate(45deg);
+        }
+
+        .card-corner.bottom-left {
+            bottom: -12px;
+            left: -12px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .card-corner.bottom-right {
+            bottom: -12px;
+            right: -12px;
+            border-radius: 50%;
+            background: var(--azure-boom);
+        }
+
+        .card-title {
+            font-family: 'Bungee', cursive;
+            font-size: 1.8rem;
+            color: black;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+        }
+
+        .card-description {
+            font-family: 'Righteous', cursive;
+            font-size: 1rem;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.7);
+            padding: 0.5rem;
+            border: 2px solid black;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+        }
+
+        .feature-item::before {
+            content: '★';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background: var(--rose-bomb);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: 2px solid black;
+        }
+
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .memphis-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+        }
+
+        .memphis-btn:hover {
+            background: var(--grape-punch);
+            transform: translateX(5px);
+        }
+
+        .memphis-btn.secondary {
+            background: transparent;
+            color: black;
+            border: 3px solid black;
+            clip-path: none;
+        }
+
+        .memphis-btn.secondary:hover {
+            background: black;
+            color: white;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: black;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--coral-blast) 0px,
+                var(--turquoise-pop) 20px,
+                var(--lemon-zap) 40px,
+                var(--mint-shock) 60px,
+                var(--grape-punch) 80px,
+                var(--azure-boom) 100px
+            );
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-family: 'Bungee', cursive;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--lemon-zap);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            background: var(--coral-blast);
+            color: black;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            border: 4px solid white;
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: rotate(0deg) scale(1.1);
+            background: var(--turquoise-pop);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+            }
+            
+            .title-block {
+                grid-column: 1;
+                grid-row: 2;
+                transform: rotate(0deg);
+            }
+            
+            .side-decor-left {
+                grid-column: 1;
+                grid-row: 1;
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .side-decor-right {
+                grid-column: 1;
+                grid-row: 3;
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                gap: 2rem;
+            }
+            
+            .project-card:nth-child(1),
+            .project-card:nth-child(2),
+            .project-card:nth-child(3) {
+                grid-column: 1;
+                grid-row: auto;
+                transform: rotate(0deg);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PATTERN OVERLAY -->
+    <div class="pattern-overlay"></div>
+
+    <!-- FLOATING SHAPES -->
+    <div class="floating-shapes">
+        <div class="floating-shape dot-cluster" style="top: 15%; left: 8%; animation-delay: -1s;"></div>
+        <div class="floating-shape zigzag" style="top: 25%; right: 12%; animation-delay: -2s;"></div>
+        <div class="floating-shape spiral" style="top: 40%; left: 5%; animation-delay: -3s;"></div>
+        <div class="floating-shape dot-cluster" style="bottom: 30%; right: 8%; animation-delay: -4s;"></div>
+        <div class="floating-shape zigzag" style="bottom: 15%; left: 15%; animation-delay: -5s;"></div>
+        <div class="floating-shape spiral" style="top: 60%; right: 20%; animation-delay: -1.5s;"></div>
+        <div class="floating-shape dot-cluster" style="top: 80%; left: 80%; animation-delay: -2.5s;"></div>
+        <div class="floating-shape zigzag" style="top: 10%; left: 70%; animation-delay: -3.5s;"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="side-decor-left">
+                <div class="decor-element triangle"></div>
+                <div class="decor-element circle"></div>
+                <div class="decor-element square"></div>
+            </div>
+            
+            <div class="title-block">
+                <h1 class="main-title">TALON HIRD</h1>
+                <p class="subtitle">Asymmetric Academic Arcade</p>
+            </div>
+            
+            <div class="side-decor-right">
+                <div class="decor-element square"></div>
+                <div class="decor-element circle"></div>
+                <div class="decor-element triangle"></div>
+            </div>
+        </header>
+
+        <main class="projects-container">
+            <!-- Data Science Card -->
+            <div class="project-card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner top-right"></div>
+                <div class="card-corner bottom-left"></div>
+                <div class="card-corner bottom-right"></div>
+                
+                <h2 class="card-title">DATA SCIENCE & ANALYTICS</h2>
+                <p class="card-description">
+                    Machine learning mastery meets sports analytics in this mathematical journey through predictive modeling and statistical frameworks.
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-item">73% NBA Prediction Accuracy</div>
+                    <div class="feature-item">ML Algorithm Mastery</div>
+                    <div class="feature-item">25 Years Data Processing</div>
+                    <div class="feature-item">R Programming Expert</div>
+                </div>
+                
+                <div class="btn-stack">
+                    <a href="../Academic-Projects/Data-Science/Beating_The_League%20copy.html" target="_blank" class="memphis-btn">BASKETBALL ANALYTICS</a>
+                    <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection%20copy.html" target="_blank" class="memphis-btn secondary">ATHLETE SELECTION</a>
+                </div>
+            </div>
+
+            <!-- Investment Analysis Card -->
+            <div class="project-card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner top-right"></div>
+                <div class="card-corner bottom-left"></div>
+                <div class="card-corner bottom-right"></div>
+                
+                <h2 class="card-title">INVESTMENT ANALYSIS</h2>
+                <p class="card-description">
+                    Financial modeling expertise applied to technology sector analysis with comprehensive DCF valuations and market multiple methodologies.
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-item">DCF Valuation Models</div>
+                    <div class="feature-item">Tech Sector Analysis</div>
+                    <div class="feature-item">Market Multiples</div>
+                    <div class="feature-item">Financial Modeling</div>
+                </div>
+                
+                <div class="btn-stack">
+                    <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="memphis-btn">PALANTIR ANALYSIS</a>
+                    <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" target="_blank" class="memphis-btn secondary">META RESEARCH</a>
+                </div>
+            </div>
+
+            <!-- Philosophy Card -->
+            <div class="project-card">
+                <div class="card-corner top-left"></div>
+                <div class="card-corner top-right"></div>
+                <div class="card-corner bottom-left"></div>
+                <div class="card-corner bottom-right"></div>
+                
+                <h2 class="card-title">APPLIED PHILOSOPHY</h2>
+                <p class="card-description">
+                    Critical theory meets policy analysis in rigorous examinations of environmental ethics, energy policy, and contemporary political frameworks.
+                </p>
+                
+                <div class="features-grid">
+                    <div class="feature-item">Environmental Ethics</div>
+                    <div class="feature-item">Policy Analysis</div>
+                    <div class="feature-item">Critical Theory</div>
+                    <div class="feature-item">Political Philosophy</div>
+                </div>
+                
+                <div class="btn-stack">
+                    <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="memphis-btn">OIL SANDS ETHICS</a>
+                    <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="memphis-btn secondary">POLITICAL THEORY</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <h2 class="footer-title">MEMPHIS DESIGN #2</h2>
+            <p>Asymmetric layouts and playful geometries showcase academic excellence through postmodern visual language</p>
+            <a href="../../index.html" class="back-link">← BACK TO NORMAL</a>
+        </div>
+    </footer>
+</body>
+</html>

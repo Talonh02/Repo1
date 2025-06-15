@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Color Palette & Variables */
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #00BFFF; /* Bright Cyan */
+            --link-color: #39FF14; /* Neon Green */
+            --highlight-color: #00FFFF; /* Lighter Cyan */
+            --logo-bg: #0000FF; /* Solid Blue */
+            --logo-text: #FF0000; /* Solid Red */
+            --white: #EAEAEA;
+        }
+
+        /* Base Setup & Background */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'VT323', monospace;
+            color: var(--text-color);
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* CRT Static/Noise Effect */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);
+            background-size: auto 4px;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: static-flicker 0.1s infinite;
+        }
+
+        @keyframes static-flicker {
+            0%, 100% { transform: translate(0,0); }
+            25% { transform: translate(2px, -2px); }
+            50% { transform: translate(-2px, 2px); }
+            75% { transform: translate(2px, 2px); }
+        }
+
+        /* Main Terminal Container */
+        .terminal {
+            width: 90%;
+            max-width: 700px;
+            padding: 2rem;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* Header Status Line */
+        .status-line {
+            text-align: left;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Dotted Navigation Menu */
+        .nav-menu p {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+        }
+        .nav-menu .dots {
+            flex-grow: 1;
+            border-bottom: 2px dotted var(--text-color);
+            margin: 0 0.5rem;
+            position: relative;
+            bottom: 4px;
+        }
+        .nav-menu .code {
+            color: var(--white);
+        }
+
+        /* ASCII Art Logo */
+        .logo-art {
+            background-color: var(--logo-bg);
+            color: var(--logo-text);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 2rem 0;
+            font-size: 1rem;
+            line-height: 1.1;
+            text-align: left;
+            white-space: pre; /* Preserves formatting of the ASCII art */
+        }
+
+        /* Intro Text & Links */
+        .intro p {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin: 0.5rem 0;
+        }
+        .intro .placeholder {
+            color: var(--white);
+        }
+        
+        .contact-info {
+            margin-top: 3rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-info .email-link {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+        .contact-info .email-address {
+             color: var(--white);
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--link-color);
+            text-decoration: none;
+            font-size: 1.4rem;
+            margin: 0 1rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: var(--white);
+        }
+
+        /* Back Navigation */
+        .back-nav {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .back-nav a:hover {
+            color: var(--highlight-color) !important;
+        }
+
+        /* Retro Sidebar Styles */
+        .retro-sidebar {
+            margin-top: 3rem;
+            border: 2px solid var(--text-color);
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        .sidebar-title {
+            color: var(--text-color);
+            font-size: 0.8rem;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .sidebar-column {
+            flex: 1;
+        }
+
+        .sidebar-column h3 {
+            color: var(--highlight-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-family: 'VT323', monospace;
+        }
+
+        .sidebar-divider {
+            color: var(--text-color);
+            font-size: 0.6rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .sidebar-links a {
+            transition: color 0.2s;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--white) !important;
+        }
+
+        @media (max-width: 600px) {
+            .sidebar-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="terminal">
+        
+        <div class="back-nav">
+            <a href="index.html" style="color: var(--text-color); text-decoration: none; font-size: 1.1rem;">← Home</a>
+        </div>
+        
+        <p class="status-line">P100 142 Sat 14 Jun 22:49:50</p>
+
+
+        <pre class="logo-art">
+████████╗ █████╗ ██╗      ██████╗ ███╗   ██╗
+╚══██╔══╝██╔══██╗██║     ██╔═══██╗████╗  ██║
+   ██║   ███████║██║     ██║   ██║██╔██╗ ██║
+   ██║   ██╔══██║██║     ██║   ██║██║╚██╗██║
+   ██║   ██║  ██║███████╗╚██████╔╝██║ ╚████║
+   ╚═╝   ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
+</pre>
+
+        <div class="intro">
+            <p>Hi my name is Talon Hird.</p>
+            <p>BCom Finance grad '25, Philosophy minor, University of Alberta.</p>
+            <p>Golden Bears Wrestling alum.</p>
+            <p>In my free time I enjoy thinking about financial markets, philosophy, and the future of humanity's relationship with technology.</p>
+        </div>
+
+        <div class="contact-info">
+            <p>
+                <a href="mailto:talonh02@gmail.com" class="email-link">Email</a> 
+                <span class="email-address">talonh02@gmail.com</span>
+            </p>
+            <p class="email-address">Phone: 250 416 9899</p>
+        </div>
+
+        <!-- 
+        <div class="retro-sidebar">
+            <div class="sidebar-header">
+                <pre class="sidebar-title">
+╔══════════════════════════════════════╗
+║             PROJECTS & WRITING        ║
+╚══════════════════════════════════════╝
+                </pre>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-column">
+                    <h3>PROJECTS</h3>
+                    <div class="sidebar-divider">
+                        ████████████████████
+                    </div>
+                    <ul class="sidebar-links">
+                        <li><a href="finance.html" style="color: var(--link-color); text-decoration: none;">► Finance Analysis</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-column">
+                    <h3>WRITING</h3>
+                    <div class="sidebar-divider">
+                        ████████████████████
+                    </div>
+                    <ul class="sidebar-links">
+                        <li><a href="ThoughtsandEssays.html" style="color: var(--link-color); text-decoration: none;">► Thoughts & Essays</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        -->
+
+    </div>
+
+</body>
+</html>

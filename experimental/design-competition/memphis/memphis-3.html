@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON HIRD — Memphis Design #3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* MEMPHIS DESIGN #3: "RADICAL REBELLION RESEARCH" */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #39FF14;
+            --electric-pink: #FF10F0;
+            --cyber-orange: #FF4500;
+            --plasma-blue: #0080FF;
+            --atomic-yellow: #FFFF33;
+            --laser-red: #FF073A;
+            --volt-purple: #8A2BE2;
+            --toxic-lime: #32CD32;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #333333 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* DIGITAL GRID BACKGROUND */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+            animation: grid-pulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes grid-pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        /* REBELLIOUS SHAPES */
+        .rebel-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .rebel-shape {
+            position: absolute;
+            animation: rebel-dance 6s ease-in-out infinite;
+        }
+
+        .lightning {
+            width: 4px;
+            height: 80px;
+            background: var(--atomic-yellow);
+            position: relative;
+            transform: rotate(20deg);
+        }
+
+        .lightning::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -8px;
+            width: 20px;
+            height: 4px;
+            background: var(--atomic-yellow);
+            transform: rotate(-40deg);
+        }
+
+        .lightning::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            right: -10px;
+            width: 15px;
+            height: 4px;
+            background: var(--atomic-yellow);
+            transform: rotate(40deg);
+        }
+
+        .neon-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--electric-pink);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--electric-pink);
+            animation: neon-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .radical-line {
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--laser-red), var(--cyber-orange), var(--laser-red));
+            transform: rotate(-15deg);
+            position: relative;
+        }
+
+        .radical-line::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            width: 6px;
+            height: 26px;
+            background: var(--plasma-blue);
+            transform: rotate(45deg);
+        }
+
+        @keyframes rebel-dance {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(-20px, -50px) rotate(180deg); }
+            75% { transform: translate(-40px, -25px) rotate(270deg); }
+        }
+
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 20px var(--electric-pink); }
+            100% { box-shadow: 0 0 40px var(--electric-pink), 0 0 60px var(--electric-pink); }
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* RADICAL HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            padding: 3rem 0;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-pink), var(--cyber-orange));
+            animation: color-shift 3s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--cyber-orange), var(--electric-pink), var(--neon-green));
+            animation: color-shift 3s ease-in-out infinite reverse;
+        }
+
+        @keyframes color-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+        }
+
+        .main-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: clamp(3rem, 8vw, 7rem);
+            background: linear-gradient(45deg, var(--neon-green), var(--electric-pink), var(--cyber-orange));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+            margin-bottom: 1rem;
+            animation: title-glitch 4s ease-in-out infinite;
+        }
+
+        @keyframes title-glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            95% { transform: translate(-2px, 2px); }
+            97% { transform: translate(2px, -2px); }
+        }
+
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--atomic-yellow);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--atomic-yellow);
+        }
+
+        /* REVOLUTIONARY PROJECT LAYOUT */
+        .projects-revolution {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border: 2px solid var(--neon-green);
+            padding: 3rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px));
+            transition: all 0.4s ease;
+        }
+
+        .project-card:nth-child(even) {
+            border-color: var(--electric-pink);
+            align-self: flex-end;
+            max-width: 80%;
+            clip-path: polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px);
+        }
+
+        .project-card:nth-child(odd) {
+            align-self: flex-start;
+            max-width: 80%;
+        }
+
+        .project-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.3);
+            border-color: var(--atomic-yellow);
+        }
+
+        .project-card:nth-child(even):hover {
+            box-shadow: 0 0 50px rgba(255, 16, 240, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--cyber-orange);
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: black;
+            clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5);
+            flex: 1;
+        }
+
+        .card-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .card-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 2rem;
+        }
+
+        .features-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-chip {
+            background: rgba(57, 255, 20, 0.2);
+            border: 1px solid var(--neon-green);
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+            transition: all 0.3s ease;
+        }
+
+        .feature-chip:hover {
+            background: rgba(57, 255, 20, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .project-card:nth-child(even) .feature-chip {
+            background: rgba(255, 16, 240, 0.2);
+            border-color: var(--electric-pink);
+        }
+
+        .project-card:nth-child(even) .feature-chip:hover {
+            background: rgba(255, 16, 240, 0.4);
+        }
+
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--laser-red), var(--cyber-orange));
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 7, 58, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, var(--plasma-blue), var(--volt-purple));
+        }
+
+        .action-btn.secondary:hover {
+            box-shadow: 0 5px 20px rgba(0, 128, 255, 0.4);
+        }
+
+        /* REVOLUTIONARY FOOTER */
+        .footer {
+            background: linear-gradient(135deg, var(--volt-purple), var(--plasma-blue));
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--neon-green) 0px,
+                var(--electric-pink) 30px,
+                var(--cyber-orange) 60px,
+                var(--atomic-yellow) 90px,
+                var(--laser-red) 120px
+            );
+            animation: rainbow-scroll 5s linear infinite;
+        }
+
+        @keyframes rainbow-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-150px); }
+        }
+
+        .footer-title {
+            font-family: 'Black Ops One', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--atomic-yellow);
+            text-shadow: 0 0 30px var(--atomic-yellow);
+        }
+
+        .footer-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: var(--neon-green);
+            color: black;
+            padding: 1.5rem 3rem;
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+        }
+
+        .back-link:hover {
+            background: var(--atomic-yellow);
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 255, 51, 0.7);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .project-card,
+            .project-card:nth-child(even) {
+                align-self: stretch;
+                max-width: 100%;
+                clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+            }
+            
+            .card-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .features-matrix {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- DIGITAL GRID -->
+    <div class="grid-overlay"></div>
+
+    <!-- REBELLIOUS SHAPES -->
+    <div class="rebel-shapes">
+        <div class="rebel-shape lightning" style="top: 10%; left: 5%; animation-delay: -1s;"></div>
+        <div class="rebel-shape neon-dot" style="top: 20%; right: 10%; animation-delay: -2s;"></div>
+        <div class="rebel-shape radical-line" style="top: 30%; left: 15%; animation-delay: -0.5s;"></div>
+        <div class="rebel-shape lightning" style="top: 50%; right: 8%; animation-delay: -3s;"></div>
+        <div class="rebel-shape neon-dot" style="bottom: 30%; left: 12%; animation-delay: -1.5s;"></div>
+        <div class="rebel-shape radical-line" style="bottom: 20%; right: 20%; animation-delay: -2.5s;"></div>
+        <div class="rebel-shape lightning" style="top: 70%; left: 80%; animation-delay: -4s;"></div>
+        <div class="rebel-shape neon-dot" style="top: 80%; left: 25%; animation-delay: -0.8s;"></div>
+        <div class="rebel-shape radical-line" style="top: 15%; right: 25%; animation-delay: -3.5s;"></div>
+        <div class="rebel-shape neon-dot" style="bottom: 10%; right: 30%; animation-delay: -2.8s;"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">TALON HIRD</h1>
+            <p class="subtitle">Radical Rebellion Research</p>
+        </header>
+
+        <main class="projects-revolution">
+            <!-- Data Science Card -->
+            <div class="project-card">
+                <div class="card-header">
+                    <div class="card-icon">DS</div>
+                    <h2 class="card-title">DATA SCIENCE & ANALYTICS</h2>
+                </div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-description">
+                            Revolutionary machine learning algorithms meet sports analytics in this data-driven rebellion against conventional prediction methods. Advanced statistical modeling pushes the boundaries of performance forecasting.
+                        </p>
+                        <div class="features-matrix">
+                            <div class="feature-chip">73% NBA Accuracy</div>
+                            <div class="feature-chip">ML Algorithms</div>
+                            <div class="feature-chip">25 Years Data</div>
+                            <div class="feature-chip">R Programming</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="../Academic-Projects/Data-Science/Beating_The_League%20copy.html" target="_blank" class="action-btn">BASKETBALL ANALYTICS</a>
+                        <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection%20copy.html" target="_blank" class="action-btn secondary">ATHLETE SELECTION</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Analysis Card -->
+            <div class="project-card">
+                <div class="card-header">
+                    <div class="card-icon">$$</div>
+                    <h2 class="card-title">INVESTMENT ANALYSIS</h2>
+                </div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-description">
+                            Financial modeling rebellion against traditional valuation methods. Comprehensive DCF analysis and technology sector research that challenges conventional investment wisdom through rigorous quantitative frameworks.
+                        </p>
+                        <div class="features-matrix">
+                            <div class="feature-chip">DCF Modeling</div>
+                            <div class="feature-chip">Tech Analysis</div>
+                            <div class="feature-chip">Market Multiples</div>
+                            <div class="feature-chip">Excel Mastery</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="action-btn">PALANTIR DEEP-DIVE</a>
+                        <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" target="_blank" class="action-btn secondary">META RESEARCH</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Philosophy Card -->
+            <div class="project-card">
+                <div class="card-header">
+                    <div class="card-icon">Φ</div>
+                    <h2 class="card-title">APPLIED PHILOSOPHY</h2>
+                </div>
+                <div class="card-content">
+                    <div>
+                        <p class="card-description">
+                            Philosophical rebellion against conventional policy narratives. Critical examination of environmental ethics and political structures through radical theoretical frameworks that challenge established power dynamics.
+                        </p>
+                        <div class="features-matrix">
+                            <div class="feature-chip">Environmental Ethics</div>
+                            <div class="feature-chip">Policy Critique</div>
+                            <div class="feature-chip">Critical Theory</div>
+                            <div class="feature-chip">Political Analysis</div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="action-btn">OIL SANDS REVOLT</a>
+                        <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="action-btn secondary">POLITICAL THEORY</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <h2 class="footer-title">MEMPHIS DESIGN #3</h2>
+        <p class="footer-description">
+            Radical rebellion meets academic excellence in this cyberpunk-inspired Memphis design that challenges conventional portfolio presentations through neon-fueled visual revolution.
+        </p>
+        <a href="../../index.html" class="back-link">← ESCAPE THE REBELLION</a>
+    </footer>
+</body>
+</html>

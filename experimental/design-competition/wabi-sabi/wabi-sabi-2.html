@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Natural Wisdom</title>
+    <style>
+        /* Wabi-Sabi Design 2: "Flowing River" - Embracing movement and natural rhythms */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Crimson Text', serif;
+            background: #f7f4f0;
+            color: #4a453f;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        /* Flowing river-like background */
+        .flow-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse 800px 400px at 50% 0%, rgba(168, 162, 150, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 600px 300px at 0% 70%, rgba(139, 126, 102, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse 400px 200px at 100% 30%, rgba(181, 164, 144, 0.05) 0%, transparent 40%);
+            z-index: -2;
+        }
+        
+        /* Gentle wave-like divider */
+        .wave-divider {
+            position: absolute;
+            width: 120%;
+            height: 60px;
+            left: -10%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,50 C150,20 350,80 600,50 C850,20 1050,80 1200,50 L1200,120 L0,120 Z' fill='%23a8a296' fill-opacity='0.08'/%3E%3C/svg%3E") repeat-x;
+            background-size: 1200px 60px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+            position: relative;
+        }
+        
+        /* Asymmetrical grid layout */
+        .content-river {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+        
+        .left-bank {
+            padding: 4rem 2rem 2rem 2rem;
+            background: linear-gradient(180deg, rgba(248, 245, 240, 0.7) 0%, rgba(240, 235, 228, 0.5) 100%);
+        }
+        
+        .main-flow {
+            padding: 4rem 3rem;
+            position: relative;
+        }
+        
+        .right-bank {
+            padding: 6rem 2rem 2rem 1rem;
+            background: linear-gradient(180deg, rgba(245, 240, 233, 0.4) 0%, rgba(238, 231, 222, 0.3) 100%);
+        }
+        
+        /* Header styling */
+        .header {
+            margin-bottom: 3rem;
+            text-align: left;
+        }
+        
+        .name {
+            font-size: 3.2rem;
+            font-weight: 300;
+            color: #5a4f43;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            position: relative;
+        }
+        
+        .name::after {
+            content: '~';
+            position: absolute;
+            right: -40px;
+            top: 10px;
+            font-size: 2rem;
+            color: #a8a296;
+            opacity: 0.6;
+            transform: rotate(15deg);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            color: #7a6f5f;
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+        
+        .essence {
+            font-size: 0.9rem;
+            color: #8b7f6f;
+            opacity: 0.8;
+        }
+        
+        /* Flowing content sections */
+        .content-section {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-marker {
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(180deg, #a8a296 0%, transparent 100%);
+            border-radius: 2px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #5a4f43;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            position: relative;
+        }
+        
+        .project-stone {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid rgba(168, 162, 150, 0.3);
+            position: relative;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+        }
+        
+        .project-stone::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(168, 162, 150, 0.1) 0%, rgba(181, 164, 144, 0.05) 100%);
+            border-radius: 12px;
+            z-index: -1;
+        }
+        
+        .project-stone:hover {
+            transform: translateX(5px);
+            box-shadow: -3px 8px 20px rgba(168, 162, 150, 0.15);
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            color: #4a453f;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .project-description {
+            color: #6b5f4f;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        /* Side elements */
+        .side-reflection {
+            background: rgba(245, 240, 233, 0.8);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(168, 162, 150, 0.2);
+        }
+        
+        .reflection-title {
+            font-size: 1.1rem;
+            color: #5a4f43;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .reflection-text {
+            font-size: 0.9rem;
+            color: #7a6f5f;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        /* Natural imperfections */
+        .imperfection {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(168, 162, 150, 0.3);
+            border-radius: 50%;
+        }
+        
+        .imperfection-1 { top: 20%; right: 15%; }
+        .imperfection-2 { top: 60%; left: 10%; }
+        .imperfection-3 { bottom: 30%; right: 25%; }
+        
+        /* Gentle animations */
+        .float-gentle {
+            animation: floatGentle 8s ease-in-out infinite;
+        }
+        
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(0.5deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .content-river {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .left-bank, .right-bank {
+                display: none;
+            }
+            
+            .main-flow {
+                padding: 3rem 2rem;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-flow {
+                padding: 2rem 1rem;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .project-stone {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flow-background"></div>
+    
+    <div class="container">
+        <div class="content-river">
+            <div class="left-bank">
+                <div class="side-reflection float-gentle">
+                    <h4 class="reflection-title">On Markets</h4>
+                    <p class="reflection-text">"The market is a river of human emotion, flowing between fear and greed, carrying wisdom to those patient enough to listen."</p>
+                </div>
+                
+                <div class="side-reflection float-gentle" style="animation-delay: 2s;">
+                    <h4 class="reflection-title">On Philosophy</h4>
+                    <p class="reflection-text">"Questions are more valuable than answers, for they keep the mind supple and the heart open to mystery."</p>
+                </div>
+            </div>
+            
+            <div class="main-flow">
+                <div class="imperfection imperfection-1"></div>
+                <div class="imperfection imperfection-2"></div>
+                <div class="imperfection imperfection-3"></div>
+                
+                <header class="header">
+                    <h1 class="name">Talon Hird</h1>
+                    <p class="tagline">Student of Markets & Meaning</p>
+                    <p class="essence">Seeking truth in the spaces between certainty</p>
+                </header>
+                
+                <div class="wave-divider" style="top: 200px;"></div>
+                
+                <section class="content-section">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">Financial Wisdom</h2>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Deep Value Analysis</h3>
+                        <p class="project-description">Patient examination of market opportunities through the lens of intrinsic value. These analyses embrace the uncertainty inherent in prediction while seeking patterns in chaos.</p>
+                    </div>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Economic Reflections</h3>
+                        <p class="project-description">Contemplations on the interplay between human nature and market forces. Each piece is a meditation on how individual decisions ripple through collective outcomes.</p>
+                    </div>
+                </section>
+                
+                <div class="wave-divider" style="top: 500px;"></div>
+                
+                <section class="content-section">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">Philosophical Streams</h2>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Academic Inquiries</h3>
+                        <p class="project-description">Rigorous exploration of fundamental questions in ethics, politics, and environmental stewardship. These works honor both intellectual tradition and fresh perspective.</p>
+                    </div>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Personal Philosophy</h3>
+                        <p class="project-description">Honest grappling with life's persistent questions. These writings emerge from lived experience, embracing doubt as a companion to understanding.</p>
+                    </div>
+                </section>
+                
+                <div class="wave-divider" style="top: 800px;"></div>
+                
+                <section class="content-section">
+                    <div class="section-marker"></div>
+                    <h2 class="section-title">Contemplative Voice</h2>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Inner Landscape</h3>
+                        <p class="project-description">Quiet observations from the inner journey of growth and self-discovery. These pieces honor both struggle and grace in the process of becoming.</p>
+                    </div>
+                    
+                    <div class="project-stone">
+                        <h3 class="project-title">Cultural Currents</h3>
+                        <p class="project-description">Thoughtful commentary on the currents shaping our collective moment. Written with compassion for human complexity and hope for wisdom.</p>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="right-bank">
+                <div class="side-reflection float-gentle" style="animation-delay: 4s;">
+                    <h4 class="reflection-title">On Writing</h4>
+                    <p class="reflection-text">"Words are like stones in a river - they find their natural place through patient arrangement and gentle flow."</p>
+                </div>
+                
+                <div class="side-reflection float-gentle" style="animation-delay: 6s;">
+                    <h4 class="reflection-title">On Truth</h4>
+                    <p class="reflection-text">"Truth emerges not through force but through careful attention to what is, including the beauty of what is incomplete."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

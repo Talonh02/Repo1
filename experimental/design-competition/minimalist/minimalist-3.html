@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird — Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Minimalist Design 3: Geometric Precision */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #fcfcfc;
+            --text-dark: #1a1a1a;
+            --text-light: #757575;
+            --accent: #000;
+            --line-color: #e0e0e0;
+            --hover-bg: #f8f8f8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .layout-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 4rem;
+            height: fit-content;
+        }
+
+        .identity {
+            margin-bottom: 3rem;
+        }
+
+        .name {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .role {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.2s ease;
+            display: block;
+            padding: 0.25rem 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding-top: 1rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--line-color);
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-right: 1rem;
+            min-width: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-item:hover {
+            background: var(--hover-bg);
+            border-color: var(--line-color);
+        }
+
+        .project-info {
+            display: grid;
+            gap: 0.25rem;
+        }
+
+        .project-title {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-dark);
+        }
+
+        .project-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .project-year {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .project-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.5rem;
+            border: 1px solid var(--line-color);
+        }
+
+        /* External link indicator */
+        .external-link::after {
+            content: '↗';
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-left: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .external-link:hover::after {
+            transform: translate(2px, -2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .nav-menu {
+                display: flex;
+                gap: 1rem;
+            }
+            
+            .nav-item {
+                margin-bottom: 0;
+            }
+            
+            .project-item {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                padding: 1rem;
+            }
+            
+            .project-meta {
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-container">
+        <aside class="sidebar">
+            <div class="identity">
+                <div class="name">Talon Hird</div>
+                <div class="role">analyst / writer</div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="../../index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="../../academic.html" class="nav-link">Academic</a></li>
+                    <li class="nav-item"><a href="../../athletic.html" class="nav-link">Athletic</a></li>
+                    <li class="nav-item"><a href="../../Resume/TalonResume.html" class="nav-link">Resume</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Financial Analysis</h2>
+                </div>
+                <div class="project-grid">
+                    <a href="../Investment-Analysis/metainvsanlys.pdf" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Meta Investment Analysis</div>
+                            <div class="project-description">Comprehensive analysis of Meta's investment potential</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">PDF</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Investment-Analysis/pltrinvsanlys.pdf" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Palantir Investment Commentary</div>
+                            <div class="project-description">Strategic investment evaluation and market positioning</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">PDF</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Personal-Docs/financial-history.html" class="project-item">
+                        <div class="project-info">
+                            <div class="project-title">Personal Financial History</div>
+                            <div class="project-description">Personal journey and insights in finance</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Personal-Docs/on-finance.html" class="project-item">
+                        <div class="project-info">
+                            <div class="project-title">On Finance</div>
+                            <div class="project-description">Philosophical perspectives on financial markets</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Philosophy & Ethics</h2>
+                </div>
+                <div class="project-grid">
+                    <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Political Philosophy Analysis</div>
+                            <div class="project-description">Academic examination of political philosophical frameworks</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">PDF</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Environmental Ethics: Oil Sands</div>
+                            <div class="project-description">Ethical analysis of environmental policy and industry</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">PDF</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Data Science</h2>
+                </div>
+                <div class="project-grid">
+                    <a href="../Academic-Projects/Data-Science/Beating_The_League copy.html" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Beating The League</div>
+                            <div class="project-description">Statistical analysis and predictive modeling</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" target="_blank" class="project-item external-link">
+                        <div class="project-info">
+                            <div class="project-title">Athlete Selection Analysis</div>
+                            <div class="project-description">Data-driven approach to athletic performance evaluation</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Personal Commentary</h2>
+                </div>
+                <div class="project-grid">
+                    <a href="../Personal-Docs/personal1.html" class="project-item">
+                        <div class="project-info">
+                            <div class="project-title">Personal Reflections</div>
+                            <div class="project-description">Individual perspectives and critical thinking</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                    
+                    <a href="../Personal-Docs/main.html" class="project-item">
+                        <div class="project-info">
+                            <div class="project-title">Main Commentary</div>
+                            <div class="project-description">Core thoughts and analytical commentary</div>
+                        </div>
+                        <div class="project-meta">
+                            <span class="project-year">2024</span>
+                            <span class="project-type">HTML</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

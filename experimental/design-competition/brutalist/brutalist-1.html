@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON HIRD — BRUTALIST DESIGN 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* BRUTALIST DESIGN 1: CONCRETE FORTRESS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --concrete-dark: #1a1a1a;
+            --concrete-medium: #2d2d2d;
+            --concrete-light: #404040;
+            --accent-brutal: #b7791f;
+            --text-white: #ffffff;
+            --text-muted: #cccccc;
+            --shadow-harsh: 8px 8px 0px #000000;
+            --border-thick: 4px solid #000000;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--concrete-dark);
+            color: var(--text-white);
+            line-height: 1.2;
+            overflow-x: hidden;
+        }
+
+        /* HEADER: MASSIVE CONCRETE SLAB */
+        .header-block {
+            background: var(--concrete-medium);
+            border-bottom: var(--border-thick);
+            box-shadow: 0 8px 0 #000000;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brutal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            text-shadow: 4px 4px 0px #000000;
+            margin-bottom: 1rem;
+        }
+
+        .brutal-subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-brutal);
+            border-left: 6px solid var(--accent-brutal);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* NAVIGATION: INDUSTRIAL BLOCKS */
+        .nav-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0;
+            margin-top: 2rem;
+        }
+
+        .nav-block {
+            background: var(--concrete-light);
+            border: var(--border-thick);
+            border-collapse: collapse;
+            padding: 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-white);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.1s ease;
+            position: relative;
+            box-shadow: var(--shadow-harsh);
+        }
+
+        .nav-block:hover {
+            background: var(--accent-brutal);
+            color: var(--concrete-dark);
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .nav-block:active {
+            transform: translate(8px, 8px);
+            box-shadow: none;
+        }
+
+        /* MAIN CONTENT: BRUTAL COLUMNS */
+        .main-fortress {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .content-block {
+            background: var(--concrete-medium);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-harsh);
+            padding: 2rem;
+        }
+
+        .block-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            color: var(--accent-brutal);
+            border-bottom: 3px solid var(--accent-brutal);
+            padding-bottom: 0.5rem;
+        }
+
+        .block-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .project-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .project-item {
+            background: var(--concrete-light);
+            border: 2px solid #000000;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+
+        .project-item:hover {
+            background: var(--accent-brutal);
+            color: var(--concrete-dark);
+            font-weight: 700;
+        }
+
+        /* STATEMENT BLOCK: MANIFESTO STYLE */
+        .statement-fortress {
+            background: var(--concrete-dark);
+            border: 6px solid var(--accent-brutal);
+            box-shadow: 12px 12px 0px #000000;
+            padding: 3rem;
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .statement-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.4;
+            color: var(--accent-brutal);
+        }
+
+        /* FOOTER: SOLID FOUNDATION */
+        .footer-block {
+            background: var(--concrete-medium);
+            border-top: var(--border-thick);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* RESPONSIVE BRUTALISM */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav-blocks {
+                grid-template-columns: 1fr;
+            }
+            
+            .brutal-title {
+                font-size: 2.5rem;
+            }
+            
+            .statement-fortress {
+                padding: 2rem;
+            }
+            
+            .statement-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER FORTRESS -->
+    <header class="header-block">
+        <div class="header-content">
+            <h1 class="brutal-title">TALON HIRD</h1>
+            <p class="brutal-subtitle">INTELLECTUAL COMBATANT — FINANCIAL ANALYST — PHILOSOPHICAL WARRIOR</p>
+            
+            <nav class="nav-blocks">
+                <a href="#finance" class="nav-block">FINANCE</a>
+                <a href="#philosophy" class="nav-block">PHILOSOPHY</a>
+                <a href="#analysis" class="nav-block">ANALYSIS</a>
+                <a href="#thoughts" class="nav-block">THOUGHTS</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT FORTRESS -->
+    <main class="main-fortress">
+        <div class="content-grid">
+            <div class="content-block" id="finance">
+                <h2 class="block-title">FINANCIAL WARFARE</h2>
+                <div class="block-content">
+                    <p>Market analysis through the lens of disciplined research and strategic thinking. Raw data transformed into actionable intelligence.</p>
+                    <ul class="project-list">
+                        <li class="project-item">META INVESTMENT ANALYSIS</li>
+                        <li class="project-item">PALANTIR DEEP DIVE</li>
+                        <li class="project-item">MARKET DYNAMICS STUDY</li>
+                        <li class="project-item">PORTFOLIO OPTIMIZATION</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-block" id="philosophy">
+                <h2 class="block-title">PHILOSOPHICAL COMBAT</h2>
+                <div class="block-content">
+                    <p>Rigorous examination of political theory, ethics, and human nature. Academic wrestling with the fundamental questions.</p>
+                    <ul class="project-list">
+                        <li class="project-item">POLITICAL PHILOSOPHY ANALYSIS</li>
+                        <li class="project-item">ENVIRONMENTAL ETHICS</li>
+                        <li class="project-item">OIL SANDS MORALITY</li>
+                        <li class="project-item">POWER STRUCTURES</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-block" id="analysis">
+                <h2 class="block-title">DATA DEMOLITION</h2>
+                <div class="block-content">
+                    <p>Quantitative analysis and data science applied to real-world problems. Numbers don't lie, statistics reveal truth.</p>
+                    <ul class="project-list">
+                        <li class="project-item">ATHLETE SELECTION MODEL</li>
+                        <li class="project-item">SPORTS ANALYTICS</li>
+                        <li class="project-item">PREDICTIVE MODELING</li>
+                        <li class="project-item">STATISTICAL INFERENCE</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-block" id="thoughts">
+                <h2 class="block-title">MENTAL ARTILLERY</h2>
+                <div class="block-content">
+                    <p>Personal reflections on current events, intellectual development, and the intersection of athletics and academics.</p>
+                    <ul class="project-list">
+                        <li class="project-item">COMPETITIVE MINDSET</li>
+                        <li class="project-item">ACADEMIC EXCELLENCE</li>
+                        <li class="project-item">CURRENT EVENTS</li>
+                        <li class="project-item">PERSONAL GROWTH</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATEMENT FORTRESS -->
+        <section class="statement-fortress">
+            <p class="statement-text">
+                "BRUTAL HONESTY IN ANALYSIS — UNCOMPROMISING PURSUIT OF TRUTH — 
+                WHERE ACADEMIC RIGOR MEETS COMPETITIVE SPIRIT"
+            </p>
+        </section>
+    </main>
+
+    <!-- FOOTER FOUNDATION -->
+    <footer class="footer-block">
+        <p class="footer-text">TALON HIRD — BRUTALIST DESIGN SYSTEM — BUILT FOR IMPACT</p>
+    </footer>
+</body>
+</html>

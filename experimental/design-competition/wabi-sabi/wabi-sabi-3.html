@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Essence of Impermanence</title>
+    <style>
+        /* Wabi-Sabi Design 3: "Zen Garden" - Embracing emptiness and contemplative space */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            background: #f9f7f4;
+            color: #3f3b35;
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+        
+        /* Subtle grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 126, 102, 0.03) 1px, transparent 1px),
+                radial-gradient(circle at 75% 75%, rgba(168, 162, 150, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px, 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 3rem;
+            position: relative;
+        }
+        
+        /* Zen garden layout with asymmetrical balance */
+        .zen-garden {
+            display: grid;
+            grid-template-areas: 
+                "void header void"
+                "meditation content reflection"
+                "silence projects whisper";
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto auto 1fr;
+            gap: 4rem 3rem;
+            min-height: 90vh;
+        }
+        
+        .void { grid-area: void; }
+        .meditation { grid-area: meditation; }
+        .silence { grid-area: silence; }
+        .reflection { grid-area: reflection; }
+        .whisper { grid-area: whisper; }
+        
+        /* Header section */
+        .header {
+            grid-area: header;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #4a453f;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .name::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #a8a296 50%, transparent 100%);
+        }
+        
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, #a8a296 50%, transparent 100%);
+        }
+        
+        .essence {
+            font-size: 1rem;
+            color: #7a6f5f;
+            font-style: italic;
+            font-weight: 300;
+            opacity: 0.8;
+        }
+        
+        /* Main content area */
+        .content {
+            grid-area: content;
+            position: relative;
+        }
+        
+        .projects {
+            grid-area: projects;
+            position: relative;
+        }
+        
+        /* Stone-like project containers */
+        .wisdom-stone {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 3rem 2.5rem;
+            margin-bottom: 3rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(168, 162, 150, 0.15);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .wisdom-stone::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(168, 162, 150, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .wisdom-stone:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(168, 162, 150, 0.12);
+        }
+        
+        .stone-category {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #a8a296;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .stone-category::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background: #a8a296;
+            opacity: 0.4;
+        }
+        
+        .stone-title {
+            font-size: 1.4rem;
+            color: #3f3b35;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .stone-essence {
+            color: #6b5f4f;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stone-projects {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .stone-projects li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(168, 162, 150, 0.1);
+            color: #5a4f43;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .stone-projects li::before {
+            content: '◦';
+            position: absolute;
+            left: 0;
+            color: #a8a296;
+            opacity: 0.6;
+        }
+        
+        .stone-projects li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Side elements - zen moments */
+        .zen-moment {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .zen-symbol {
+            font-size: 2rem;
+            color: #a8a296;
+            opacity: 0.3;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        .zen-text {
+            font-size: 0.9rem;
+            color: #7a6f5f;
+            line-height: 1.8;
+            font-style: italic;
+            text-align: center;
+        }
+        
+        /* Breathing animation for zen elements */
+        .breathe {
+            animation: breathe 6s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        
+        /* Empty space elements */
+        .empty-space {
+            height: 100px;
+            position: relative;
+        }
+        
+        .empty-space::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2px;
+            height: 2px;
+            background: rgba(168, 162, 150, 0.2);
+            border-radius: 50%;
+        }
+        
+        /* Subtle entrance animations */
+        .emerge {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: emerge 1.2s ease-out forwards;
+        }
+        
+        .emerge:nth-child(1) { animation-delay: 0.2s; }
+        .emerge:nth-child(2) { animation-delay: 0.4s; }
+        .emerge:nth-child(3) { animation-delay: 0.6s; }
+        .emerge:nth-child(4) { animation-delay: 0.8s; }
+        
+        @keyframes emerge {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .zen-garden {
+                grid-template-areas: 
+                    "header"
+                    "content"
+                    "projects";
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .meditation, .silence, .reflection, .whisper, .void {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 3rem 1.5rem;
+            }
+            
+            .name {
+                font-size: 2rem;
+            }
+            
+            .wisdom-stone {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        /* Focus states for accessibility */
+        .wisdom-stone:focus-within {
+            outline: 2px solid rgba(168, 162, 150, 0.5);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="zen-garden">
+            <div class="void"></div>
+            
+            <header class="header emerge">
+                <h1 class="name">Talon Hird</h1>
+                <p class="essence">In the space between knowing and not knowing</p>
+            </header>
+            
+            <div class="meditation">
+                <div class="zen-moment">
+                    <span class="zen-symbol breathe">○</span>
+                    <p class="zen-text">Markets flow like water, taking the shape of human emotion</p>
+                </div>
+                <div class="empty-space"></div>
+            </div>
+            
+            <div class="content emerge">
+                <div class="wisdom-stone">
+                    <div class="stone-category">Financial Understanding</div>
+                    <h2 class="stone-title">The Art of Patient Capital</h2>
+                    <p class="stone-essence">Investment wisdom emerges from the marriage of rigorous analysis and acceptance of uncertainty. These works explore value through the lens of impermanence.</p>
+                    <ul class="stone-projects">
+                        <li>Deep value analysis of overlooked opportunities</li>
+                        <li>Behavioral finance and market psychology</li>
+                        <li>Economic commentary on policy and trends</li>
+                        <li>Risk assessment through multiple lenses</li>
+                    </ul>
+                </div>
+                
+                <div class="wisdom-stone">
+                    <div class="stone-category">Philosophical Inquiry</div>
+                    <h2 class="stone-title">Questions Without Answers</h2>
+                    <p class="stone-essence">Philosophy begins in wonder and returns to mystery. These investigations honor both rigorous thought and the humility of not knowing.</p>
+                    <ul class="stone-projects">
+                        <li>Environmental ethics and moral responsibility</li>
+                        <li>Political philosophy and justice theory</li>
+                        <li>Personal meaning in an uncertain world</li>
+                        <li>The intersection of theory and lived experience</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="reflection">
+                <div class="zen-moment">
+                    <span class="zen-symbol breathe" style="animation-delay: 2s;">◐</span>
+                    <p class="zen-text">Questions are more beautiful than answers</p>
+                </div>
+            </div>
+            
+            <div class="silence">
+                <div class="empty-space"></div>
+                <div class="zen-moment">
+                    <span class="zen-symbol breathe" style="animation-delay: 4s;">●</span>
+                    <p class="zen-text">In silence, wisdom finds its voice</p>
+                </div>
+            </div>
+            
+            <div class="projects emerge">
+                <div class="wisdom-stone">
+                    <div class="stone-category">Contemplative Writing</div>
+                    <h2 class="stone-title">The Inner Landscape</h2>
+                    <p class="stone-essence">Personal reflection as a path to understanding. These writings embrace vulnerability as strength and growth as a lifelong practice.</p>
+                    <ul class="stone-projects">
+                        <li>Meditations on failure and success</li>
+                        <li>The athlete's journey toward wisdom</li>
+                        <li>Cultural commentary with compassion</li>
+                        <li>Letters to the future self</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="whisper">
+                <div class="zen-moment">
+                    <span class="zen-symbol breathe" style="animation-delay: 6s;">◯</span>
+                    <p class="zen-text">Truth whispers in the spaces between words</p>
+                </div>
+                <div class="empty-space"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Balanced Asymmetry</title>
+    <style>
+        /* BAUHAUS-WABI FUSION: Balanced Asymmetry */
+        /* Principle: Mathematical precision with contemplative irregularities - perfect imperfection */
+        
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-red: #d32f2f;
+            --primary-blue: #1565c0;
+            --primary-yellow: #fbc02d;
+            --earth-brown: #5d4037;
+            --stone-gray: #8d6e63;
+            --sand-beige: #f5f5dc;
+            --moss-green: #689f38;
+            --cloud-white: #fafafa;
+            --shadow-soft: rgba(0, 0, 0, 0.08);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at top left, var(--sand-beige), #ebe6dc);
+            color: var(--earth-brown);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Asymmetric layout container */
+        .page-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-areas: 
+                "sidebar-left header header"
+                "sidebar-left main-content sidebar-right"
+                "footer footer footer";
+            grid-template-columns: 200px 1fr 150px;
+            grid-template-rows: auto 1fr auto;
+            gap: 0;
+            position: relative;
+        }
+        
+        /* Background geometric elements with organic variations */
+        .page-container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--primary-blue) 2px, transparent 2px),
+                radial-gradient(circle at 80% 60%, var(--primary-red) 1.5px, transparent 1.5px),
+                radial-gradient(circle at 60% 80%, var(--primary-yellow) 1px, transparent 1px);
+            background-size: 150px 150px, 200px 200px, 100px 100px;
+            opacity: 0.03;
+            z-index: -1;
+            /* Wabi-sabi: Slight movement */
+            animation: subtle-drift 60s ease-in-out infinite;
+        }
+        
+        @keyframes subtle-drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(2px, -1px) rotate(0.1deg); }
+        }
+        
+        /* Left sidebar - Bauhaus precision with wabi-sabi breath */
+        .sidebar-left {
+            grid-area: sidebar-left;
+            background: linear-gradient(180deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            position: relative;
+            /* Wabi-sabi: Slight imperfection in the edge */
+            clip-path: polygon(0 0, 95% 0, 98% 100%, 0 100%);
+        }
+        
+        .sidebar-left::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 255, 255, 0.1) 20px,
+                    rgba(255, 255, 255, 0.1) 22px
+                );
+            /* Organic texture overlay */
+            opacity: 0.6;
+        }
+        
+        /* Header with mathematical precision and natural flow */
+        .header {
+            grid-area: header;
+            padding: 60px 80px 40px;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 245, 220, 0.8)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="none"/><circle cx="30" cy="30" r="1" fill="%23fbc02d" opacity="0.1"/></svg>');
+            background-size: cover, 60px 60px;
+            position: relative;
+            border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            /* Wabi-sabi: Naturally curved line */
+            border-radius: 2px;
+            transform: scaleY(0.8) rotate(-0.1deg);
+        }
+        
+        .title-composition {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+        
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 200;
+            color: var(--primary-blue);
+            letter-spacing: -4px;
+            /* Wabi-sabi: Slight imperfection in positioning */
+            transform: translateY(-3px) rotate(-0.2deg);
+            text-shadow: 1px 1px 0 rgba(251, 192, 45, 0.2);
+        }
+        
+        .title-elements {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .geometric-accent {
+            width: 80px;
+            height: 12px;
+            background: var(--primary-red);
+            /* Mathematical precision with organic edge */
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+            transform: rotate(-1.2deg);
+        }
+        
+        .geometric-accent:nth-child(2) {
+            width: 60px;
+            height: 8px;
+            background: var(--primary-yellow);
+            transform: rotate(0.8deg);
+        }
+        
+        .description {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--stone-gray);
+            font-style: italic;
+            max-width: 65%;
+            line-height: 1.6;
+            /* Subtle asymmetry */
+            padding-left: 20px;
+        }
+        
+        /* Main content with contemplative grid */
+        .main-content {
+            grid-area: main-content;
+            padding: 50px 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        /* Navigation with balanced asymmetry */
+        .navigation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .nav-section {
+            background: var(--cloud-white);
+            padding: 30px;
+            /* Wabi-sabi: Each section slightly different */
+            border-radius: 15px 25px 20px 10px;
+            box-shadow: 0 8px 30px var(--shadow-soft);
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border-top: 4px solid transparent;
+        }
+        
+        .nav-section:nth-child(1) {
+            border-top-color: var(--primary-red);
+            transform: rotate(0.3deg);
+        }
+        
+        .nav-section:nth-child(2) {
+            border-top-color: var(--primary-blue);
+            transform: rotate(-0.2deg);
+            border-radius: 25px 15px 10px 20px;
+        }
+        
+        .nav-section:nth-child(3) {
+            border-top-color: var(--primary-yellow);
+            transform: rotate(0.1deg);
+            border-radius: 20px 10px 25px 15px;
+        }
+        
+        .nav-section:nth-child(4) {
+            border-top-color: var(--moss-green);
+            transform: rotate(-0.4deg);
+            border-radius: 10px 20px 15px 25px;
+        }
+        
+        .nav-section:hover {
+            transform: scale(1.02) rotate(0deg);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .nav-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--earth-brown);
+            margin-bottom: 12px;
+        }
+        
+        .nav-description {
+            font-size: 0.95rem;
+            color: var(--stone-gray);
+            line-height: 1.6;
+        }
+        
+        /* Project showcase with organic grid */
+        .projects-showcase {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .featured-projects {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 45px;
+            /* Organic shape */
+            border-radius: 30px 20px 25px 15px;
+            box-shadow: 0 15px 50px var(--shadow-soft);
+            position: relative;
+        }
+        
+        .featured-projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            border-radius: 30px 20px 0 0;
+            /* Wabi-sabi: Slightly uneven gradient */
+            opacity: 0.8;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary-blue);
+            margin-bottom: 35px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 2px;
+            background: var(--primary-yellow);
+            /* Hand-drawn imperfection */
+            border-radius: 1px;
+            transform: rotate(-0.2deg);
+        }
+        
+        .project-list {
+            display: grid;
+            gap: 25px;
+        }
+        
+        .project-item {
+            background: var(--sand-beige);
+            padding: 25px;
+            /* Asymmetric curves */
+            border-radius: 5px 15px 10px 20px;
+            border-left: 5px solid var(--stone-gray);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            width: 25px;
+            height: 25px;
+            background: var(--primary-red);
+            /* Geometric accent with irregularity */
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.4;
+            transform: rotate(15deg);
+        }
+        
+        .project-item:nth-child(even)::before {
+            background: var(--primary-blue);
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            transform: rotate(-15deg);
+        }
+        
+        .project-item:hover {
+            transform: translateX(10px) rotate(0.1deg);
+            box-shadow: -5px 10px 30px var(--shadow-soft);
+            border-left-color: var(--primary-blue);
+        }
+        
+        .project-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--earth-brown);
+            margin-bottom: 10px;
+        }
+        
+        .project-summary {
+            font-size: 0.95rem;
+            color: var(--stone-gray);
+            line-height: 1.6;
+        }
+        
+        /* Contemplation panel */
+        .contemplation-panel {
+            display: grid;
+            gap: 25px;
+        }
+        
+        .reflection-card {
+            background: rgba(109, 76, 65, 0.08);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(109, 76, 65, 0.15);
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+        
+        .reflection-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 15px;
+            right: 15px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-yellow), transparent);
+            border-radius: 2px;
+        }
+        
+        .reflection-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--earth-brown);
+            margin-bottom: 12px;
+        }
+        
+        .reflection-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--stone-gray);
+            line-height: 1.7;
+            font-style: italic;
+        }
+        
+        /* Right sidebar - Minimal asymmetric accent */
+        .sidebar-right {
+            grid-area: sidebar-right;
+            background: linear-gradient(180deg, var(--primary-blue), var(--primary-red));
+            /* Wabi-sabi: Natural irregularity */
+            clip-path: polygon(5% 0, 100% 0, 100% 100%, 2% 100%);
+            opacity: 0.7;
+        }
+        
+        /* Footer with balanced composition */
+        .footer {
+            grid-area: footer;
+            background: var(--earth-brown);
+            color: var(--sand-beige);
+            padding: 40px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: 
+                linear-gradient(90deg, 
+                    var(--primary-red) 0%, var(--primary-red) 30%, 
+                    var(--primary-yellow) 30%, var(--primary-yellow) 60%, 
+                    var(--primary-blue) 60%, var(--primary-blue) 100%
+                );
+            /* Subtle imperfection */
+            transform: scaleY(0.9);
+        }
+        
+        .footer-left {
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        .footer-right {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        /* Responsive design with organic breakpoints */
+        @media (max-width: 1200px) {
+            .page-container {
+                grid-template-columns: 150px 1fr 100px;
+            }
+            
+            .projects-showcase {
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-container {
+                grid-template-areas: 
+                    "header"
+                    "main-content"
+                    "footer";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+            
+            .sidebar-left,
+            .sidebar-right {
+                display: none;
+            }
+            
+            .projects-showcase {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .navigation {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .header,
+            .main-content,
+            .footer {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <aside class="sidebar-left"></aside>
+        
+        <header class="header">
+            <div class="title-composition">
+                <h1 class="main-title">Talon Hird</h1>
+                <div class="title-elements">
+                    <div class="geometric-accent"></div>
+                    <div class="geometric-accent"></div>
+                </div>
+            </div>
+            <p class="description">Balanced Asymmetry - Where mathematical precision meets contemplative irregularity, finding perfect harmony in beautiful imperfection</p>
+        </header>
+        
+        <main class="main-content">
+            <nav class="navigation">
+                <div class="nav-section">
+                    <h3 class="nav-title">Financial Analysis</h3>
+                    <p class="nav-description">Systematic market evaluation balanced with intuitive market wisdom and human behavioral understanding</p>
+                </div>
+                <div class="nav-section">
+                    <h3 class="nav-title">Philosophical Essays</h3>
+                    <p class="nav-description">Structured intellectual inquiry tempered with contemplative reflection and lived experience</p>
+                </div>
+                <div class="nav-section">
+                    <h3 class="nav-title">Personal Reflections</h3>
+                    <p class="nav-description">Organic thoughts on growth, meaning, and the beauty found in life's imperfect patterns</p>
+                </div>
+                <div class="nav-section">
+                    <h3 class="nav-title">Critical Commentary</h3>
+                    <p class="nav-description">Analytical perspectives on current events with mindful consideration of complexity and nuance</p>
+                </div>
+            </nav>
+            
+            <div class="projects-showcase">
+                <section class="featured-projects">
+                    <h2 class="section-title">Featured Works</h2>
+                    <div class="project-list">
+                        <article class="project-item">
+                            <h3 class="project-name">Investment Strategy Framework</h3>
+                            <p class="project-summary">A comprehensive approach to portfolio management that combines quantitative rigor with qualitative insights, recognizing that markets are both mathematical and deeply human.</p>
+                        </article>
+                        
+                        <article class="project-item">
+                            <h3 class="project-name">Political Philosophy Analysis</h3>
+                            <p class="project-summary">Systematic examination of governance, power, and justice that balances theoretical frameworks with practical wisdom and ethical contemplation.</p>
+                        </article>
+                        
+                        <article class="project-item">
+                            <h3 class="project-name">Environmental Ethics Research</h3>
+                            <p class="project-summary">Academic exploration of our relationship with the natural world, employing structured methodology while honoring organic wisdom and natural cycles.</p>
+                        </article>
+                        
+                        <article class="project-item">
+                            <h3 class="project-name">Market Commentary Series</h3>
+                            <p class="project-summary">Regular analysis of economic trends and financial developments, blending data-driven insights with recognition of market psychology and human nature.</p>
+                        </article>
+                        
+                        <article class="project-item">
+                            <h3 class="project-name">Personal Development Essays</h3>
+                            <p class="project-summary">Reflective writings on growth, learning, and meaning that embrace both systematic self-improvement and acceptance of natural human rhythms.</p>
+                        </article>
+                        
+                        <article class="project-item">
+                            <h3 class="project-name">Current Events Analysis</h3>
+                            <p class="project-summary">Thoughtful commentary on contemporary issues that combines analytical rigor with empathetic understanding and appreciation for complexity.</p>
+                        </article>
+                    </div>
+                </section>
+                
+                <aside class="contemplation-panel">
+                    <div class="reflection-card">
+                        <h4 class="reflection-title">Design Principle</h4>
+                        <p class="reflection-text">Perfect asymmetry emerges when mathematical precision learns to breathe - when grids discover the wisdom of slight irregularity and function finds grace through gentle imperfection.</p>
+                    </div>
+                    
+                    <div class="reflection-card">
+                        <h4 class="reflection-title">Balanced Mind</h4>
+                        <p class="reflection-text">The analytical mind and contemplative heart need not be at odds - they dance together in the space between certainty and mystery, each informing the other.</p>
+                    </div>
+                    
+                    <div class="reflection-card">
+                        <h4 class="reflection-title">Organic Structure</h4>
+                        <p class="reflection-text">True organization mimics nature - purposeful yet flexible, systematic yet breathing, precise yet alive with the beautiful accidents of growth and time.</p>
+                    </div>
+                    
+                    <div class="reflection-card">
+                        <h4 class="reflection-title">Harmonious Tension</h4>
+                        <p class="reflection-text">Beauty lives in the tension between order and chaos, between what is planned and what emerges naturally from the spaces we leave for serendipity.</p>
+                    </div>
+                </aside>
+            </div>
+        </main>
+        
+        <aside class="sidebar-right"></aside>
+        
+        <footer class="footer">
+            <div class="footer-left">Bauhaus-Wabi Fusion: Balanced Asymmetry</div>
+            <div class="footer-right">Perfect imperfection, structured contemplation</div>
+        </footer>
+    </div>
+</body>
+</html>

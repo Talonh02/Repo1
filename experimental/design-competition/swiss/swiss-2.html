@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Projects</title>
+    <style>
+        /* Swiss Design Approach 2: Asymmetrical Layout with Strong Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #000;
+            background: #fff;
+            padding: 0;
+        }
+
+        /* Asymmetrical container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* Left sidebar - Strong vertical emphasis */
+        .sidebar {
+            background: #000;
+            color: #fff;
+            padding: 60px 40px;
+            position: relative;
+        }
+
+        .sidebar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: #e60000;
+        }
+
+        .logo {
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            font-size: 48px;
+            font-weight: 100;
+            letter-spacing: 0.2em;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+        }
+
+        .nav-vertical {
+            list-style: none;
+        }
+
+        .nav-vertical li {
+            margin-bottom: 32px;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+        }
+
+        .nav-vertical a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: color 0.3s;
+        }
+
+        .nav-vertical a:hover {
+            color: #e60000;
+        }
+
+        /* Main content area */
+        .main-content {
+            padding: 80px 60px;
+            position: relative;
+        }
+
+        /* Typography hierarchy */
+        .main-title {
+            font-size: 72px;
+            font-weight: 100;
+            line-height: 0.9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .main-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #666;
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Content sections with mathematical spacing */
+        .content-section {
+            margin-bottom: 120px;
+            position: relative;
+        }
+
+        .content-section::before {
+            content: "";
+            position: absolute;
+            left: -20px;
+            top: 0;
+            width: 4px;
+            height: 60px;
+            background: #e60000;
+        }
+
+        .section-number {
+            position: absolute;
+            left: -60px;
+            top: -10px;
+            font-size: 120px;
+            font-weight: 100;
+            color: #f5f5f5;
+            z-index: -1;
+        }
+
+        .section-header {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-list {
+            list-style: none;
+        }
+
+        .project-item {
+            border-bottom: 1px solid #eee;
+            padding: 24px 0;
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            align-items: start;
+            gap: 40px;
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .project-info p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .project-tags {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .project-year {
+            font-size: 14px;
+            font-weight: 300;
+            text-align: right;
+            color: #999;
+        }
+
+        /* Right sidebar - Minimalist info */
+        .info-panel {
+            background: #f8f8f8;
+            padding: 60px 40px;
+            border-left: 1px solid #ddd;
+        }
+
+        .info-section {
+            margin-bottom: 60px;
+        }
+
+        .info-title {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            color: #666;
+        }
+
+        .info-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .info-content a {
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid #e60000;
+        }
+
+        .info-content a:hover {
+            color: #e60000;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                padding: 40px;
+            }
+            
+            .logo {
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+            
+            .nav-vertical li {
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                display: inline-block;
+                margin-right: 40px;
+                margin-bottom: 0;
+            }
+            
+            .main-content {
+                padding: 40px;
+            }
+            
+            .main-title {
+                font-size: 48px;
+            }
+            
+            .section-number {
+                display: none;
+            }
+            
+            .content-section::before {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <h1 class="logo">Talon Hird</h1>
+            <nav>
+                <ul class="nav-vertical">
+                    <li><a href="#finance">Finance</a></li>
+                    <li><a href="#philosophy">Philosophy</a></li>
+                    <li><a href="#thoughts">Thoughts</a></li>
+                    <li><a href="#commentary">Commentary</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h2 class="main-title">Projects</h2>
+                <p class="main-subtitle">Systematic Analysis & Inquiry</p>
+            </header>
+
+            <section class="content-section" id="finance">
+                <div class="section-number">01</div>
+                <h3 class="section-header">Financial Analysis</h3>
+                <ul class="project-list">
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Investment Research Framework</h3>
+                            <p>Systematic approach to equity analysis combining fundamental and technical methodologies. Focus on risk-adjusted returns and portfolio optimization.</p>
+                            <div class="project-tags">Quantitative • Portfolio Theory • Risk Management</div>
+                        </div>
+                        <div class="project-year">2024</div>
+                    </li>
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Market Commentary Series</h3>
+                            <p>Regular analysis of market conditions, economic indicators, and their implications for investment strategy.</p>
+                            <div class="project-tags">Market Analysis • Economic Policy • Strategy</div>
+                        </div>
+                        <div class="project-year">Ongoing</div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="philosophy">
+                <div class="section-number">02</div>
+                <h3 class="section-header">Philosophical Inquiry</h3>
+                <ul class="project-list">
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Political Philosophy Analysis</h3>
+                            <p>Examination of governance structures, democratic theory, and the relationship between individual liberty and collective welfare.</p>
+                            <div class="project-tags">Political Theory • Democracy • Ethics</div>
+                        </div>
+                        <div class="project-year">2023</div>
+                    </li>
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Environmental Ethics Framework</h3>
+                            <p>Critical analysis of environmental policy through ethical and philosophical lenses, with focus on resource management.</p>
+                            <div class="project-tags">Environmental Ethics • Policy Analysis • Sustainability</div>
+                        </div>
+                        <div class="project-year">2024</div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="thoughts">
+                <div class="section-number">03</div>
+                <h3 class="section-header">Personal Reflections</h3>
+                <ul class="project-list">
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Athletic Performance & Discipline</h3>
+                            <p>Insights from competitive wrestling and the application of systematic training principles to academic and professional pursuits.</p>
+                            <div class="project-tags">Performance • Discipline • Mental Training</div>
+                        </div>
+                        <div class="project-year">2022-2024</div>
+                    </li>
+                    <li class="project-item">
+                        <div class="project-info">
+                            <h3>Academic Integration</h3>
+                            <p>Synthesis of finance, philosophy, and data science methodologies in problem-solving approaches.</p>
+                            <div class="project-tags">Interdisciplinary • Methodology • Learning</div>
+                        </div>
+                        <div class="project-year">Ongoing</div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Right Info Panel -->
+        <aside class="info-panel">
+            <div class="info-section">
+                <h4 class="info-title">Background</h4>
+                <div class="info-content">
+                    Finance student with competitive wrestling background. Focus on systematic analysis and evidence-based decision making.
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h4 class="info-title">Approach</h4>
+                <div class="info-content">
+                    Interdisciplinary methodology combining quantitative analysis, philosophical inquiry, and practical application.
+                </div>
+            </div>
+            
+            <div class="info-section">
+                <h4 class="info-title">Contact</h4>
+                <div class="info-content">
+                    <a href="mailto:contact@talonhird.com">contact@talonhird.com</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>

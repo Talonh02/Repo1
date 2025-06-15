@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon Hird - Projects | Bauhaus Design 3</title>
+    <style>
+        /* BAUHAUS DESIGN 3: INDUSTRIAL MODERNISM
+           Core principle: Unity of art, craft, and industrial design
+           Emphasis on machine aesthetics and functional beauty */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            background-color: #f5f5f5;
+            color: #000000;
+            line-height: 1.5;
+        }
+        
+        /* Main layout: Industrial grid system */
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        
+        /* Header: Machine-like precision */
+        .header-bar {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.02) 10px,
+                rgba(255,255,255,0.02) 20px
+            );
+        }
+        
+        .brand-mark {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .logo-element {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff0000, #ffcc00);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #ffffff;
+            transform: rotate(45deg);
+        }
+        
+        .brand-text {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .control-button {
+            width: 40px;
+            height: 40px;
+            background-color: #ff0000;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .control-button:nth-child(2) { background-color: #0066cc; }
+        .control-button:nth-child(3) { background-color: #ffcc00; }
+        
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Main content area: Modular system */
+        .content-area {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            background-color: #ffffff;
+        }
+        
+        /* Sidebar: Industrial navigation */
+        .nav-panel {
+            background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .nav-section {
+            padding: 30px 25px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .nav-title {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+        
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .nav-item {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 20px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05));
+            border-left: 4px solid transparent;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-item:hover::before {
+            left: 0;
+        }
+        
+        .nav-item:hover {
+            border-left-color: #ffffff;
+            transform: translateX(5px);
+        }
+        
+        .nav-item.finance:hover { border-left-color: #ff0000; }
+        .nav-item.philosophy:hover { border-left-color: #0066cc; }
+        .nav-item.data:hover { border-left-color: #ffcc00; }
+        
+        /* Main content: Systematic project display */
+        .main-panel {
+            padding: 50px;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,0,0,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0,102,204,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255,204,0,0.03) 0%, transparent 50%);
+        }
+        
+        .content-header {
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #000000, #ff0000, #0066cc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+        
+        .divider-line {
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+            margin: 30px auto;
+        }
+        
+        /* Project grid: Modular display system */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        
+        .project-module {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-module::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+        }
+        
+        .project-module:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .module-header {
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f8f8, #ffffff);
+            border-bottom: 1px solid #eee;
+        }
+        
+        .module-category {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        
+        .module-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 15px;
+            color: #000;
+        }
+        
+        .module-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .module-content {
+            padding: 30px;
+        }
+        
+        .module-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .module-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .action-button {
+            flex: 1;
+            padding: 15px;
+            background-color: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff0000, #0066cc, #ffcc00);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .action-button:hover::before {
+            left: 0;
+        }
+        
+        .action-button:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer: Industrial information bar */
+        .footer-bar {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(255,255,255,0.02) 50px,
+                rgba(255,255,255,0.02) 100px
+            );
+        }
+        
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-text {
+            color: #ffffff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+        }
+        
+        .footer-accent {
+            width: 300px;
+            height: 6px;
+            background: linear-gradient(90deg, #ff0000, #0066cc, #ffcc00);
+            margin: 0 auto;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-area {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-panel {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 20px;
+            }
+            
+            .nav-section {
+                min-width: 200px;
+                border-bottom: none;
+                border-right: 1px solid #333;
+            }
+            
+            .main-panel {
+                padding: 30px 20px;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header-bar">
+            <div class="brand-mark">
+                <div class="logo-element">T</div>
+                <div class="brand-text">Talon Hird</div>
+            </div>
+            <div class="header-controls">
+                <button class="control-button"></button>
+                <button class="control-button"></button>
+                <button class="control-button"></button>
+            </div>
+        </header>
+        
+        <div class="content-area">
+            <nav class="nav-panel">
+                <div class="nav-section">
+                    <div class="nav-title">Categories</div>
+                    <div class="nav-items">
+                        <a href="#finance" class="nav-item finance">Finance Analysis</a>
+                        <a href="#philosophy" class="nav-item philosophy">Philosophy</a>
+                        <a href="#data" class="nav-item data">Data Science</a>
+                        <a href="#personal" class="nav-item">Personal</a>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-title">Tools</div>
+                    <div class="nav-items">
+                        <a href="#" class="nav-item">R & Tidyverse</a>
+                        <a href="#" class="nav-item">Statistical Models</a>
+                        <a href="#" class="nav-item">Financial Analysis</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <main class="main-panel">
+                <div class="content-header">
+                    <h1 class="page-title">Project Portfolio</h1>
+                    <div class="divider-line"></div>
+                    <p class="page-subtitle">Systematic Analysis & Research</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Investment Analysis</div>
+                            <h2 class="module-title">Meta Financial Assessment</h2>
+                            <p class="module-description">Comprehensive quantitative analysis of Meta's financial performance, market position, and investment potential using systematic valuation methodologies.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Financial</span>
+                                <span>Format: PDF</span>
+                                <span>Pages: Multi</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Investment-Analysis/metainvsanlys.pdf" class="action-button">View Analysis</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Investment Analysis</div>
+                            <h2 class="module-title">Palantir Strategic Review</h2>
+                            <p class="module-description">Strategic assessment of Palantir's business model, competitive advantages, and growth trajectory in the data analytics sector.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Strategic</span>
+                                <span>Format: PDF</span>
+                                <span>Focus: Tech</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" class="action-button">View Report</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Political Theory</div>
+                            <h2 class="module-title">Political Philosophy Analysis</h2>
+                            <p class="module-description">Critical examination of contemporary political theories and their practical applications in modern governance systems and policy frameworks.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Academic</span>
+                                <span>Format: PDF</span>
+                                <span>Field: Philosophy</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" class="action-button">Read Analysis</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Environmental Ethics</div>
+                            <h2 class="module-title">Oil Sands Ethics Study</h2>
+                            <p class="module-description">Philosophical exploration of environmental responsibility, resource management ethics, and sustainable development practices in natural resource extraction.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Ethics</span>
+                                <span>Format: PDF</span>
+                                <span>Focus: Environment</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" class="action-button">View Study</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Data Science</div>
+                            <h2 class="module-title">Athletic Performance Modeling</h2>
+                            <p class="module-description">Statistical analysis and predictive modeling of athletic performance metrics using R, tidyverse, and advanced data science methodologies.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Research</span>
+                                <span>Format: HTML</span>
+                                <span>Tools: R</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection copy.html" class="action-button">View Research</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-module">
+                        <div class="module-header">
+                            <div class="module-category">Predictive Analytics</div>
+                            <h2 class="module-title">Competitive Analysis Framework</h2>
+                            <p class="module-description">Systematic approach to sports analytics and performance prediction using statistical modeling techniques and data-driven insights.</p>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-stats">
+                                <span>Type: Analytics</span>
+                                <span>Format: HTML</span>
+                                <span>Method: Statistical</span>
+                            </div>
+                            <div class="module-actions">
+                                <a href="../Academic-Projects/Data-Science/Beating_The_League copy.html" class="action-button">Explore Models</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <footer class="footer-bar">
+            <div class="footer-content">
+                <div class="footer-text">Functional Design | Systematic Approach | Industrial Precision</div>
+                <div class="footer-accent"></div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

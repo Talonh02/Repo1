@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIRD_NET :: DYSTOPIAN INTERFACE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier Prime', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Neon city backdrop */
+        .city-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                linear-gradient(to bottom, #000 0%, #0a0015 50%, #001a2e 100%);
+        }
+        
+        .city-bg::before {
+            content: '';
+            position: absolute;
+            top: 60%;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(255, 0, 255, 0.1) 22px,
+                    rgba(255, 0, 255, 0.1) 24px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(0, 255, 255, 0.1) 42px,
+                    rgba(0, 255, 255, 0.1) 44px
+                );
+        }
+        
+        /* Digital rain effect */
+        .digital-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .rain-drop {
+            position: absolute;
+            color: #0ff;
+            font-size: 14px;
+            opacity: 0.7;
+            animation: rain-fall linear infinite;
+        }
+        
+        @keyframes rain-fall {
+            0% {
+                transform: translateY(-100vh);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .main-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            position: relative;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ff0080;
+            text-shadow: 
+                0 0 10px #ff0080,
+                0 0 20px #ff0080,
+                0 0 30px #ff0080,
+                0 0 40px #ff0080;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .logo::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: #00ffff;
+            z-index: -1;
+            animation: neon-flicker 2s infinite alternate;
+        }
+        
+        @keyframes neon-flicker {
+            0%, 100% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            25% {
+                opacity: 0.8;
+                transform: translate(-2px, 0);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translate(2px, -1px);
+            }
+            75% {
+                opacity: 0.9;
+                transform: translate(-1px, 1px);
+            }
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+        
+        .access-warning {
+            background: rgba(255, 0, 128, 0.1);
+            border: 2px solid #ff0080;
+            padding: 1rem;
+            text-align: center;
+            color: #ff0080;
+            text-transform: uppercase;
+            font-weight: bold;
+            animation: warning-pulse 1.5s infinite;
+        }
+        
+        @keyframes warning-pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+            }
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .content-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ffff;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .content-panel::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0080, #00ffff, #ff0080);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .content-panel:hover::before {
+            opacity: 1;
+        }
+        
+        .content-panel:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        .panel-header {
+            background: linear-gradient(135deg, #ff0080, #8000ff);
+            padding: 1.5rem;
+            position: relative;
+        }
+        
+        .panel-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #ff0080, #00ffff);
+            animation: scan-line 2s linear infinite;
+        }
+        
+        @keyframes scan-line {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .panel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .panel-subtitle {
+            color: #ccc;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .panel-content {
+            padding: 2rem;
+        }
+        
+        .panel-description {
+            color: #fff;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .panel-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: #00ffff;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+        
+        .footer-info {
+            margin-top: 4rem;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #333;
+            position: relative;
+        }
+        
+        .footer-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff0080, transparent);
+        }
+        
+        .connection-status {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+        
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .connection-status {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="city-bg"></div>
+    <div class="digital-rain" id="digitalRain"></div>
+    
+    <div class="container">
+        <header class="main-header">
+            <h1 class="logo" data-text="HIRD_NET">HIRD_NET</h1>
+            <div class="tagline">NEURAL NETWORK INTERFACE</div>
+            <div class="access-warning">
+                [AUTHORIZED ACCESS ONLY] - SECURITY LEVEL: MAXIMUM
+            </div>
+        </header>
+        
+        <div class="content-grid">
+            <div class="content-panel" onclick="location.href='../finance-analysis/'">
+                <div class="panel-header">
+                    <h2 class="panel-title">MARKET ANALYSIS</h2>
+                    <div class="panel-subtitle">FINANCIAL NEURAL CORE</div>
+                </div>
+                <div class="panel-content">
+                    <p class="panel-description">
+                        Advanced algorithmic trading systems and predictive market analysis. 
+                        Real-time data processing for investment optimization and risk assessment.
+                    </p>
+                    <div class="panel-stats">
+                        <div class="stat">
+                            <div class="stat-value">98.7%</div>
+                            <div class="stat-label">ACCURACY</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">24/7</div>
+                            <div class="stat-label">ACTIVE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">LIVE</div>
+                            <div class="stat-label">STATUS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-panel" onclick="location.href='../philosophy/'">
+                <div class="panel-header">
+                    <h2 class="panel-title">CONSCIOUSNESS</h2>
+                    <div class="panel-subtitle">PHILOSOPHICAL ENGINE</div>
+                </div>
+                <div class="panel-content">
+                    <p class="panel-description">
+                        Deep philosophical analysis and academic discourse processing. 
+                        Existential query resolution and ethical framework development.
+                    </p>
+                    <div class="panel-stats">
+                        <div class="stat">
+                            <div class="stat-value">∞</div>
+                            <div class="stat-label">DEPTH</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">ACTIVE</div>
+                            <div class="stat-label">THINKING</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">MAX</div>
+                            <div class="stat-label">LOGIC</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-panel" onclick="location.href='../personal-thoughts/'">
+                <div class="panel-header">
+                    <h2 class="panel-title">MIND STREAM</h2>
+                    <div class="panel-subtitle">PERSONAL DATABASE</div>
+                </div>
+                <div class="panel-content">
+                    <p class="panel-description">
+                        Personal reflection archives and consciousness monitoring systems. 
+                        Real-time thought processing and memory indexing protocols.
+                    </p>
+                    <div class="panel-stats">
+                        <div class="stat">
+                            <div class="stat-value">LIVE</div>
+                            <div class="stat-label">STREAM</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">SECURE</div>
+                            <div class="stat-label">ACCESS</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">HIGH</div>
+                            <div class="stat-label">CLARITY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-panel" onclick="location.href='../critical-analysis/'">
+                <div class="panel-header">
+                    <h2 class="panel-title">REALITY CHECK</h2>
+                    <div class="panel-subtitle">CRITICAL ANALYSIS CORE</div>
+                </div>
+                <div class="panel-content">
+                    <p class="panel-description">
+                        Current event analysis and social commentary processing. 
+                        Real-time critique generation and discourse pattern recognition.
+                    </p>
+                    <div class="panel-stats">
+                        <div class="stat">
+                            <div class="stat-value">REAL</div>
+                            <div class="stat-label">TIME</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">SHARP</div>
+                            <div class="stat-label">ANALYSIS</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">TRUTH</div>
+                            <div class="stat-label">SEEKING</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer-info">
+            <div class="connection-status">
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>NEURAL LINK ACTIVE</span>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>QUANTUM ENCRYPTED</span>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>REALITY SYNCHRONIZED</span>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 HIRD_NET SYSTEMS • ALL RIGHTS RESERVED • UNAUTHORIZED ACCESS PROHIBITED
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        // Create digital rain effect
+        function createDigitalRain() {
+            const rain = document.getElementById('digitalRain');
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            for (let i = 0; i < 50; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'rain-drop';
+                drop.style.left = Math.random() * 100 + '%';
+                drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                drop.textContent = chars[Math.floor(Math.random() * chars.length)];
+                rain.appendChild(drop);
+                
+                // Change character periodically
+                setInterval(() => {
+                    drop.textContent = chars[Math.floor(Math.random() * chars.length)];
+                }, 200);
+            }
+        }
+        
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createDigitalRain();
+            
+            // Add hover sound effect simulation
+            const panels = document.querySelectorAll('.content-panel');
+            panels.forEach(panel => {
+                panel.addEventListener('mouseenter', function() {
+                    // Subtle vibration effect
+                    this.style.animation = 'none';
+                    this.offsetHeight; // Trigger reflow
+                    this.style.animation = 'panel-hover 0.3s ease';
+                });
+            });
+        });
+        
+        // Add CSS animation for panel hover effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes panel-hover {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                100% { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

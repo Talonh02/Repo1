@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Finance — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Minimalist Design 2: Centered Simplicity */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #fefefe;
+            --text-primary: #2a2a2a;
+            --text-secondary: #8a8a8a;
+            --accent: #000000;
+            --divider: #f0f0f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Crimson Text', Georgia, serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 18px;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .content-container {
+            max-width: 800px;
+            width: 100%;
+            text-align: left;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--divider);
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        /* Navigation */
+        .nav-links {
+            margin-bottom: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -0.25rem;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text-secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            background-color: var(--accent);
+        }
+
+        /* Content */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .financial-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .financial-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Navigation */
+        .footer-nav {
+            padding-top: 2rem;
+            border-top: 1px solid var(--divider);
+            text-align: center;
+        }
+
+        .footer-nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .footer-nav-links {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 1rem;
+            }
+            
+            .main-title {
+                font-size: 1.75rem;
+            }
+            
+            .footer-nav-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="content-container">
+            <div class="nav-links">
+                <a href="../finance.html" class="nav-link">← Back to Finance</a>
+            </div>
+            
+            <header class="header">
+                <h1 class="main-title">On Finance</h1>
+            </header>
+
+            <main>
+                <section class="content-section">
+                    <p>
+                        Finance, I think to many, represents the peak of academic superficiality. A degree that only money hungry capitalist pigs enter into in order to parasitically siphon money from the system of hard working citizens by means of gambling and usury. When one pauses to further contemplate however, the role of finance in the world, the science, and the philosophy behind it, they would soon realize how important and interesting of a discipline it really is. Like philosophy, finance is something I consider to be a pervasive subject as its influence touches almost everything one encounters on a daily basis. <a href="financial-history.html" class="financial-link">It is after all, in its essence, the theory of value and how to allocate it.</a> For better or worse, value in our modern society is measured by how much something is worth on the open market—i.e., how much people are willing to pay for it. This obviously creates all sorts of problems for things some people see as a right or as beyond the scope of monetary value or things with sentimental worth, etc., but the mechanics of this are particularly interesting when it comes to evaluating the value of a business. Since businesses don't typically have much sentimental value to small investors, and economics assumes informed and rational agents, the value of a business is determined as the present value of future remittances to the investors, adjusted for risk.
+                    </p>
+                </section>
+            </main>
+
+            <footer class="footer-nav">
+                <div class="footer-nav-links">
+                    <a href="../finance.html" class="nav-link">Finance</a>
+                    <a href="../retro.html" class="nav-link">Personal</a>
+                    <a href="../ThoughtsandEssays.html" class="nav-link">Thoughts</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

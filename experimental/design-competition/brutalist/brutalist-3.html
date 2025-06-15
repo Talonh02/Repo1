@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALON HIRD — BRUTALIST DESIGN 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton:wght@400&family=Space+Mono:wght@400;700&family=Bebas+Neue:wght@400&display=swap" rel="stylesheet">
+    <style>
+        /* BRUTALIST DESIGN 3: MODULAR CONCRETE SYSTEM */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --concrete-base: #0a0a0a;
+            --concrete-block: #1f1f1f;
+            --concrete-accent: #333333;
+            --gold-brutal: #b7791f;
+            --white-harsh: #ffffff;
+            --gray-industrial: #888888;
+            --shadow-block: 6px 6px 0px rgba(0,0,0,0.8);
+            --border-brutal: 3px solid #000000;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--concrete-base);
+            color: var(--white-harsh);
+            line-height: 1.4;
+            overflow-x: hidden;
+        }
+
+        /* GRID SYSTEM FOUNDATION */
+        .brutal-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto;
+            gap: 0;
+            min-height: 100vh;
+        }
+
+        /* HEADER MODULE */
+        .header-module {
+            grid-column: 1 / -1;
+            background: var(--concrete-block);
+            border-bottom: 6px solid var(--gold-brutal);
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .title-block {
+            background: var(--concrete-base);
+            border: var(--border-brutal);
+            box-shadow: var(--shadow-block);
+            padding: 1.5rem 2rem;
+            transform: rotate(-1deg);
+        }
+
+        .main-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            line-height: 0.9;
+            color: var(--gold-brutal);
+        }
+
+        .subtitle-block {
+            background: var(--gold-brutal);
+            color: var(--concrete-base);
+            border: var(--border-brutal);
+            box-shadow: var(--shadow-block);
+            padding: 1rem;
+            transform: rotate(1deg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.9rem;
+        }
+
+        /* NAVIGATION MODULE */
+        .nav-module {
+            grid-column: 1 / 4;
+            background: var(--concrete-accent);
+            border-right: var(--border-brutal);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+        }
+
+        .nav-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gold-brutal);
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gold-brutal);
+            padding-bottom: 1rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 1.5rem 2rem;
+            color: var(--white-harsh);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--concrete-base);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: var(--gold-brutal);
+            color: var(--concrete-base);
+            transform: translateX(10px);
+        }
+
+        .nav-item::before {
+            content: "■";
+            margin-right: 1rem;
+            color: var(--gold-brutal);
+        }
+
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            color: var(--concrete-base);
+        }
+
+        /* CONTENT MODULE */
+        .content-module {
+            grid-column: 4 / -1;
+            padding: 2rem;
+        }
+
+        .content-section {
+            margin-bottom: 4rem;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            background: var(--concrete-block);
+            border: var(--border-brutal);
+            box-shadow: var(--shadow-block);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transform: skew(-2deg);
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold-brutal);
+            margin-bottom: 1rem;
+            transform: skew(2deg);
+        }
+
+        .section-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--gray-industrial);
+            transform: skew(2deg);
+        }
+
+        /* PROJECT CARDS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--concrete-block);
+            border: var(--border-brutal);
+            box-shadow: var(--shadow-block);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            background: var(--gold-brutal);
+            color: var(--concrete-base);
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px rgba(0,0,0,0.8);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: var(--gold-brutal);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.2;
+        }
+
+        .project-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: var(--gold-brutal);
+        }
+
+        .project-card:hover .project-title {
+            color: var(--concrete-base);
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--gray-industrial);
+        }
+
+        .project-card:hover .project-desc {
+            color: var(--concrete-base);
+        }
+
+        .project-meta {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--concrete-accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        /* MANIFESTO MODULE */
+        .manifesto-module {
+            grid-column: 1 / -1;
+            background: var(--concrete-base);
+            border: 8px solid var(--gold-brutal);
+            margin: 4rem 2rem;
+            padding: 4rem;
+            text-align: center;
+            transform: skew(-1deg);
+        }
+
+        .manifesto-text {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.2;
+            color: var(--gold-brutal);
+            transform: skew(1deg);
+        }
+
+        /* STATS MODULE */
+        .stats-module {
+            grid-column: 1 / -1;
+            background: var(--concrete-accent);
+            border-top: var(--border-brutal);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-block {
+            background: var(--concrete-base);
+            border: var(--border-brutal);
+            box-shadow: var(--shadow-block);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5rem;
+            color: var(--gold-brutal);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-industrial);
+        }
+
+        /* RESPONSIVE BRUTALISM */
+        @media (max-width: 1024px) {
+            .brutal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-module {
+                grid-column: 1;
+                position: static;
+                border-right: none;
+                border-bottom: var(--border-brutal);
+            }
+            
+            .content-module {
+                grid-column: 1;
+            }
+            
+            .header-module {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .stats-module {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-module {
+                grid-template-columns: 1fr;
+            }
+            
+            .manifesto-module {
+                margin: 2rem 1rem;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="brutal-grid">
+        <!-- HEADER MODULE -->
+        <header class="header-module">
+            <div class="title-block">
+                <h1 class="main-title">TALON HIRD</h1>
+            </div>
+            <div class="subtitle-block">
+                MODULAR SYSTEMS<br>MAXIMUM IMPACT
+            </div>
+        </header>
+
+        <!-- NAVIGATION MODULE -->
+        <nav class="nav-module">
+            <div class="nav-title">NAVIGATE</div>
+            <div class="nav-list">
+                <a href="#finance" class="nav-item active" data-section="finance">FINANCE</a>
+                <a href="#philosophy" class="nav-item" data-section="philosophy">PHILOSOPHY</a>
+                <a href="#analysis" class="nav-item" data-section="analysis">ANALYSIS</a>
+                <a href="#thoughts" class="nav-item" data-section="thoughts">THOUGHTS</a>
+            </div>
+        </nav>
+
+        <!-- CONTENT MODULE -->
+        <main class="content-module">
+            <!-- FINANCE SECTION -->
+            <section class="content-section active" id="finance">
+                <div class="section-header">
+                    <h2 class="section-title">FINANCIAL SYSTEMS</h2>
+                    <p class="section-description">
+                        Systematic analysis of market structures, investment opportunities, and financial risk assessment. Data-driven approach to wealth creation and market understanding.
+                    </p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">META PLATFORMS ANALYSIS</h3>
+                        <p class="project-desc">Comprehensive financial modeling and valuation analysis of Meta's business segments, advertising revenue streams, and metaverse investments.</p>
+                        <div class="project-meta">INVESTMENT RESEARCH • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">PALANTIR TECHNOLOGIES</h3>
+                        <p class="project-desc">Deep dive into government contracts, commercial expansion strategy, and competitive positioning in data analytics market.</p>
+                        <div class="project-meta">EQUITY ANALYSIS • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">PORTFOLIO OPTIMIZATION</h3>
+                        <p class="project-desc">Modern portfolio theory application with risk-adjusted return maximization using quantitative methods and systematic rebalancing.</p>
+                        <div class="project-meta">STRATEGY DEVELOPMENT • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">MARKET COMMENTARY</h3>
+                        <p class="project-desc">Regular analysis of macroeconomic trends, Federal Reserve policy implications, and sector rotation strategies.</p>
+                        <div class="project-meta">ONGOING RESEARCH • 2024</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PHILOSOPHY SECTION -->
+            <section class="content-section" id="philosophy">
+                <div class="section-header">
+                    <h2 class="section-title">PHILOSOPHICAL FRAMEWORKS</h2>
+                    <p class="section-description">
+                        Academic exploration of political theory, ethics, and social structures. Critical examination of power dynamics and moral reasoning in contemporary society.
+                    </p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">POLITICAL PHILOSOPHY</h3>
+                        <p class="project-desc">Analysis of democratic institutions, authority legitimacy, and the relationship between individual liberty and collective governance.</p>
+                        <div class="project-meta">ACADEMIC RESEARCH • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">ENVIRONMENTAL ETHICS</h3>
+                        <p class="project-desc">Moral evaluation of oil sands development, examining stakeholder interests and long-term environmental consequences.</p>
+                        <div class="project-meta">ETHICS ANALYSIS • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">POWER STRUCTURES</h3>
+                        <p class="project-desc">Investigation of institutional power distribution and its impact on democratic participation and social justice outcomes.</p>
+                        <div class="project-meta">POLITICAL THEORY • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">JUSTICE FRAMEWORKS</h3>
+                        <p class="project-desc">Comparative analysis of distributive justice theories and their practical application in policy formation.</p>
+                        <div class="project-meta">NORMATIVE THEORY • 2024</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ANALYSIS SECTION -->
+            <section class="content-section" id="analysis">
+                <div class="section-header">
+                    <h2 class="section-title">DATA SYSTEMS</h2>
+                    <p class="section-description">
+                        Applied statistics and machine learning for competitive advantage. From sports analytics to predictive modeling, transforming raw data into strategic insights.
+                    </p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">ATHLETE SELECTION MODEL</h3>
+                        <p class="project-desc">Machine learning approach to predicting athletic performance using historical data, physical metrics, and competitive results.</p>
+                        <div class="project-meta">R PROGRAMMING • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">SPORTS ANALYTICS</h3>
+                        <p class="project-desc">Statistical analysis of wrestling performance metrics, identifying key success factors and competitive patterns.</p>
+                        <div class="project-meta">DATA SCIENCE • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">PREDICTIVE MODELING</h3>
+                        <p class="project-desc">Development of forecasting models for competitive outcomes using advanced statistical methods and validation techniques.</p>
+                        <div class="project-meta">MACHINE LEARNING • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">LEAGUE DYNAMICS</h3>
+                        <p class="project-desc">Analysis of competitive balance, team performance trends, and strategic decision-making in organized sports.</p>
+                        <div class="project-meta">STATISTICAL ANALYSIS • 2024</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- THOUGHTS SECTION -->
+            <section class="content-section" id="thoughts">
+                <div class="section-header">
+                    <h2 class="section-title">INTELLECTUAL DISCOURSE</h2>
+                    <p class="section-description">
+                        Personal commentary on current events, competitive psychology, and the intersection of academic excellence with athletic achievement. Unfiltered analysis and reflection.
+                    </p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3 class="project-title">COMPETITIVE PSYCHOLOGY</h3>
+                        <p class="project-desc">Examination of high-performance mindset, pressure management, and the mental frameworks that drive exceptional achievement.</p>
+                        <div class="project-meta">PERSONAL ANALYSIS • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">ACADEMIC EXCELLENCE</h3>
+                        <p class="project-desc">Strategies for balancing scholarly rigor with athletic commitment, time management, and maintaining standards across disciplines.</p>
+                        <div class="project-meta">METHODOLOGY • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">CURRENT EVENTS</h3>
+                        <p class="project-desc">Critical analysis of contemporary political and social issues through the lens of philosophical frameworks and empirical evidence.</p>
+                        <div class="project-meta">COMMENTARY • 2024</div>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-title">INSTITUTIONAL IMPACT</h3>
+                        <p class="project-desc">Long-term vision for contributing to academic institutions, competitive wrestling, and financial markets through systematic excellence.</p>
+                        <div class="project-meta">STRATEGIC PLANNING • 2024</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- MANIFESTO MODULE -->
+        <section class="manifesto-module">
+            <p class="manifesto-text">
+                "MODULAR THINKING • SYSTEMATIC EXECUTION • BRUTAL EFFICIENCY<br>
+                WHERE ACADEMIC RIGOR MEETS COMPETITIVE FIRE"
+            </p>
+        </section>
+
+        <!-- STATS MODULE -->
+        <footer class="stats-module">
+            <div class="stat-block">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Wrestling Championships</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-number">3.9</span>
+                <span class="stat-label">Academic GPA</span>
+            </div>
+            <div class="stat-block">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Commitment Level</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.content-section');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all nav items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Hide all sections
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show target section
+                    const targetSection = document.getElementById(this.dataset.section);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            // Add click animation to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translate(-6px, -6px)';
+                    this.style.boxShadow = '12px 12px 0px rgba(0,0,0,0.8)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.boxShadow = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
