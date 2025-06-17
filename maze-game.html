@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Maze Explorer</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: #000; 
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        #gameContainer { 
+            position: relative; 
+            width: 100vw; 
+            height: 100vh; 
+        }
+        #instructions {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 280px;
+            border: 2px solid #333;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            z-index: 100;
+            text-align: center;
+        }
+        .hidden { display: none; }
+        
+        h3 { 
+            margin-top: 0; 
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        p { 
+            margin: 8px 0; 
+            line-height: 1.4;
+        }
+        
+        strong { 
+            color: #FFD700; 
+        }
+        
+        hr { 
+            border: none; 
+            border-top: 1px solid #333; 
+            margin: 15px 0; 
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="loading">
+            <div>🏰 Loading Maze...</div>
+            <div style="font-size: 14px; margin-top: 10px;">Please wait...</div>
+        </div>
+        <div id="instructions" class="hidden">
+            <h3>🏰 Maze Explorer</h3>
+            <p><strong>WASD</strong> - Move around</p>
+            <p><strong>Mouse</strong> - Look around</p>
+            <p><strong>Click</strong> - Lock mouse cursor</p>
+            <p><strong>ESC</strong> - Unlock cursor</p>
+            <hr>
+            <p>🎯 Find your way through the maze!</p>
+            <p>💡 Use your flashlight to navigate</p>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+
+        // Game variables
+        let scene, camera, renderer, controls;
+        let moveForward = false, moveBackward = false;
+        let moveLeft = false, moveRight = false;
+        let velocity = new THREE.Vector3();
+        let direction = new THREE.Vector3();
+        let maze = null;
+        let raycaster = new THREE.Raycaster();
+        let collisionObjects = [];
+        let playerLight;
+
+        // Initialize the game
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x000011, 5, 30);
+
+            // Create camera (first person view)
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1.7, 0); // Eye level height
+
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000011);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('gameContainer').appendChild(renderer.domElement);
+
+            // Add lighting
+            setupLighting();
+
+            // Setup controls
+            setupControls();
+
+            // Load the maze
+            loadMaze();
+
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function setupLighting() {
+            // Very dim ambient light for basic visibility
+            const ambientLight = new THREE.AmbientLight(0x202040, 0.2);
+            scene.add(ambientLight);
+
+            // Player's flashlight
+            playerLight = new THREE.SpotLight(0xffffff, 1.5, 20, Math.PI / 6, 0.3);
+            playerLight.position.copy(camera.position);
+            playerLight.target.position.set(0, 0, -1);
+            playerLight.castShadow = true;
+            playerLight.shadow.mapSize.width = 1024;
+            playerLight.shadow.mapSize.height = 1024;
+            scene.add(playerLight);
+            scene.add(playerLight.target);
+            
+            // Update light position and direction with camera
+            function updatePlayerLight() {
+                playerLight.position.copy(camera.position);
+                
+                // Make light point where camera is looking
+                const direction = new THREE.Vector3();
+                camera.getWorldDirection(direction);
+                const target = camera.position.clone().add(direction.multiplyScalar(10));
+                playerLight.target.position.copy(target);
+                
+                requestAnimationFrame(updatePlayerLight);
+            }
+            updatePlayerLight();
+        }
+
+        function setupControls() {
+            controls = new PointerLockControls(camera, document.body);
+
+            // Click to enable controls
+            document.addEventListener('click', () => {
+                controls.lock();
+            });
+
+            controls.addEventListener('lock', () => {
+                document.getElementById('instructions').classList.add('hidden');
+            });
+
+            controls.addEventListener('unlock', () => {
+                document.getElementById('instructions').classList.remove('hidden');
+            });
+
+            scene.add(controls.getObject());
+
+            // Movement controls
+            const onKeyDown = (event) => {
+                switch (event.code) {
+                    case 'ArrowUp':
+                    case 'KeyW':
+                        moveForward = true;
+                        break;
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        moveLeft = true;
+                        break;
+                    case 'ArrowDown':
+                    case 'KeyS':
+                        moveBackward = true;
+                        break;
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        moveRight = true;
+                        break;
+                }
+            };
+
+            const onKeyUp = (event) => {
+                switch (event.code) {
+                    case 'ArrowUp':
+                    case 'KeyW':
+                        moveForward = false;
+                        break;
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        moveLeft = false;
+                        break;
+                    case 'ArrowDown':
+                    case 'KeyS':
+                        moveBackward = false;
+                        break;
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        moveRight = false;
+                        break;
+                }
+            };
+
+            document.addEventListener('keydown', onKeyDown);
+            document.addEventListener('keyup', onKeyUp);
+        }
+
+        function loadMaze() {
+            const loader = new GLTFLoader();
+            
+            // Try both possible locations for the maze file
+            const possiblePaths = [
+                'Untitled.glb',
+                './Untitled.glb',
+                'Assets/Untitled.glb',
+                './Assets/Untitled.glb',
+                'maze.glb',
+                './maze.glb'
+            ];
+            
+            function tryLoadMaze(pathIndex = 0) {
+                if (pathIndex >= possiblePaths.length) {
+                    document.getElementById('loading').innerHTML = 
+                        'Error: Could not find maze file.<br><small>Expected: maze.glb or Untitled.glb in Assets folder</small>';
+                    return;
+                }
+                
+                loader.load(
+                    possiblePaths[pathIndex],
+                    (gltf) => {
+                        maze = gltf.scene;
+                        
+                        // Enable shadows and collision
+                        maze.traverse((child) => {
+                            if (child.isMesh) {
+                                child.castShadow = true;
+                                child.receiveShadow = true;
+                                
+                                // Add to collision objects
+                                collisionObjects.push(child);
+                                
+                                // Improve materials for better lighting
+                                if (child.material) {
+                                    child.material.side = THREE.FrontSide;
+                                    if (child.material.map) {
+                                        child.material.map.flipY = false;
+                                    }
+                                }
+                            }
+                        });
+                        
+                        scene.add(maze);
+                        
+                        // Hide loading, show instructions
+                        document.getElementById('loading').classList.add('hidden');
+                        document.getElementById('instructions').classList.remove('hidden');
+                        
+                        console.log('Maze loaded successfully from:', possiblePaths[pathIndex]);
+                    },
+                    (progress) => {
+                        const percent = Math.round((progress.loaded / progress.total * 100));
+                        document.getElementById('loading').innerHTML = 
+                            `<div>🏰 Loading Maze... ${percent}%</div>`;
+                    },
+                    (error) => {
+                        console.warn(`Failed to load from ${possiblePaths[pathIndex]}, trying next...`);
+                        tryLoadMaze(pathIndex + 1);
+                    }
+                );
+            }
+            
+            tryLoadMaze();
+        }
+
+        function checkCollisions(direction) {
+            if (collisionObjects.length === 0) return false;
+            
+            const playerRadius = 0.4;
+            const rayOrigin = camera.position.clone();
+            
+            raycaster.set(rayOrigin, direction);
+            const intersections = raycaster.intersectObjects(collisionObjects, true);
+            
+            return intersections.length > 0 && intersections[0].distance < playerRadius;
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (controls.isLocked) {
+                // Movement logic with collision detection
+                velocity.x -= velocity.x * 8.0 * 0.016; // Friction
+                velocity.z -= velocity.z * 8.0 * 0.016;
+
+                direction.z = Number(moveForward) - Number(moveBackward);
+                direction.x = Number(moveRight) - Number(moveLeft);
+                direction.normalize();
+
+                const speed = 15.0;
+                if (moveForward || moveBackward) velocity.z -= direction.z * speed * 0.016;
+                if (moveLeft || moveRight) velocity.x -= direction.x * speed * 0.016;
+
+                // Check collisions before moving
+                const deltaTime = 0.016;
+                
+                // Check forward/backward movement
+                if (Math.abs(velocity.z) > 0.01) {
+                    const forwardDir = new THREE.Vector3();
+                    camera.getWorldDirection(forwardDir);
+                    forwardDir.y = 0;
+                    forwardDir.normalize();
+                    forwardDir.multiplyScalar(Math.sign(-velocity.z));
+                    
+                    if (!checkCollisions(forwardDir)) {
+                        controls.moveForward(-velocity.z * deltaTime);
+                    }
+                }
+                
+                // Check left/right movement
+                if (Math.abs(velocity.x) > 0.01) {
+                    const rightDir = new THREE.Vector3();
+                    camera.getWorldDirection(rightDir);
+                    rightDir.cross(camera.up);
+                    rightDir.y = 0;
+                    rightDir.normalize();
+                    rightDir.multiplyScalar(Math.sign(-velocity.x));
+                    
+                    if (!checkCollisions(rightDir)) {
+                        controls.moveRight(-velocity.x * deltaTime);
+                    }
+                }
+
+                // Keep player above ground
+                const playerHeight = 1.7;
+                if (camera.position.y < playerHeight) {
+                    camera.position.y = playerHeight;
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Start the game
+        init();
+        animate();
+    </script>
+</body>
+</html>

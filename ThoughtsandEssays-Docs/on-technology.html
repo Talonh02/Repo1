@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On Technology — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #000000;
+            color: #e5e5e5;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Swiss Grid System */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 8fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* Back Navigation */
+        .back-nav {
+            grid-column: 2;
+            padding: 40px 0 20px;
+        }
+
+        .back-nav .nav-link {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .back-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .back-nav .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .back-nav .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            grid-column: 2;
+            padding: 80px 0 60px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .main-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        /* Main Content */
+        main {
+            grid-column: 2;
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-size: 1.1rem;
+            color: #e5e5e5;
+            line-height: 1.7;
+        }
+
+        /* Footer Navigation */
+        .footer-nav {
+            grid-column: 2;
+            padding: 60px 0;
+            border-top: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer-nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-nav .nav-link {
+            color: #808080;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav .nav-link:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .back-nav, header, main, .footer-nav {
+                grid-column: 1;
+            }
+
+            .footer-nav-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-nav {
+                flex-direction: column;
+                gap: 30px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-nav">
+            <a href="../ThoughtsandEssays.html" class="nav-link">← Back to Thoughts</a>
+        </div>
+        
+        <header>
+            <h1 class="main-title">On Technology</h1>
+        </header>
+
+        <main>
+            <section class="content-section">
+                <p>
+                    Among all people I know, I'm fairly certain that I am the most excited for the changes this AI revolution will bring. AI has already changed the way I study and work, being indispensable as a tutor, thought partner, and lead developer for coding projects such as this website. With no front-end development experience whatsoever, I used Anthropic's agentic CLI, Claude Code, to create this website from scratch in just a couple of days. Technology, to me, is the fundamental differentiator between man and the animal kingdom and has been by far the largest contributor to increasing prosperity across the world. It also, however, can be incredibly harmful—not just overtly but also in hidden and deceiving ways.
+                </p>
+                
+                <p>
+                    Many people when engaging with the complications of technology will acknowledge the obvious and existential threats such as nuclear annihilation, engineered viruses, or a Skynet-esque AI takeover, but less often grapple with the subtle ways in which technology alters what it means to be human. I believe the history of technological advances can be seen as a series of Faustian bargains—gaining humanity immediate wealth, leisure, and efficiency with often unknown costs lurking not far behind.
+                </p>
+                
+                <p>
+                    The first humans to discover agriculture gained surplus food and permanent settlement, but at the cost of humanity's deep connection to nature. The scientists working on the Manhattan Project propelled humanity into a new era of mastery over the laws of the physical world, in return for the ever-looming threat of nuclear war. In recent times, the invention of cell phones and social networks has connected us to information and each other in unprecedented ways, yet at what cost to our attention spans, mental health, and authentic human relationships?
+                </p>
+                
+                <p>
+                    As we stand on the precipice of artificial general intelligence, I believe we must be both optimistic about the incredible benefits this technology can bring and vigilant about the trade-offs we may be making—some of which we may not fully understand until it's too late.
+                </p>
+            </section>
+        </main>
+
+        <footer class="footer-nav">
+            <div class="footer-nav-links">
+                <a href="../ThoughtsandEssays.html" class="nav-link">Thoughts</a>
+                <a href="../retro.html" class="nav-link">Personal</a>
+                <a href="../finance.html" class="nav-link">Finance</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
