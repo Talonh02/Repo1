@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Journey — Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f5f0;
+            --surface-color: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #5d6d7e;
+            --accent-gold: #c9a961;
+            --accent-burgundy: #722f37;
+            --border-color: #e0e0e0;
+            
+            /* Subject Colors */
+            --finance-color: #2e7d32;
+            --philosophy-color: #5e35b1;
+            --economics-color: #1565c0;
+            --accounting-color: #ef6c00;
+            --business-color: #c62828;
+            --math-color: #00695c;
+            --psychology-color: #ad1457;
+            --english-color: #4527a0;
+            --law-color: #6a4c93;
+            --tech-color: #0277bd;
+            --management-color: #558b2f;
+            --statistics-color: #795548;
+            --science-color: #8bc34a;
+            --political-color: #673ab7;
+            --history-color: #ff5722;
+            --theology-color: #607d8b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.75;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--accent-gold);
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .page-title h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--text-primary);
+        }
+        
+        .page-title p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-gold);
+        }
+
+        .legend {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .semester-section {
+            margin-bottom: 4rem;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .semester-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .semester-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-primary);
+        }
+
+        .semester-subtitle {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .course-card:hover::before {
+            width: 8px;
+        }
+
+        /* Subject-specific colors */
+        .finance { --subject-color: var(--finance-color); }
+        .philosophy { --subject-color: var(--philosophy-color); }
+        .economics { --subject-color: var(--economics-color); }
+        .accounting { --subject-color: var(--accounting-color); }
+        .business { --subject-color: var(--business-color); }
+        .math { --subject-color: var(--math-color); }
+        .psychology { --subject-color: var(--psychology-color); }
+        .english { --subject-color: var(--english-color); }
+        .law { --subject-color: var(--law-color); }
+        .tech { --subject-color: var(--tech-color); }
+        .management { --subject-color: var(--management-color); }
+        .statistics { --subject-color: var(--statistics-color); }
+        .science { --subject-color: var(--science-color); }
+        .political { --subject-color: var(--political-color); }
+        .history { --subject-color: var(--history-color); }
+        .theology { --subject-color: var(--theology-color); }
+
+        .course-card::before {
+            background-color: var(--subject-color);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--subject-color);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .course-code {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .course-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-grade {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--bg-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--subject-color);
+            border: 2px solid var(--subject-color);
+        }
+
+        .course-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-card.expanded .course-description {
+            -webkit-line-clamp: unset;
+            display: block;
+        }
+
+        .withdrawn {
+            opacity: 0.6;
+        }
+
+        .withdrawn .course-grade {
+            background: #f5f5f5;
+            color: #999;
+            border-color: #ddd;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .legend {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .legend-item {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="header-nav">
+            <div class="breadcrumb">
+                <a href="index.html">← Home</a> / <a href="academic.html">Academics</a>
+            </div>
+        </nav>
+
+        <header class="page-title">
+            <h1>Academic Journey</h1>
+            <p>A comprehensive view of my educational path at the University of Alberta</p>
+        </header>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--finance-color);">$</div>
+                <span>Finance</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--philosophy-color);">φ</div>
+                <span>Philosophy</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--economics-color);">€</div>
+                <span>Economics</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--accounting-color);">∑</div>
+                <span>Accounting</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--business-color);">⚡</div>
+                <span>Business</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--math-color);">∫</div>
+                <span>Mathematics</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--psychology-color);">Ψ</div>
+                <span>Psychology</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--english-color);">✎</div>
+                <span>English</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--law-color);">⚖</div>
+                <span>Law</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--tech-color);">◈</div>
+                <span>Technology</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--management-color);">◉</div>
+                <span>Management</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon" style="background-color: var(--statistics-color);">σ</div>
+                <span>Statistics</span>
+            </div>
+        </div>
+
+        <main>
+            <!-- Spring 2025 (Most Recent) -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Spring 2025</h2>
+                    <span class="semester-subtitle">Final Courses</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card history">
+                        <div class="course-header">
+                            <div class="course-icon">📚</div>
+                            <div class="course-info">
+                                <div class="course-code">HIST 115</div>
+                                <div class="course-title">Technology and History</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">IP</div>
+                        <p class="course-description">Examines the complex relationship between technology and social change throughout human history, from prehistoric tools to 21st-century advancements and their societal impacts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Winter 2025 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Winter 2025</h2>
+                    <span class="semester-subtitle">Advanced Finance Specialization</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 442</div>
+                                <div class="course-title">International Financial Markets</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Comprehensive overview of international financial environment examining unique functions and challenges faced by multinational corporations in global money and capital markets.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 488</div>
+                                <div class="course-title">Entrepreneurial Finance</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Focuses on financial aspects of starting, funding, and growing new ventures including valuation of startups, financing strategies, capitalization tables, and exit strategies.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 488</div>
+                                <div class="course-title">FinTech: Concepts & Applications</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Advanced exploration of finance and technology intersection covering blockchain, AI/ML in finance, algorithmic trading, peer-to-peer lending, and disruptive business models.</p>
+                    </div>
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 325</div>
+                                <div class="course-title">Risk, Choice & Rationality</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Introduction to formal decision theory from philosophical perspective, covering modeling preferences and utilities, understanding probabilities, and analyzing decision-making under uncertainty.</p>
+                    </div>
+                    <div class="course-card management">
+                        <div class="course-header">
+                            <div class="course-icon">◉</div>
+                            <div class="course-info">
+                                <div class="course-code">SEM 333</div>
+                                <div class="course-title">Tech Venture Growth</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Explores high-growth technology-based entrepreneurial ventures, covering innovation ecosystems, opportunity identification, team building, and critical resource acquisition.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fall 2024 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Fall 2024</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card accounting">
+                        <div class="course-header">
+                            <div class="course-icon">∑</div>
+                            <div class="course-info">
+                                <div class="course-code">ACCTG 312</div>
+                                <div class="course-title">Financial Reporting for Managers/Analysts</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Designed for non-accounting majors requiring strong understanding of financial reporting, providing depth in balance sheet valuation, income measurement, and cash flow analysis.</p>
+                    </div>
+                    <div class="course-card accounting">
+                        <div class="course-header">
+                            <div class="course-icon">∑</div>
+                            <div class="course-info">
+                                <div class="course-code">ACCTG 432</div>
+                                <div class="course-title">Financial Statement Analysis</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Advanced course focusing on utilizing financial reports to assess intrinsic values of debt and equity securities, covering valuation models and financial statement evaluation.</p>
+                    </div>
+                    <div class="course-card science">
+                        <div class="course-header">
+                            <div class="course-icon">🦋</div>
+                            <div class="course-info">
+                                <div class="course-code">ENT 101</div>
+                                <div class="course-title">Insect-Human Interactions</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Explores biology, diversity, ecology, and behavior of arthropods, examining insects' roles in ecological processes, pest management principles, and conservation within human society.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 434</div>
+                                <div class="course-title">Advanced Topics in Finance</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A+</div>
+                        <p class="course-description">Covers selected advanced topics at research frontiers, exploring intersections of finance with economics, history, political science, and psychology including behavioral finance.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 450</div>
+                                <div class="course-title">FinTech II: Applied Data Science</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B+</div>
+                        <p class="course-description">Provides practical data science skills for implementing financial concepts, covering data wrangling, visualization, web scraping, machine learning algorithms, and natural language processing.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summer 2024 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Summer 2024</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 120</div>
+                                <div class="course-title">Symbolic Logic I</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Introductory course in symbolic logic covering sentential and predicate logic, formal reasoning, logical syntax and semantics, and construction of formal proofs.</p>
+                    </div>
+                    <div class="course-card political">
+                        <div class="course-header">
+                            <div class="course-icon">🏛</div>
+                            <div class="course-info">
+                                <div class="course-code">POL S 101</div>
+                                <div class="course-title">Introduction to Politics</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A+</div>
+                        <p class="course-description">Introduction to systematic study of politics, encompassing ideas, institutions, and interests of modern government, covering political concepts, methods, and contemporary issues.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spring 2024 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Spring 2024</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 413</div>
+                                <div class="course-title">Risk Management</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Focuses on financial risk management with emphasis on derivative securities, examining options and futures markets, valuation models, and hedging strategies.</p>
+                    </div>
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 359</div>
+                                <div class="course-title">Philosophy and the Oil Sands</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">In-depth exploration of ethical, environmental, social, and economic issues surrounding Alberta oil sands development through philosophical and Christian perspectives.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Winter 2024 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Winter 2024</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card tech">
+                        <div class="course-header">
+                            <div class="course-icon">◈</div>
+                            <div class="course-info">
+                                <div class="course-code">BTM 311</div>
+                                <div class="course-title">Management Information Systems</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B</div>
+                        <p class="course-description">Understanding critical interaction between organizational decision-making and IT, covering information systems' strategic role, database management, and ethical implications.</p>
+                    </div>
+                    <div class="course-card economics">
+                        <div class="course-header">
+                            <div class="course-icon">€</div>
+                            <div class="course-info">
+                                <div class="course-code">BUEC 311</div>
+                                <div class="course-title">Business Economics, Organization & Management</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A+</div>
+                        <p class="course-description">Application of economic theory to complex business decision-making, linking economic models to management functions including resource allocation and competitive advantage.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 422</div>
+                                <div class="course-title">Capital Investment</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A+</div>
+                        <p class="course-description">Advanced corporate finance focusing on long-term investment decisions, comprehensive coverage of capital budgeting techniques, cost of capital determination, and risk analysis.</p>
+                    </div>
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 270</div>
+                                <div class="course-title">Political Philosophy</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Introduction to political philosophy examining liberalism traditions including social contract theory, classical liberalism, libertarianism, and critiques from various perspectives.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fall 2023 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Fall 2023</h2>
+                    <span class="semester-subtitle">Declared Finance Major & Philosophy Minor</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card accounting">
+                        <div class="course-header">
+                            <div class="course-icon">∑</div>
+                            <div class="course-info">
+                                <div class="course-code">ACCTG 322</div>
+                                <div class="course-title">Accounting for Management Decision Making</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Prepares and uses accounting information for internal management decision-making covering corporate goals, cost behavior analysis, budgeting, and performance measurement systems.</p>
+                    </div>
+                    <div class="course-card law">
+                        <div class="course-header">
+                            <div class="course-icon">⚖</div>
+                            <div class="course-info">
+                                <div class="course-code">B LAW 301</div>
+                                <div class="course-title">Legal Foundations of Canadian Economy</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Synoptic overview of Canadian legal system emphasizing social policy considerations, examining law sources, legal philosophies, and analyzing tort and contract law.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 412</div>
+                                <div class="course-title">Investment Principles</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B+</div>
+                        <p class="course-description">Core finance course examining securities and markets, covering risk-return relationships, efficient markets, diversification principles, and portfolio construction methods.</p>
+                    </div>
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 240</div>
+                                <div class="course-title">Descartes to Hume</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Survey of early modern philosophy focusing on rationalist and empiricist philosophers, concentrating on metaphysical and epistemological theories during the Scientific Revolution.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Winter 2023 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Winter 2023</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card theology">
+                        <div class="course-header">
+                            <div class="course-icon">✞</div>
+                            <div class="course-info">
+                                <div class="course-code">CHRTC 350</div>
+                                <div class="course-title">Science & Religion: Christian Perspective</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B</div>
+                        <p class="course-description">Examines nature of science and religion challenging conflict myths, exploring complementary relationships through philosophical aspects and historical case studies.</p>
+                    </div>
+                    <div class="course-card finance">
+                        <div class="course-header">
+                            <div class="course-icon">$</div>
+                            <div class="course-info">
+                                <div class="course-code">FIN 301</div>
+                                <div class="course-title">Introduction to Finance</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Introduces fundamental finance concepts covering securities valuation, capital budgeting basics, market efficiency, risk measures, and corporate financing policy choices.</p>
+                    </div>
+                    <div class="course-card management">
+                        <div class="course-header">
+                            <div class="course-icon">◉</div>
+                            <div class="course-info">
+                                <div class="course-code">OM 352</div>
+                                <div class="course-title">Operations Management</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Problem-solving oriented course introducing deterministic and stochastic models for operations planning, focusing on process analysis and competitive advantage creation.</p>
+                    </div>
+                    <div class="course-card management">
+                        <div class="course-header">
+                            <div class="course-icon">◉</div>
+                            <div class="course-info">
+                                <div class="course-code">SEM 310</div>
+                                <div class="course-title">Intro to Management/Organization/Entrepreneurship</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Interdisciplinary course covering managerial decision-making dynamics including HR fundamentals, business ethics, corporate social responsibility, and organizational dynamics.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fall 2022 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Fall 2022</h2>
+                    <span class="semester-subtitle">Entered Bachelor of Commerce Program</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card accounting">
+                        <div class="course-header">
+                            <div class="course-icon">∑</div>
+                            <div class="course-info">
+                                <div class="course-code">ACCTG 311</div>
+                                <div class="course-title">Intro to Accounting for Financial Performance</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B+</div>
+                        <p class="course-description">Focuses on preparing and interpreting financial statements for external decision-makers, covering GAAP principles, balance sheet valuation, and cash flow analysis.</p>
+                    </div>
+                    <div class="course-card business">
+                        <div class="course-header">
+                            <div class="course-icon">⚡</div>
+                            <div class="course-info">
+                                <div class="course-code">BUS 201</div>
+                                <div class="course-title">Intro to Canadian Business</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B+</div>
+                        <p class="course-description">Introduction to Canadian business environment providing foundational knowledge, covering case analysis, entrepreneurial thinking, and leadership development skills.</p>
+                    </div>
+                    <div class="course-card business">
+                        <div class="course-header">
+                            <div class="course-icon">⚡</div>
+                            <div class="course-info">
+                                <div class="course-code">MARK 301</div>
+                                <div class="course-title">Intro to Marketing</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B</div>
+                        <p class="course-description">Introduces core marketing concepts and strategic role, covering marketing mix (4 Ps), segmentation/targeting/positioning, and consumer behavior.</p>
+                    </div>
+                    <div class="course-card statistics">
+                        <div class="course-header">
+                            <div class="course-icon">σ</div>
+                            <div class="course-info">
+                                <div class="course-code">MGTSC 312</div>
+                                <div class="course-title">Probability & Statistics for Business</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Builds on introductory statistics focusing on statistical model building and multiple regression analysis with practical application using software.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Winter 2022 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Winter 2022</h2>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card english">
+                        <div class="course-header">
+                            <div class="course-icon">✎</div>
+                            <div class="course-info">
+                                <div class="course-code">ENGL 102</div>
+                                <div class="course-title">Intro to Critical Analysis</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B+</div>
+                        <p class="course-description">Introduces critical analysis methods through close reading of diverse English literature, developing interpretation, analysis, and effective writing skills.</p>
+                    </div>
+                    <div class="course-card english">
+                        <div class="course-header">
+                            <div class="course-icon">✎</div>
+                            <div class="course-info">
+                                <div class="course-code">ENGL 103</div>
+                                <div class="course-title">Case Studies in Research</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Explores research methodologies informing literature understanding, covering research question identification, source evaluation, and situating arguments within scholarship.</p>
+                    </div>
+                    <div class="course-card psychology">
+                        <div class="course-header">
+                            <div class="course-icon">Ψ</div>
+                            <div class="course-info">
+                                <div class="course-code">PSYCO 105</div>
+                                <div class="course-title">Individual and Social Behavior</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A-</div>
+                        <p class="course-description">Introduction to human individuality, personality, and social behavior covering psychological/biological/social factors interaction and personality theories.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fall 2021 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Fall 2021</h2>
+                    <span class="semester-subtitle">Entered Faculty of Arts</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card economics">
+                        <div class="course-header">
+                            <div class="course-icon">€</div>
+                            <div class="course-info">
+                                <div class="course-code">ECON 102</div>
+                                <div class="course-title">Introduction to Macroeconomics</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Focuses on aggregate-level economic analysis with Canadian emphasis, covering national income accounting, monetary/fiscal policies, and international trade theory.</p>
+                    </div>
+                    <div class="course-card math">
+                        <div class="course-header">
+                            <div class="course-icon">∫</div>
+                            <div class="course-info">
+                                <div class="course-code">MATH 154</div>
+                                <div class="course-title">Calculus for Business and Economics I</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">B-</div>
+                        <p class="course-description">Introduces calculus with business/economics applications, covering derivatives as rate of change, differentiation techniques, and optimization methods.</p>
+                    </div>
+                    <div class="course-card psychology">
+                        <div class="course-header">
+                            <div class="course-icon">Ψ</div>
+                            <div class="course-info">
+                                <div class="course-code">PSYCO 104</div>
+                                <div class="course-title">Basic Psychological Processes</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Introduction to scientific study of behavior and mental processes, exploring research methods, genetics/evolution influence, and core psychological processes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Winter 2021 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Winter 2021</h2>
+                    <span class="semester-subtitle">Successful Academic Pivot</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card economics">
+                        <div class="course-header">
+                            <div class="course-icon">€</div>
+                            <div class="course-info">
+                                <div class="course-code">ECON 101</div>
+                                <div class="course-title">Introduction to Microeconomics</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Introduces microeconomic analysis principles focusing on economic problems/policies, covering consumer/firm roles, supply/demand theory, and market equilibrium.</p>
+                    </div>
+                    <div class="course-card philosophy">
+                        <div class="course-header">
+                            <div class="course-icon">φ</div>
+                            <div class="course-info">
+                                <div class="course-code">PHIL 102</div>
+                                <div class="course-title">Intro to Philosophy: Knowledge & Reality</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Introduction to metaphysics and epistemology classical problems, examining reality/appearance distinction, mind-body problem, and knowledge nature through philosophical texts.</p>
+                    </div>
+                    <div class="course-card statistics">
+                        <div class="course-header">
+                            <div class="course-icon">σ</div>
+                            <div class="course-info">
+                                <div class="course-code">STAT 161</div>
+                                <div class="course-title">Intro Statistics for Business/Economics</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">A</div>
+                        <p class="course-description">Introduces statistical methods for business/economics applications covering data collection, descriptive statistics, probability distributions, and simple linear regression.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fall 2020 -->
+            <section class="semester-section">
+                <div class="semester-header">
+                    <h2 class="semester-title">Fall 2020</h2>
+                    <span class="semester-subtitle">Engineering (All Withdrawn)</span>
+                </div>
+                <div class="courses-grid">
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">⚛</div>
+                            <div class="course-info">
+                                <div class="course-code">CHEM 103</div>
+                                <div class="course-title">Intro University Chemistry I</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Introductory chemistry for engineering covering atomic structure, chemical bonding, molecular geometry, stoichiometry, and states of matter (withdrawn).</p>
+                    </div>
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">◈</div>
+                            <div class="course-info">
+                                <div class="course-code">ENCMP 100</div>
+                                <div class="course-title">Computer Programming for Engineers</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Fundamentals of computer programming for engineering problem-solving, covering program structure, data types, and debugging techniques (withdrawn).</p>
+                    </div>
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">⚙</div>
+                            <div class="course-info">
+                                <div class="course-code">ENGG 100</div>
+                                <div class="course-title">Success in Engineering</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Introduction to Faculty of Engineering and profession, covering study skills, time management, ethics, and engineering's societal role (withdrawn).</p>
+                    </div>
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">⚙</div>
+                            <div class="course-info">
+                                <div class="course-code">ENGG 130</div>
+                                <div class="course-title">Engineering Mechanics</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Principles of statics focusing on equilibrium of planar systems, truss/frame analysis, friction, centroids, and forces/moments in beams (withdrawn).</p>
+                    </div>
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">∫</div>
+                            <div class="course-info">
+                                <div class="course-code">MATH 100</div>
+                                <div class="course-title">Calculus I</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Calculus for engineering covering limits, continuity, derivatives and applications, logarithmic/exponential functions, and integration (withdrawn).</p>
+                    </div>
+                    <div class="course-card withdrawn">
+                        <div class="course-header">
+                            <div class="course-icon" style="background-color: #999;">∞</div>
+                            <div class="course-info">
+                                <div class="course-code">PHYS 130</div>
+                                <div class="course-title">Wave Motion, Optics and Sound</div>
+                            </div>
+                        </div>
+                        <div class="course-grade">W</div>
+                        <p class="course-description">Classical physics covering geometrical optics, oscillations, wave phenomena, sound physics, and diffraction principles for engineering applications (withdrawn).</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="academic.html">Academics</a>
+                <a href="athletic.html">Athletics & Media</a>
+                <a href="personal.html">Thoughts</a>
+                <a href="mailto:hird@ualberta.ca">Contact</a>
+            </div>
+            <p class="copyright">© 2025 Talon Hird. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add click functionality to expand course descriptions
+        document.querySelectorAll('.course-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+            });
+        });
+    </script>
+</body>
+</html>
