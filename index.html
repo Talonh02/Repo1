@@ -383,8 +383,14 @@
             }
             
             .cube-section {
-                justify-self: center;
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 3rem auto;
+                display: flex;
+                justify-content: center;
             }
+            
             .main-layout {
                 flex-direction: column;
             }
@@ -399,22 +405,140 @@
             }
         }
 
+        /* Tablet styles */
         @media (max-width: 800px) {
             .content-columns {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
             
             header {
                 position: static;
-                margin-bottom: 3rem;
+                margin-bottom: 2rem;
             }
             
             body {
-                padding-left: 20px;
+                padding: 20px;
             }
             
             .container {
                 padding-left: 0;
+            }
+            
+            .column-title {
+                font-size: 13px;
+            }
+            
+            .item-link {
+                font-size: 16px;
+            }
+            
+            .scene {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .cube-face {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .face-front  { transform: rotateY(0deg) translateZ(75px); }
+            .face-back   { transform: rotateY(180deg) translateZ(75px); }
+            .face-right  { transform: rotateY(90deg) translateZ(75px); }
+            .face-left   { transform: rotateY(-90deg) translateZ(75px); }
+            .face-top    { transform: rotateX(90deg) translateZ(75px); }
+            .face-bottom { transform: rotateX(-90deg) translateZ(75px); }
+        }
+
+        /* Mobile phone styles */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;
+                padding: 15px;
+            }
+            
+            header {
+                margin-bottom: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 12px;
+                letter-spacing: 2px;
+            }
+            
+            .tagline, .location, .contact-details {
+                font-size: 14px;
+            }
+            
+            .content-columns {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .column-title {
+                font-size: 12px;
+                margin-bottom: 1rem;
+            }
+            
+            .item-link {
+                font-size: 15px;
+            }
+            
+            .item-source, .item-year {
+                font-size: 12px;
+            }
+            
+            .scene {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .cube-face {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .face-front  { transform: rotateY(0deg) translateZ(60px); }
+            .face-back   { transform: rotateY(180deg) translateZ(60px); }
+            .face-right  { transform: rotateY(90deg) translateZ(60px); }
+            .face-left   { transform: rotateY(-90deg) translateZ(60px); }
+            .face-top    { transform: rotateX(90deg) translateZ(60px); }
+            .face-bottom { transform: rotateX(-90deg) translateZ(60px); }
+            
+            .wrestling-box {
+                padding: 1.5rem;
+            }
+            
+            .wrestling-title {
+                font-size: 14px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .achievement-section h3 {
+                font-size: 12px;
+            }
+            
+            .achievement-item {
+                font-size: 14px;
+            }
+            
+            .about-title {
+                font-size: 16px;
+            }
+            
+            .about-text {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            footer {
+                font-size: 13px;
+                margin-top: 3rem;
+            }
+            
+            .external-link::after {
+                display: none;
             }
         }
     </style>
