@@ -8,7 +8,7 @@ This directory contains advanced statistical modeling and machine learning proje
 ---
 
 ## 🏀 Fantasy Basketball Analytics
-**Files:** `Beating_The_League copy.html`, `Beating_The_League copy.qmd`, `BTLnew copy.qmd`
+**Files:** `Beating_The_League.html`, `BTLnew.qmd`
 
 ### Project Overview
 Comprehensive statistical framework employing machine learning methodologies to forecast NBA player performance metrics within fantasy basketball ecosystems. Features proprietary algorithms for player valuation and strategic portfolio optimization.
@@ -36,7 +36,7 @@ Comprehensive statistical framework employing machine learning methodologies to 
 ---
 
 ## 🏃‍♂️ Athletic Performance Analysis
-**Files:** `Talon.Hird&Ethan.Egert_Athlete.Selection copy.html`, `Talon.Hird&Ethan.Egert_Athlete.Selection copy.qmd`
+**Files:** `Talon.Hird&Ethan.Egert_Athlete.Selection.html`, `Talon.Hird&Ethan.Egert_Athlete.Selection.qmd`
 
 ### Project Overview
 Rigorous statistical evaluation framework for athletic candidate selection utilizing longitudinal performance data analysis. Employs sophisticated modeling techniques to assess cardiovascular efficiency and competitive readiness metrics.
