@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0a0a;
+            --bg-surface: #111111;
+            --text-primary: #e8e4de;
+            --text-muted: #6a6560;
+            --accent-gold: #c9a227;
+            --accent-gold-dim: rgba(201, 162, 39, 0.3);
+            --accent-ember: #8b4513;
+            --font-mono: 'Space Mono', monospace;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* Ambient glow effect */
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent-gold-dim) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0.15;
+            filter: blur(80px);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .glow-1 {
+            top: -200px;
+            right: -100px;
+        }
+
+        .glow-2 {
+            bottom: -300px;
+            left: -200px;
+            animation-delay: -10s;
+            opacity: 0.1;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+        }
+
+        /* Navigation */
+        .cave-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg-deep) 0%, transparent 100%);
+        }
+
+        .back-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .cave-symbol {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            opacity: 0.6;
+        }
+
+        /* Main content */
+        .cave-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero section */
+        .cave-hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 6rem;
+        }
+
+        .cave-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 12vw, 7rem);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cave-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        /* Quote block */
+        .cave-quote {
+            margin: 4rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cave-quote blockquote {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--text-primary);
+            opacity: 0.8;
+        }
+
+        .cave-quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-style: normal;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* Section styling */
+        .cave-section {
+            margin-bottom: 6rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            opacity: 0.6;
+        }
+
+        .section-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255,255,255,0.1), transparent);
+        }
+
+        /* Essays/writings list */
+        .writings-list {
+            list-style: none;
+        }
+
+        .writing-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .writing-item:hover {
+            padding-left: 1rem;
+            border-bottom-color: var(--accent-gold-dim);
+        }
+
+        .writing-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .writing-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .writing-item:hover .writing-title {
+            color: var(--accent-gold);
+        }
+
+        .writing-meta {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .writing-excerpt {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 0.75rem;
+        }
+
+        /* Experiments grid */
+        .experiments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .experiment-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .experiment-card:hover {
+            border-color: var(--accent-gold-dim);
+            transform: translateY(-2px);
+        }
+
+        .experiment-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            opacity: 0.6;
+        }
+
+        .experiment-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .experiment-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .experiment-tag {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        /* Influences/reading list */
+        .influences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .influence-category {
+            margin-bottom: 1rem;
+        }
+
+        .influence-category-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .influence-list {
+            list-style: none;
+        }
+
+        .influence-item {
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: color 0.2s ease;
+        }
+
+        .influence-item:hover {
+            color: var(--text-primary);
+        }
+
+        .influence-item em {
+            font-style: normal;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .cave-footer {
+            margin-top: 8rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .cave-footer p {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cave-hero, .cave-section {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .cave-section:nth-child(2) { animation-delay: 0.1s; }
+        .cave-section:nth-child(3) { animation-delay: 0.2s; }
+        .cave-section:nth-child(4) { animation-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cave-nav {
+                padding: 1.5rem;
+            }
+
+            .cave-container {
+                padding: 6rem 1.5rem 4rem;
+            }
+
+            .cave-title {
+                font-size: clamp(2.5rem, 15vw, 4rem);
+            }
+
+            .cave-quote blockquote {
+                font-size: 1.25rem;
+            }
+
+            .writing-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <nav class="cave-nav">
+        <a href="index.html" class="back-link">&larr; RETURN TO LIGHT</a>
+        <span class="cave-symbol">&#9670;</span>
+    </nav>
+
+    <main class="cave-container">
+        <section class="cave-hero">
+            <h1 class="cave-title">The spaces<br>between</h1>
+            <p class="cave-subtitle">
+                You found the door. This is where I keep the thoughts that don't fit
+                on a resume. The questions without answers. The work in progress.
+            </p>
+        </section>
+
+        <div class="cave-quote">
+            <blockquote>
+                "The only true wisdom is in knowing you know nothing."
+            </blockquote>
+            <cite>- Socrates</cite>
+        </div>
+
+        <!-- Essays Section -->
+        <section class="cave-section">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <span class="section-title">Writings</span>
+                <div class="section-line"></div>
+            </div>
+
+            <ul class="writings-list">
+                <li class="writing-item">
+                    <a href="#" class="writing-link">
+                        <h3 class="writing-title">On Wrestling and Philosophy</h3>
+                        <div class="writing-meta">ESSAY &middot; COMING SOON</div>
+                        <p class="writing-excerpt">
+                            The mat taught me more about Stoicism than any book. When you're
+                            losing with 30 seconds left, philosophy becomes practical.
+                        </p>
+                    </a>
+                </li>
+                <li class="writing-item">
+                    <a href="#" class="writing-link">
+                        <h3 class="writing-title">The AI Question</h3>
+                        <div class="writing-meta">REFLECTION &middot; COMING SOON</div>
+                        <p class="writing-excerpt">
+                            What does it mean to build a portfolio with AI? What does it mean
+                            to think alongside machines? Notes from the frontier.
+                        </p>
+                    </a>
+                </li>
+                <li class="writing-item">
+                    <a href="#" class="writing-link">
+                        <h3 class="writing-title">Letters to Myself at 18</h3>
+                        <div class="writing-meta">PERSONAL &middot; COMING SOON</div>
+                        <p class="writing-excerpt">
+                            The kid who withdrew from engineering. The one who thought
+                            he'd failed. A conversation across time.
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Experiments Section -->
+        <section class="cave-section">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <span class="section-title">Experiments</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="experiments-grid">
+                <a href="#" class="experiment-card">
+                    <div class="experiment-icon">&#9681;</div>
+                    <h3 class="experiment-title">This Hidden Page</h3>
+                    <p class="experiment-desc">
+                        You're looking at it. Built to explore what a portfolio
+                        could feel like if it didn't have to impress anyone.
+                    </p>
+                    <span class="experiment-tag">HTML/CSS/VIBES</span>
+                </a>
+                <a href="#" class="experiment-card">
+                    <div class="experiment-icon">&#9678;</div>
+                    <h3 class="experiment-title">Training Log</h3>
+                    <p class="experiment-desc">
+                        Years of wrestling journals. Pattern recognition in
+                        preparation, performance, and recovery.
+                    </p>
+                    <span class="experiment-tag">DATA/PERSONAL</span>
+                </a>
+                <a href="#" class="experiment-card">
+                    <div class="experiment-icon">&#9670;</div>
+                    <h3 class="experiment-title">Reading Database</h3>
+                    <p class="experiment-desc">
+                        Every book I've read since 2020. Notes, connections,
+                        and the threads between ideas.
+                    </p>
+                    <span class="experiment-tag">NOTION/OBSIDIAN</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Influences Section -->
+        <section class="cave-section">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <span class="section-title">Influences</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="influences-grid">
+                <div class="influence-category">
+                    <h4 class="influence-category-title">Philosophy</h4>
+                    <ul class="influence-list">
+                        <li class="influence-item"><em>Plato</em> - The Republic</li>
+                        <li class="influence-item"><em>Marcus Aurelius</em> - Meditations</li>
+                        <li class="influence-item"><em>Nietzsche</em> - Beyond Good and Evil</li>
+                        <li class="influence-item"><em>Wittgenstein</em> - Tractatus</li>
+                    </ul>
+                </div>
+                <div class="influence-category">
+                    <h4 class="influence-category-title">Finance & Economics</h4>
+                    <ul class="influence-list">
+                        <li class="influence-item"><em>Damodaran</em> - Valuation</li>
+                        <li class="influence-item"><em>Taleb</em> - Antifragile</li>
+                        <li class="influence-item"><em>Kahneman</em> - Thinking, Fast and Slow</li>
+                        <li class="influence-item">Financial Times (daily)</li>
+                    </ul>
+                </div>
+                <div class="influence-category">
+                    <h4 class="influence-category-title">Technology & AI</h4>
+                    <ul class="influence-list">
+                        <li class="influence-item">Anthropic Research</li>
+                        <li class="influence-item">Stratechery</li>
+                        <li class="influence-item"><em>Hofstadter</em> - GEB</li>
+                        <li class="influence-item">AI Alignment Forum</li>
+                    </ul>
+                </div>
+                <div class="influence-category">
+                    <h4 class="influence-category-title">Wrestling & Sport</h4>
+                    <ul class="influence-list">
+                        <li class="influence-item">John Smith technique videos</li>
+                        <li class="influence-item"><em>Csikszentmihalyi</em> - Flow</li>
+                        <li class="influence-item"><em>Epstein</em> - Range</li>
+                        <li class="influence-item">Dan Gable philosophy</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <footer class="cave-footer">
+            <p>THE EXAMINED LIFE &middot; WORK IN PROGRESS &middot; ALWAYS</p>
+        </footer>
+    </main>
+</body>
+</html>
