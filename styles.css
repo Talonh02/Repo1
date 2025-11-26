@@ -1,0 +1,562 @@
+/* ==========================================================================
+   TALON HIRD PORTFOLIO - Design System
+   Old money aesthetic with editorial artsy elements
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties (Design Tokens)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Typography */
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'EB Garamond', Georgia, serif;
+
+    /* Light Mode Colors */
+    --bg-color: #FDFBF7;
+    --bg-surface: #FFFFFF;
+    --text-primary: #1C1C1C;
+    --text-secondary: #6B6B6B;
+    --accent-navy: #1E3A5F;
+    --accent-bronze: #8B7355;
+    --accent-green: #2D4739;
+    --border-color: #E8E4DE;
+    --border-light: rgba(0, 0, 0, 0.08);
+
+    /* Spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    --space-2xl: 8rem;
+
+    /* Layout */
+    --max-width: 1200px;
+    --content-width: 800px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+    --bg-color: #0D0D0D;
+    --bg-surface: #1A1A18;
+    --text-primary: #E8E4DE;
+    --text-secondary: #9A9590;
+    --accent-navy: #7BA3C9;
+    --accent-bronze: #C4A77D;
+    --accent-green: #5B8A72;
+    --border-color: #2A2826;
+    --border-light: rgba(255, 255, 255, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Base Styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --------------------------------------------------------------------------
+   Typography
+   -------------------------------------------------------------------------- */
+
+/* Display / Hero Typography */
+.display-large {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+
+.display-medium {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+/* Section Headers */
+.section-title {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background-color: var(--accent-bronze);
+    margin-top: var(--space-sm);
+}
+
+/* Body Text */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-xs);
+}
+
+p {
+    margin-bottom: var(--space-sm);
+}
+
+/* Tagline / Subtitle */
+.tagline {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+}
+
+/* Small / Meta text */
+.meta {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   Links
+   -------------------------------------------------------------------------- */
+a {
+    color: var(--accent-navy);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--accent-bronze);
+}
+
+/* Link with underline animation */
+.link-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-bronze);
+    transition: width var(--transition-normal);
+}
+
+.link-underline:hover::after {
+    width: 100%;
+}
+
+/* Link with arrow */
+.link-arrow::after {
+    content: ' →';
+    transition: transform var(--transition-fast);
+    display: inline-block;
+}
+
+.link-arrow:hover::after {
+    transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------------- */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.container-narrow {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+/* Section spacing */
+.section {
+    padding: var(--space-xl) 0;
+}
+
+.section-large {
+    padding: var(--space-2xl) 0;
+}
+
+/* --------------------------------------------------------------------------
+   Navigation
+   -------------------------------------------------------------------------- */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    list-style: none;
+}
+
+.nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Dark Mode Toggle
+   -------------------------------------------------------------------------- */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent-bronze);
+}
+
+.theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--text-secondary);
+    transition: fill var(--transition-fast);
+}
+
+.theme-toggle:hover svg {
+    fill: var(--text-primary);
+}
+
+/* Hide/show icons based on theme */
+.icon-sun { display: block; }
+.icon-moon { display: none; }
+
+[data-theme="dark"] .icon-sun { display: none; }
+[data-theme="dark"] .icon-moon { display: block; }
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.hero {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-2xl) 0;
+}
+
+.hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: var(--space-sm);
+}
+
+.hero-tagline {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.hero-intro {
+    max-width: 600px;
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+/* --------------------------------------------------------------------------
+   Project Cards
+   -------------------------------------------------------------------------- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+.project-card {
+    padding: var(--space-md);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: all var(--transition-normal);
+    background: var(--bg-surface);
+}
+
+.project-card:hover {
+    border-color: var(--accent-bronze);
+    transform: translateY(-2px);
+}
+
+.project-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-navy);
+    margin-bottom: var(--space-xs);
+}
+
+.project-title {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+}
+
+.project-description {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+}
+
+.project-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent-navy);
+}
+
+/* --------------------------------------------------------------------------
+   Achievement / Athletics Section
+   -------------------------------------------------------------------------- */
+.achievements {
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.achievement-highlight {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--text-primary);
+}
+
+.achievement-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-sm);
+}
+
+.achievement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.achievement-name {
+    font-size: 0.9375rem;
+}
+
+.achievement-year {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--accent-bronze);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.footer {
+    padding: var(--space-xl) 0 var(--space-lg);
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.footer-credentials {
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-xs);
+}
+
+.footer-contact {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.footer-contact a {
+    color: var(--text-secondary);
+}
+
+.footer-contact a:hover {
+    color: var(--accent-bronze);
+}
+
+/* --------------------------------------------------------------------------
+   Utility Classes
+   -------------------------------------------------------------------------- */
+.text-center { text-align: center; }
+.text-secondary { color: var(--text-secondary); }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* Visually hidden but accessible */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Design
+   -------------------------------------------------------------------------- */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    :root {
+        --space-xl: 4rem;
+        --space-2xl: 6rem;
+    }
+
+    .hero {
+        min-height: 60vh;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    :root {
+        --space-lg: 3rem;
+        --space-xl: 3rem;
+        --space-2xl: 4rem;
+    }
+
+    .container {
+        padding: 0 var(--space-sm);
+    }
+
+    .hero {
+        min-height: auto;
+        padding: var(--space-xl) 0;
+    }
+
+    .hero-name {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .nav-links {
+        gap: var(--space-sm);
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .achievement-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .nav {
+        flex-direction: column;
+        gap: var(--space-sm);
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Print Styles
+   -------------------------------------------------------------------------- */
+@media print {
+    .theme-toggle,
+    .nav {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+}

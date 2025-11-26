@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work & Projects - Talon Hird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Page-specific styles for work page */
+        .page-header {
+            padding: var(--space-xl) 0 var(--space-lg);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: var(--space-xl);
+        }
+
+        .page-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 300;
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .category-section {
+            margin-bottom: var(--space-2xl);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 400;
+        }
+
+        .category-count {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition-fast);
+        }
+
+        .project-item:hover {
+            padding-left: var(--space-sm);
+        }
+
+        .project-item:hover .project-item-title {
+            color: var(--accent-bronze);
+        }
+
+        .project-item:last-child {
+            border-bottom: none;
+        }
+
+        .project-item-content {
+            min-width: 0;
+        }
+
+        .project-item-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            transition: color var(--transition-fast);
+        }
+
+        .project-item-description {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-item-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.25rem;
+            text-align: right;
+        }
+
+        .project-item-type {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-navy);
+        }
+
+        .project-item-year {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .project-item {
+                grid-template-columns: 1fr;
+                gap: var(--space-xs);
+            }
+
+            .project-item-meta {
+                flex-direction: row;
+                align-items: center;
+                gap: var(--space-sm);
+            }
+        }
+
+        /* Media coverage section */
+        #media {
+            scroll-margin-top: var(--space-lg);
+        }
+
+        .media-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--space-md);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border-light);
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition-fast);
+        }
+
+        .media-item:hover {
+            padding-left: var(--space-sm);
+        }
+
+        .media-item:hover .media-title {
+            color: var(--accent-bronze);
+        }
+
+        .media-item:last-child {
+            border-bottom: none;
+        }
+
+        .media-title {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 500;
+            font-style: italic;
+            transition: color var(--transition-fast);
+        }
+
+        .media-source {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .media-year {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--accent-bronze);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .media-item {
+                grid-template-columns: 1fr;
+                gap: 0.25rem;
+            }
+        }
+
+        /* Documents section */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .document-card {
+            padding: var(--space-md);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition-normal);
+        }
+
+        .document-card:hover {
+            border-color: var(--accent-bronze);
+            transform: translateY(-2px);
+        }
+
+        .document-card-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .document-card-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="container">
+        <nav class="nav">
+            <a href="index.html" class="nav-logo">Talon Hird</a>
+            <ul class="nav-links">
+                <li><a href="work.html" class="nav-link" style="color: var(--text-primary);">Work</a></li>
+                <li><a href="Resume/Resume.html" class="nav-link">Resume</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                        </svg>
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Work & Projects</h1>
+            <p class="page-description">
+                Academic projects demonstrating analytical skills across data science,
+                investment analysis, and philosophical inquiry.
+            </p>
+        </header>
+
+        <!-- Data Science -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Data Science & Analytics</h2>
+                <span class="category-count">2 projects</span>
+            </div>
+            <div class="project-list">
+                <a href="Academic-Projects/Data-Science/BTLnew.html" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Beating The League</h3>
+                        <p class="project-item-description">
+                            Fantasy basketball prediction model using Random Forest machine learning.
+                            Achieves 73% variance explanation by analyzing 25 years of NBA data through
+                            web scraping, feature engineering, and advanced statistical modeling.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">FIN 450</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Data-Science/Talon.Hird&Ethan.Egert_Athlete.Selection.html" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Athlete Selection Analysis</h3>
+                        <p class="project-item-description">
+                            Statistical evaluation framework for competitive athlete selection using
+                            hypothesis testing, regression analysis, and longitudinal data analysis
+                            to examine cardiovascular efficiency and performance trends.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">FIN 450</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Investment Analysis -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Investment Analysis</h2>
+                <span class="category-count">4 documents</span>
+            </div>
+            <div class="project-list">
+                <a href="Academic-Projects/Investment-Analysis/metainvsanlys.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Meta Platforms Investment Analysis</h3>
+                        <p class="project-item-description">
+                            Comprehensive equity research covering business model analysis, DCF valuation
+                            with scenario modeling, competitive positioning, and investment thesis on
+                            Meta's evolution from social media to metaverse investment.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Research</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Investment-Analysis/metaslideshow.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Meta Investment Presentation</h3>
+                        <p class="project-item-description">
+                            Executive presentation summarizing key findings, valuation drivers,
+                            and investment recommendation for Meta Platforms.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Presentation</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Investment-Analysis/pltrinvsanlys.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Palantir Technologies Analysis</h3>
+                        <p class="project-item-description">
+                            Deep-dive equity research on Palantir covering government and commercial
+                            revenue streams, competitive moat analysis, and DCF valuation with
+                            sensitivity testing.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Research</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Investment-Analysis/pltrslideshow.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Palantir Investment Presentation</h3>
+                        <p class="project-item-description">
+                            Executive presentation on Palantir Technologies with key investment
+                            highlights and valuation summary.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Presentation</span>
+                        <span class="project-item-year">2024</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Philosophy -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Philosophy & Ethics</h2>
+                <span class="category-count">3 papers</span>
+            </div>
+            <div class="project-list">
+                <a href="Academic-Projects/Philosophy/UPN/Oil-Sands-Environmental-Ethics-Analysis.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Oil Sands Environmental Ethics</h3>
+                        <p class="project-item-description">
+                            Critical examination of Alberta oil sands through multiple ethical frameworks:
+                            consequentialist analysis, deontological duties and rights, virtue ethics in
+                            environmental stewardship, and environmental pragmatism.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Ethics Paper</span>
+                        <span class="project-item-year">2023</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Philosophy/UPN/UPNslideshow.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Environmental Ethics Presentation</h3>
+                        <p class="project-item-description">
+                            Visual presentation on "Unmasking the Petro-Narrative" exploring how
+                            economic narratives shape environmental policy discourse.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Presentation</span>
+                        <span class="project-item-year">2023</span>
+                    </div>
+                </a>
+                <a href="Academic-Projects/Philosophy/Poliphil/Political-Philosophy-Analysis.pdf" class="project-item">
+                    <div class="project-item-content">
+                        <h3 class="project-item-title">Political Philosophy Analysis</h3>
+                        <p class="project-item-description">
+                            Applied ethics research examining contemporary policy issues through
+                            political philosophy frameworks.
+                        </p>
+                    </div>
+                    <div class="project-item-meta">
+                        <span class="project-item-type">Philosophy</span>
+                        <span class="project-item-year">2023</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Media Coverage -->
+        <section class="category-section" id="media">
+            <div class="category-header">
+                <h2 class="category-title">Media Coverage</h2>
+                <span class="category-count">6 articles</span>
+            </div>
+            <div class="project-list">
+                <a href="Media-Coverage/Articles copy/Bears capture third-straight Canada West title - University of Alberta.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">Canada West Championship Victory</h3>
+                        <span class="media-source">University of Alberta</span>
+                    </div>
+                    <span class="media-year">2023</span>
+                </a>
+                <a href="Media-Coverage/Articles copy/Cowichan wrestler wins historic fifth gold in five years - Vancouver Island Free Daily.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">Historic Fifth Gold Medal Win</h3>
+                        <span class="media-source">Vancouver Island Free Daily</span>
+                    </div>
+                    <span class="media-year">2020</span>
+                </a>
+                <a href="Media-Coverage/Articles copy/B.C. High School Wrestling Championships 2020: Maple Ridge's Ramblers, Cowichan's Hird make their ma.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">BC High School Championships Coverage</h3>
+                        <span class="media-source">Media Coverage</span>
+                    </div>
+                    <span class="media-year">2020</span>
+                </a>
+                <a href="Media-Coverage/Articles copy/Provincial success stands out at Cowichan Secondary awards - Cowichan Valley Citizen.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">Provincial Success Recognition</h3>
+                        <span class="media-source">Cowichan Valley Citizen</span>
+                    </div>
+                    <span class="media-year">2019</span>
+                </a>
+                <a href="Media-Coverage/Articles copy/Best of the T-Birds honoured at awards night - Lake Cowichan Gazette.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">T-Birds Athletic Awards</h3>
+                        <span class="media-source">Lake Cowichan Gazette</span>
+                    </div>
+                    <span class="media-year">2018</span>
+                </a>
+                <a href="Media-Coverage/Articles copy/Athletic achievements honoured at Cow High - Cowichan Valley Citizen.pdf" class="media-item">
+                    <div>
+                        <h3 class="media-title">Athletic Honours Recognition</h3>
+                        <span class="media-source">Cowichan Valley Citizen</span>
+                    </div>
+                    <span class="media-year">2017</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Documents -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Documents</h2>
+            </div>
+            <div class="documents-grid">
+                <a href="Resume/Resume.html" class="document-card">
+                    <h3 class="document-card-title">Resume</h3>
+                    <p class="document-card-description">Professional resume with experience, education, and skills</p>
+                </a>
+                <a href="Transcript/Grad Transcript.pdf" class="document-card">
+                    <h3 class="document-card-title">Academic Transcript</h3>
+                    <p class="document-card-description">Official academic record from University of Alberta</p>
+                </a>
+                <a href="courses.html" class="document-card">
+                    <h3 class="document-card-title">Course Descriptions</h3>
+                    <p class="document-card-description">Detailed semester-by-semester academic journey 2020-2025</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-credentials">
+                University of Alberta &middot; BCom Finance '25 &middot; Philosophy Minor
+            </p>
+            <p class="footer-contact">
+                <a href="mailto:talonh02@gmail.com">talonh02@gmail.com</a> &middot;
+                (250) 416-9899 &middot;
+                BC, Canada
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+
+            // Check for saved theme preference or system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                htmlElement.setAttribute('data-theme', savedTheme);
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                htmlElement.setAttribute('data-theme', 'dark');
+            }
+
+            // Toggle theme on click
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            // Keyboard support
+            themeToggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    themeToggle.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -6,92 +6,116 @@ Personal portfolio website for Talon Hird - BCom Finance graduate '25 with Philo
 ## Site Structure
 ```
 Portfolio Root/
-├── index.html (main landing page with 3D cube)
-├── retro.html (personal page - terminal/retro aesthetic)
-├── academic.html (university projects & achievements)
-├── athletic.html (wrestling career & media coverage)
-├── finance.html (financial analysis & writings)
-├── Resume/ (resume documents)
-└── experimental/ (design explorations)
+├── index.html (home - hero section, featured work, athletics)
+├── work.html (all projects organized by category)
+├── courses.html (detailed course descriptions)
+├── styles.css (shared design system)
+├── Resume/
+│   └── Resume.html (professional resume)
+├── Academic-Projects/
+│   ├── Data-Science/ (R/Quarto projects)
+│   ├── Investment-Analysis/ (finance PDFs)
+│   └── Philosophy/ (ethics papers)
+├── Media-Coverage/ (wrestling articles)
+└── Transcript/ (academic documents)
 ```
 
 ## Design Philosophy
-- **Clean & Professional**: Elegant, sophisticated design befitting a finance graduate
-- **Multi-aesthetic**: Different pages have distinct visual personalities
-- **Interactive Elements**: 3D cube, hover effects, voice AI integration
-- **Responsive**: Works across desktop, tablet, and mobile devices
+- **"Old Money" Aesthetic**: Refined, tasteful, not corporate/flashy
+- **Editorial/Typography-Driven**: Magazine-style layouts, beautiful type
+- **Minimalist with Whitespace**: Generous spacing, breathing room
+- **Wrestling as Differentiator**: Athletics featured prominently
+- **Core Identity**: Well-rounded excellence + Intellectual curiosity
 
-## Page Personalities
+## Design System (styles.css)
 
-### Index (Main Landing)
-- **Style**: Elegant, minimal, sophisticated
-- **Colors**: Warm cream/beige gradient background
-- **Features**: 3D rotating cube, ElevenLabs voice AI integration
-- **Typography**: Playfair Display + Roboto
-- **Navigation**: Clean links to main sections
+### Typography
+- **Display Font**: Cormorant Garamond (elegant, editorial)
+- **Body Font**: EB Garamond (scholarly, readable)
+- **Fallback**: Georgia, Times New Roman, serif
 
-### Personal (Retro Terminal)
-- **Style**: 1980s computer terminal aesthetic
-- **Colors**: Dark background with cyan/green text
-- **Features**: ASCII art logo, terminal-style navigation, retro sidebar
-- **Typography**: VT323 monospace font
-- **Content**: Minimal personal info, contact details, project categorization
+### Color Palette
+**Light Mode:**
+```
+Background:     #FDFBF7  (warm off-white)
+Surface:        #FFFFFF  (pure white)
+Text Primary:   #1C1C1C  (soft black)
+Text Secondary: #6B6B6B  (warm gray)
+Accent Navy:    #1E3A5F  (deep navy - sophistication)
+Accent Bronze:  #8B7355  (muted bronze - warmth)
+Accent Green:   #2D4739  (forest green - subtle)
+Border:         #E8E4DE  (warm light gray)
+```
 
-### Academic
-- **Style**: Scholarly, professional, card-based layout
-- **Colors**: Warm beige/gold academic palette
-- **Features**: Project cards with hover effects, comprehensive project showcase
-- **Typography**: Lora serif + Playfair Display headers
+**Dark Mode:**
+```
+Background:     #0D0D0D  (near black)
+Surface:        #1A1A18  (dark surface)
+Text Primary:   #E8E4DE  (warm light)
+Text Secondary: #9A9590  (warm gray)
+Accent Navy:    #7BA3C9  (lighter navy)
+Accent Bronze:  #C4A77D  (lighter bronze)
+Accent Green:   #5B8A72  (lighter green)
+Border:         #2A2826  (dark warm gray)
+```
 
-### Athletic  
-- **Style**: Bold, energetic, championship-inspired
-- **Colors**: University of Alberta green/gold branding
-- **Features**: Achievement highlights, media coverage links
-- **Typography**: Oswald bold + Lato
+### Spacing Scale (CSS Variables)
+```
+--space-xs:  0.5rem
+--space-sm:  1rem
+--space-md:  2rem
+--space-lg:  4rem
+--space-xl:  6rem
+--space-2xl: 8rem
+```
 
-### Finance
-- **Style**: Minimalist, clean, professional
-- **Colors**: Neutral grays and whites
-- **Features**: Simple navigation, focus on content
-- **Typography**: Crimson Text serif
+## Page Details
+
+### Index (Home)
+- Editorial hero with large name treatment
+- Tagline: Finance · Philosophy · Athletics
+- Featured Work section (2 highlighted projects)
+- Athletics section with achievements grid
+- About section
+- Footer with credentials and contact
+
+### Work & Projects
+- Page header with description
+- Projects organized by category:
+  - Data Science & Analytics
+  - Investment Analysis
+  - Philosophy & Ethics
+- Media Coverage section
+- Documents section (Resume, Transcript, Courses)
+
+### Courses
+- Semester-by-semester grid layout
+- Course cards with code, name, grade, description
+- Milestone highlights (Dean's List, program entry, etc.)
+
+### Resume
+- Professional formatting with print optimization
+- Uses shared design system
+- Section titles with bronze accent bar
+- Competencies grid, awards list, media links
 
 ## Technical Features
-- **3D CSS Cube**: Interactive rotating cube on main page
-- **Voice AI**: ElevenLabs integration for conversational interface  
-- **Responsive Design**: Mobile-first approach with clamp() functions
-- **Animation**: Fade-ins, hover effects, CSS transitions
-- **Modern CSS**: CSS Grid, Flexbox, custom properties
-- **Typography**: Google Fonts integration
+- **Shared CSS**: styles.css with design tokens
+- **CSS Variables**: Consistent theming via custom properties
+- **Dark Mode Toggle**: localStorage persistence, system preference detection
+- **Responsive Design**: Breakpoints at 1024px, 768px, 480px
+- **Print Styles**: Resume optimized for printing
+- **Hover Effects**: Bronze accent, smooth transitions (0.2s-0.3s)
 
-## Content Strategy
-- **Academic Focus**: Showcase university projects in finance, data science, philosophy
-- **Athletic Achievements**: Highlight wrestling career and academic honors
-- **Personal Brand**: Balance professional competence with personal interests
-- **Contact Information**: Clear pathways for professional contact
+## Navigation Pattern
+- Consistent nav bar across all pages
+- Logo links to home
+- Work and Resume links
+- Dark mode toggle in nav
 
-## Development Approach
-- **Modular**: Each page has distinct styling while maintaining cohesion
-- **Experimental**: Design exploration in `/experimental` folder
-- **Iterative**: Regular refinement based on user feedback
-- **Performance**: Optimized fonts, efficient CSS, minimal JavaScript
-
-## File Organization
-- **Assets/**: Images, fonts, 3D models
-- **Academic-Projects/**: University work (PDFs, HTML reports)
-- **Personal-Docs/**: Financial writings and personal content
-- **Resume/**: Professional resume materials
-- **experimental/**: Design competitions and explorations
-
-## Design Principles
-1. **Clarity**: Information should be easy to find and understand
-2. **Personality**: Each section reflects different aspects of Talon's interests
-3. **Professionalism**: Suitable for potential employers/collaborators
-4. **Innovation**: Modern web technologies and thoughtful interactions
-5. **Accessibility**: Readable fonts, good contrast, responsive design
-
-## Future Enhancements
-- Blog/writing section expansion
-- Interactive project demonstrations
-- Enhanced mobile experience
-- Additional language support
-- Performance optimizations
+## Development Notes
+- Built with Claude Code (Anthropic's CLI coding agent)
+- Uses Google Fonts (Cormorant Garamond + EB Garamond)
+- Minimal JavaScript - only for dark mode toggle
+- No external frameworks - pure HTML/CSS/JS
+- Shared styles extracted to styles.css
