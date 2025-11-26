@@ -112,32 +112,24 @@
 
         /* Hidden door */
         .hidden-door {
-            color: inherit;
-            text-decoration: none;
-            position: relative;
-            cursor: text;
-            transition: all 0.5s ease;
+            position: fixed;
+            bottom: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            opacity: 0.15;
+            transition: opacity 0.5s ease;
+            z-index: 10;
         }
 
         .hidden-door:hover {
-            cursor: pointer;
-            color: var(--accent-bronze);
-            text-shadow: 0 0 20px rgba(139, 115, 85, 0.3);
+            opacity: 0.6;
         }
 
-        .hidden-door::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent-bronze);
-            transition: width 0.5s ease;
-        }
-
-        .hidden-door:hover::after {
+        .hidden-door svg {
             width: 100%;
+            height: 100%;
+            fill: var(--text-secondary);
         }
     </style>
 </head>
@@ -291,9 +283,9 @@
                 <p>
                     My interests lie at the intersection of finance, geopolitics, history, and
                     philosophy&mdash;particularly their implications for understanding global
-                    developments amidst the AI revolution. An avid reader of the Financial Times
-                    with an enduring <a href="cave.html" class="hidden-door">curiosity</a> about
-                    the questions that don't have easy answers.
+                    developments amidst the AI revolution. An avid reader of the Financial Times,
+                    I closely follow every model release and industry development in artificial
+                    intelligence.
                 </p>
                 <p>
                     This website showcases samples of my academic work demonstrating financial
@@ -317,6 +309,13 @@
             </p>
         </div>
     </footer>
+
+    <!-- Hidden door -->
+    <a href="cave.html" class="hidden-door" aria-label="Hidden">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+    </a>
 
     <script>
         // Dark mode toggle
